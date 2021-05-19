@@ -1,6 +1,8 @@
 package constants;
 
-public enum RequestCode {
+import java.io.Serializable;
+
+public enum RequestCode implements Serializable {
     LOGIN_REQUEST,
     SIGNUP_REQUEST,
     PATIENT_REQUEST,

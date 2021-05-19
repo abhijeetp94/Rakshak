@@ -1,5 +1,8 @@
 package mainPack;
 
+import constants.RequestCode;
+import request.Request;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -20,8 +23,22 @@ public class ClientHandler implements Runnable {
 
     @Override
     public void run() {
+
         while (true) {
+            Request request;
+            try {
+                request = (Request) Main.oisTracker.readObject();
+            } catch (IOException | ClassNotFoundException ie){
+                ie.printStackTrace();
+                return;
+            }
+
+            if (request.getRequestCode().equals(RequestCode.LOGIN_REQUEST)){
+                System.out.println("Login Request.");
+            }
+
 
         }
+
     }
 }

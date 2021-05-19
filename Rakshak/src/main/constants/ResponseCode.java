@@ -1,6 +1,8 @@
 package constants;
 
-public enum ResponseCode {
+import java.io.Serializable;
+
+public enum ResponseCode implements Serializable {
     SUCCESS,
     FAILURE,
     OK,
