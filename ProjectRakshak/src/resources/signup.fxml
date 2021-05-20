@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Signup"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<GridPane fx:id="primaryGridPane" alignment="CENTER" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SignupController">
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+   <children>
+      <HBox prefHeight="23.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#onBackClicked" prefHeight="26.0" prefWidth="98.0" text="Go back" />
+            <Label alignment="CENTER" prefHeight="26.0" prefWidth="544.0" text="User Sign Up" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <AnchorPane prefHeight="376.0" prefWidth="600.0" GridPane.rowIndex="3">
+         <children>
+            <Label layoutX="133.0" layoutY="93.0" text="Username" />
+            <Label layoutX="133.0" layoutY="121.0" prefHeight="18.0" prefWidth="65.0" text="First Name" />
+            <Label layoutX="132.0" layoutY="151.0" text="Last Name" />
+            <TextField fx:id="usernameField" layoutX="226.0" layoutY="89.0" prefHeight="26.0" prefWidth="206.0" promptText="Username" />
+            <TextField fx:id="firstnameField" layoutX="226.0" layoutY="118.0" prefHeight="26.0" prefWidth="206.0" promptText="First Name" />
+            <TextField fx:id="lastnameField" layoutX="226.0" layoutY="147.0" prefHeight="26.0" prefWidth="206.0" promptText="Last Name" />
+            <Label layoutX="133.0" layoutY="187.0" text="Email" />
+            <Label layoutX="133.0" layoutY="220.0" text="Password" />
+            <Label layoutX="133.0" layoutY="248.0" text="Again" />
+            <TextField fx:id="emailField" layoutX="226.0" layoutY="182.0" prefHeight="26.0" prefWidth="206.0" promptText="Email" />
+            <PasswordField fx:id="passwordField" layoutX="226.0" layoutY="215.0" prefHeight="26.0" prefWidth="206.0" promptText="Password" />
+            <PasswordField fx:id="passwordAgainField" layoutX="226.0" layoutY="243.0" prefHeight="26.0" prefWidth="206.0" promptText="Reenter Password" />
+            <Button fx:id="signupButton" layoutX="226.0" layoutY="282.0" mnemonicParsing="false" onAction="#onSignupClicked" text="Create Account" />
+            <Button fx:id="loginButton" layoutX="226.0" layoutY="326.0" mnemonicParsing="false" onAction="#onBackClicked" text="Login" />
+            <Label layoutX="226.0" layoutY="308.0" text="OR" />
+            <Label layoutX="133.0" layoutY="66.0" text="Aadhaar Number" />
+            <TextField fx:id="userUIDField" layoutX="226.0" layoutY="62.0" prefHeight="26.0" prefWidth="206.0" promptText="Aadhaar Number" />
+            <Label fx:id="statusLabel" layoutX="378.0" layoutY="317.0" prefHeight="30.0" prefWidth="206.0" text="Status" visible="false">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</GridPane>
