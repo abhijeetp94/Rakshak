@@ -1,6 +1,9 @@
 package controllers;
 
 import MainApp.Main;
+import constants.ResponseCode;
+import data.User;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +12,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import request.LoginRequest;
+import request.Response;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -38,14 +42,36 @@ public class LoginController {
             public void run() {
                 try {
                     Main.socket = new Socket(Main.ipaddress,Main.portno);
-//                    Main.oisTracker = new ObjectInputStream(Main.socket.getInputStream());
                     Main.oosTracker = new ObjectOutputStream(Main.socket.getOutputStream());
                     System.out.println("Object sent");
                     Main.oosTracker.writeObject(loginRequest);
-                    System.out.println("Object should be printed");
+                    Main.oisTracker = new ObjectInputStream(Main.socket.getInputStream());
+                    Response response = (Response) Main.oisTracker.readObject();
+                    if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                        User user = (User) response.getResponseObject();
+                        System.out.println("Username = " + user.getUsername());
+                        Main.user = user;
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                headLabel.setText("Welcome " + Main.user.getFirstname() + " " + Main.user.getLastname());
+                            }
+                        });
+                    }
+                    else if(response.getResponseCode().equals(ResponseCode.FAILURE)){
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                headLabel.setText("Incorrect Username or password");
+                            }
+                        });
+                    }
                 } catch (IOException ie){
                     System.out.println("Failed while connecting to socket " + ie.getMessage());
+                } catch (ClassNotFoundException ce){
+                    System.out.println("Problem reading object: " + ce.getMessage());
                 }
+
             }
         }).start();
 

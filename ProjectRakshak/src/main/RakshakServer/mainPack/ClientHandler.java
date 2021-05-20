@@ -1,8 +1,12 @@
 package mainPack;
 
+import authenticationHandlers.LoginHandler;
 import constants.RequestCode;
+import constants.ResponseCode;
+import data.User;
 import request.LoginRequest;
 import request.Request;
+import request.Response;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -43,8 +47,28 @@ public class ClientHandler implements Runnable {
 
             }
             try {
+
+
+                // If request is login request
+                // Send Response
                 if (request.getRequestCode().equals(RequestCode.LOGIN_REQUEST)){
                     System.out.println("Login Request.");
+                    User result = LoginHandler.verifyUser((LoginRequest) request);
+                    if (result!=null){                                          // send response if user exists
+                        Response response = new Response("LOGIN", ResponseCode.SUCCESS, result);
+                        try {
+                            oosTracker.writeObject(response);
+                        } catch (IOException ie){
+                            System.out.println("Problem Sending Object " + ie.getMessage());
+                        }
+                    } else {                                                    // if User not found
+                        Response response = new Response("LOGIN", ResponseCode.FAILURE, result);
+                        try {
+                            oosTracker.writeObject(response);
+                        } catch (IOException ie){
+                            System.out.println("Problem Sending Object " + ie.getMessage());
+                        }
+                    }
                     System.out.println("Username = " + ((LoginRequest) request).getUsername());
                 }
 

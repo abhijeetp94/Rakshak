@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
-   <Label alignment="CENTER" prefHeight="72.0" prefWidth="197.0" text="Enter Your Credentials" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+   <Label fx:id="headLabel" alignment="CENTER" prefHeight="72.0" prefWidth="197.0" text="Enter Your Credentials" GridPane.columnSpan="2" GridPane.halignment="CENTER">
       <font>
          <Font name="Times New Roman" size="20.0" />
       </font>

@@ -1,5 +1,6 @@
 package MainApp;
 
+import data.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,11 +13,12 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class Main extends Application {
-    public static int portno = 8800;
+    public static final int portno = 8800;
     public static ObjectInputStream oisTracker;
     public static ObjectOutputStream oosTracker;
     public static Socket socket=null;
     public static final String ipaddress = "localhost";
+    public static User user;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
