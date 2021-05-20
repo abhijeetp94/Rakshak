@@ -1,13 +1,16 @@
 package mainPack;
 
 import authenticationHandlers.LoginHandler;
+import authenticationHandlers.SignupHandler;
 import constants.RequestCode;
 import constants.ResponseCode;
 import data.User;
 import request.LoginRequest;
 import request.Request;
 import request.Response;
+import request.SignupRequest;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -48,7 +51,6 @@ public class ClientHandler implements Runnable {
             }
             try {
 
-
                 // If request is login request
                 // Send Response
                 if (request.getRequestCode().equals(RequestCode.LOGIN_REQUEST)){
@@ -71,6 +73,26 @@ public class ClientHandler implements Runnable {
                     }
                     System.out.println("Username = " + ((LoginRequest) request).getUsername());
                 }
+
+                else if(request.getRequestCode().equals(RequestCode.SIGNUP_REQUEST)){       //signup request handler
+                    System.out.println("Signup Request.");
+                    boolean result = SignupHandler.verifySignup((SignupRequest) request);
+                    Response response = null;
+
+                    if(result){
+                        response = new Response("SIGNUP", ResponseCode.SUCCESS, null);
+                    } else {
+                        response = new Response("SIGNUP", ResponseCode.FAILURE, null);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        System.out.println("Error in signup: " + ie.getMessage());
+                    }
+
+                }
+
+
 
             } catch (NullPointerException ne){
                 System.out.println("Null aaya h: "+ ne.getMessage());

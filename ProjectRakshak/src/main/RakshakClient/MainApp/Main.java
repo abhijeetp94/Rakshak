@@ -14,8 +14,8 @@ import java.net.Socket;
 
 public class Main extends Application {
     public static final int portno = 8800;
-    public static ObjectInputStream oisTracker;
-    public static ObjectOutputStream oosTracker;
+    public static ObjectInputStream oisTracker = null;
+    public static ObjectOutputStream oosTracker = null;
     public static Socket socket=null;
     public static final String ipaddress = "localhost";
     public static User user;
