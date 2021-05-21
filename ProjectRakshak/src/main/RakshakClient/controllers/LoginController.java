@@ -6,11 +6,15 @@ import data.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import request.LoginRequest;
 import request.Response;
 
@@ -31,6 +35,23 @@ public class LoginController {
     private TextField passwordField;
     @FXML
     private Label headLabel;
+
+    public void onSignupClicked(ActionEvent ae){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource("/signup.fxml"));
+
+                } catch (IOException ie){
+                    ie.printStackTrace();
+                }
+                primaryStage.setScene(new Scene(root, 800, 600));
+            }
+        });
+    }
 
     public void onLoginClicked(ActionEvent ae){
         String username = usernameField.getText();

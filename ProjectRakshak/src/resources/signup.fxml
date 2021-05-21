@@ -51,7 +51,7 @@
             <Label layoutX="226.0" layoutY="308.0" text="OR" />
             <Label layoutX="133.0" layoutY="66.0" text="Aadhaar Number" />
             <TextField fx:id="userUIDField" layoutX="226.0" layoutY="62.0" prefHeight="26.0" prefWidth="206.0" promptText="Aadhaar Number" />
-            <Label fx:id="statusLabel" layoutX="378.0" layoutY="317.0" prefHeight="30.0" prefWidth="206.0" text="Status" visible="false">
+            <Label fx:id="statusLabel" layoutX="378.0" layoutY="317.0" prefHeight="30.0" prefWidth="206.0" text="Status">
                <font>
                   <Font size="20.0" />
                </font>

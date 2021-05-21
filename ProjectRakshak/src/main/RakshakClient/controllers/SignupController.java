@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -35,6 +32,10 @@ public class SignupController {
     private GridPane primaryGridPane;
     @FXML
     private Label statusLabel;
+
+    public void initialize(){
+        statusLabel.setVisible(false);
+    }
 
     public void onBackClicked(ActionEvent ae){
         Platform.runLater(new Runnable() {
@@ -88,13 +89,11 @@ public class SignupController {
                         Platform.runLater(new Runnable() {
                             @Override
                             public void run() {
-                                statusLabel.setText("Signup Successful");
-                                statusLabel.setTextFill(Color.GREENYELLOW);
-                                try {
-                                    Thread.sleep(5000);
-                                } catch (InterruptedException iw){
-                                    System.out.println("Chain se sone do: " + iw.getMessage());
-                                }
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setHeaderText("Signup successful");
+                                alert.setContentText("Welcome to Rakshak: " + user.getFirstname());
+                                alert.showAndWait();
+
                                 Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
                                 Parent root = null;
                                 try {
@@ -105,6 +104,16 @@ public class SignupController {
                                 }
                                 primaryStage.setScene(new Scene(root, 800, 600));
 
+                            }
+                        });
+                    }
+                    else{
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                statusLabel.setText("User Already exists.");
+                                statusLabel.setTextFill(Color.RED);
+                                statusLabel.setVisible(true);
                             }
                         });
                     }
