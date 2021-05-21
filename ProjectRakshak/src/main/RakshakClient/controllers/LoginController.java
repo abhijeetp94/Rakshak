@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import request.LoginRequest;
@@ -76,6 +73,18 @@ public class LoginController {
                             @Override
                             public void run() {
                                 headLabel.setText("Welcome " + Main.user.getFirstname() + " " + Main.user.getLastname());
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("Success");
+                                alert.setHeaderText("Login Successful.");
+                                alert.showAndWait();
+                                Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
+                                Parent root = null;
+                                try {
+                                    root = FXMLLoader.load(getClass().getResource("/UserDashboard.fxml"));
+                                } catch (IOException ie){
+                                    ie.printStackTrace();
+                                }
+                                primaryStage.setScene(new Scene(root, 800, 600));
                             }
                         });
                     }
