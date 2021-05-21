@@ -91,7 +91,7 @@ public class SignupController {
                             public void run() {
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 alert.setHeaderText("Signup successful");
-                                alert.setContentText("Welcome to Rakshak: " + user.getFirstname());
+                                alert.setContentText("Welcome Onboard: " + user.getFirstname());
                                 alert.showAndWait();
 
                                 Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
