@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
     private String username;
@@ -70,5 +71,15 @@ public class User implements Serializable {
 
     public void setUserUID(String userUID) {
         this.userUID = userUID;
+    }
+
+    public static User findUser(List<User> users, String username){
+        for (User u:
+             users) {
+            if(u.getUserUID().equals(username) || u.getUsername().equals(username)){
+                return u;
+            }
+        }
+        return null;
     }
 }

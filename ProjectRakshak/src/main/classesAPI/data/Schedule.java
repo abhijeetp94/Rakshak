@@ -1,10 +1,11 @@
 package data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-public class Schedule {
+public class Schedule implements Serializable {
     private LocalDate theDate;
     private LocalTime theTime;
     private Doctor doctor;
