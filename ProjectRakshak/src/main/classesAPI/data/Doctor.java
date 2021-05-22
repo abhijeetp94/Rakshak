@@ -7,9 +7,10 @@ public class Doctor extends User implements Serializable {
     String doctorID;
     String[] specialities;
     String[] degrees;
+    Integer experience;
     Integer cabinNumber;
 
-    boolean available = true;
+    boolean available = true;              // to check if the doctor is available for today or not (Maintain by admins)
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID) {
         super(username, password, firstname, lastname, email, userUID);
@@ -60,7 +61,15 @@ public class Doctor extends User implements Serializable {
         this.available = available;
     }
 
-    public static Doctor findDoctor(List<Doctor> doctors, String doctorID){
+    public Integer getExperience() {
+        return experience;
+    }
+
+    public void setExperience(Integer experience) {
+        this.experience = experience;
+    }
+
+    public static Doctor findDoctor(List<Doctor> doctors, String doctorID){    // to find a doctor in a list of doctors using only doctorID as for every doctor the doctorID would be unique
         for (Doctor d:
                 doctors) {
             if(d.getDoctorID().equals(doctorID)){
