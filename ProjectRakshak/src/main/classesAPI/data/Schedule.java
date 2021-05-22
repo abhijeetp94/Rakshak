@@ -2,16 +2,19 @@ package data;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class Schedule {
     private LocalDate theDate;
     private LocalTime theTime;
-    private User appointedUser;
+    private Doctor doctor;
+    private List<User> userList;
 
-    public Schedule(LocalDate theDate, LocalTime theTime, User appointedUser) {
+    public Schedule(LocalDate theDate, LocalTime theTime, Doctor doctor, List<User> userList) {
         this.theDate = theDate;
         this.theTime = theTime;
-        this.appointedUser = appointedUser;
+        this.doctor = doctor;
+        this.userList = userList;
     }
 
     public LocalDate getTheDate() {
@@ -30,11 +33,35 @@ public class Schedule {
         this.theTime = theTime;
     }
 
-    public User getAppointedUser() {
-        return appointedUser;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setAppointedUser(User appointedUser) {
-        this.appointedUser = appointedUser;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public void addUser(User user){
+        this.userList.add(user);
+    }
+    public int findUser(User user){
+        int index=0;
+        boolean found = this.userList.contains(user);
+        return (found?this.userList.indexOf(user):-1);
+    }
+    public boolean deleteUser(User user){
+        boolean found = this.userList.contains(user);
+        if(found){
+            this.userList.remove(user);
+        }
+        return found;
     }
 }
