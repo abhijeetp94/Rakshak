@@ -1,9 +1,11 @@
 package data;
 
+import utils.PayManager;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class Doctor extends User implements Serializable {
+public class Doctor extends Staff implements Serializable {
     String doctorID;
     String[] specialities;
     String[] degrees;
@@ -14,11 +16,21 @@ public class Doctor extends User implements Serializable {
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID) {
         super(username, password, firstname, lastname, email, userUID);
+
     }
 
+    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String QRCode, PayManager payManager, List<Attendance> attendances) {
+        super(username, password, firstname, lastname, email, userUID, staffID, QRCode, payManager, attendances);
+    }
 
-    public Doctor(String username, String password) {
-        super(username, password);
+    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String QRCode, PayManager payManager, List<Attendance> attendances, String doctorID, String[] specialities, String[] degrees, Integer experience, Integer cabinNumber, boolean available) {
+        super(username, password, firstname, lastname, email, userUID, staffID, QRCode, payManager, attendances);
+        this.doctorID = doctorID;
+        this.specialities = specialities;
+        this.degrees = degrees;
+        this.experience = experience;
+        this.cabinNumber = cabinNumber;
+        this.available = available;
     }
 
     public String getDoctorID() {
@@ -68,6 +80,7 @@ public class Doctor extends User implements Serializable {
     public void setExperience(Integer experience) {
         this.experience = experience;
     }
+
 
     public static Doctor findDoctor(List<Doctor> doctors, String doctorID){    // to find a doctor in a list of doctors using only doctorID as for every doctor the doctorID would be unique
         for (Doctor d:
