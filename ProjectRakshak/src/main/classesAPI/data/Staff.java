@@ -58,7 +58,7 @@ public class Staff extends User {
         this.attendances = attendances;
     }
 
-    public static Staff findStaff(List<Staff> staffList, String staffID){    // to find a doctor in a list of doctors using only doctorID as for every doctor the doctorID would be unique
+    public static Staff findStaff(List<Staff> staffList, String staffID){    // to find a staff member in a list of staffs using only staffID as for every staff member the staffID would be unique
         for (Staff d:
                 staffList) {
             if(d.getStaffID().equals(staffID)){
