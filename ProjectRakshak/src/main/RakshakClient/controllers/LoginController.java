@@ -25,7 +25,7 @@ public class LoginController {
     @FXML
     private GridPane primaryGridPane;
     @FXML
-    private Button loginButton, signupButton;
+    private Button loginButton, signupButton, staffLogin, adminLogin, doctorLogin;
     @FXML
     private TextField usernameField;
     @FXML
