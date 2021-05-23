@@ -54,7 +54,11 @@ public class LoginController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
+        if(username.trim().equals("")){
+
+        }
         LoginRequest loginRequest = new LoginRequest(username, password);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -105,7 +109,31 @@ public class LoginController {
             }
         }).start();
 
-
+    }
+    public void otherLoginClicked(ActionEvent ae){
+        if(ae.getSource().equals(staffLogin)){
+            loadControl("/StaffLogin.fxml");
+        } else if(ae.getSource().equals(adminLogin)){
+            loadControl("/AdminLogin.fxml");
+        } else if(ae.getSource().equals(doctorLogin)){
+            loadControl("/DoctorLogin.fxml");
+        }
     }
 
+    public void loadControl(String filename){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(getClass().getResource(filename));
+
+                } catch (IOException ie){
+                    ie.printStackTrace();
+                }
+                primaryStage.setScene(new Scene(root, 800, 600));
+            }
+        });
+    }
 }
