@@ -29,25 +29,12 @@ public class LoginController {
     @FXML
     private TextField usernameField;
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
     @FXML
-    private Label headLabel;
+    private Label headLabel, statusLabel;
 
     public void onSignupClicked(ActionEvent ae){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(getClass().getResource("/signup.fxml"));
-
-                } catch (IOException ie){
-                    ie.printStackTrace();
-                }
-                primaryStage.setScene(new Scene(root, 800, 600));
-            }
-        });
+        loadControl("/signup.fxml");
     }
 
     public void onLoginClicked(ActionEvent ae){
@@ -55,7 +42,8 @@ public class LoginController {
         String password = passwordField.getText();
 
         if(username.trim().equals("")){
-
+            statusLabel.setVisible(true);
+            statusLabel.setText("Enter username");
         }
         LoginRequest loginRequest = new LoginRequest(username, password);
 

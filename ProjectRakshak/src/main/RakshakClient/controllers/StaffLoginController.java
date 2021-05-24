@@ -70,7 +70,7 @@ public class StaffLoginController {
                                 Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
                                 Parent root = null;
                                 try {
-                                    root = FXMLLoader.load(getClass().getResource("/UserDashboard.fxml"));
+                                    root = FXMLLoader.load(getClass().getResource("/StaffDashboard.fxml"));
                                 } catch (IOException ie){
                                     ie.printStackTrace();
                                 }
