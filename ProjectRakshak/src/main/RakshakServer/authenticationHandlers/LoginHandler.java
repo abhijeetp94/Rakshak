@@ -1,8 +1,10 @@
 package authenticationHandlers;
 
+import data.Staff;
 import data.User;
 import mainPack.Main;
 import request.LoginRequest;
+import request.StaffLoginRequest;
 
 public class LoginHandler {
     LoginRequest request;
@@ -20,4 +22,9 @@ public class LoginHandler {
         }
         return null;
     }
+
+    public static Staff verifyStaff(StaffLoginRequest){
+        for (Staff staff: Main)
+    }
+
 }
