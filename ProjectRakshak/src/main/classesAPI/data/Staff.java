@@ -2,10 +2,11 @@ package data;
 
 import utils.PayManager;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Staff extends User {
+public class Staff extends User implements Serializable {
     String staffID;
     String QRCode;
     PayManager payManager;
