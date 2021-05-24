@@ -4,11 +4,9 @@ import authenticationHandlers.LoginHandler;
 import authenticationHandlers.SignupHandler;
 import constants.RequestCode;
 import constants.ResponseCode;
-import data.User;
-import request.LoginRequest;
-import request.Request;
-import request.Response;
-import request.SignupRequest;
+//import data.Staff;
+import data.*;
+import request.*;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -92,6 +90,18 @@ public class ClientHandler implements Runnable {
 
                 } else if(request.getRequestCode().equals(RequestCode.STAFF_LOGIN_REQUEST)){
                     System.out.println("Staff Login Request.");
+                    Staff result = LoginHandler.verifyStaff((StaffLoginRequest) request);
+                    Response response;
+                    if (result!=null){
+                        response = new Response("STAFF_LOGIN", ResponseCode.SUCCESS, result);
+                    } else {
+                        response = new Response("STAFF_LOGIN", ResponseCode.FAILURE, result);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        System.out.println("Error in staff login: " + ie.getMessage());
+                    }
 
                 }
 

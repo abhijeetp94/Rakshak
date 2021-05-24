@@ -52,7 +52,7 @@ public class LoginController {
             statusLabel.setTextFill(Color.RED);
             return;
         }
-        if (password.trim().length() < 8 ||  password.trim().length() > 16){
+        if (password.trim().equals("")){
             statusLabel.setVisible(true);
             statusLabel.setText("Invalid Password");
             statusLabel.setTextFill(Color.RED);
