@@ -90,7 +90,7 @@ public class ClientHandler implements Runnable {
                         System.out.println("Error in signup: " + ie.getMessage());
                     }
 
-                }
+                } else if(request.getRequestCode().equals(RequestCode.STAFF_LOGIN_REQUEST));
 
 
 

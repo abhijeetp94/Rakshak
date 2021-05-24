@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import request.LoginRequest;
 import request.Response;
@@ -33,6 +34,10 @@ public class LoginController {
     @FXML
     private Label headLabel, statusLabel;
 
+    public void initialize(){
+        statusLabel.setVisible(false);
+    }
+
     public void onSignupClicked(ActionEvent ae){
         loadControl("/signup.fxml");
     }
@@ -43,7 +48,15 @@ public class LoginController {
 
         if(username.trim().equals("")){
             statusLabel.setVisible(true);
-            statusLabel.setText("Enter username");
+            statusLabel.setText("Enter valid username");
+            statusLabel.setTextFill(Color.RED);
+            return;
+        }
+        if (password.trim().length() < 8 ||  password.trim().length() > 16){
+            statusLabel.setVisible(true);
+            statusLabel.setText("Invalid Password");
+            statusLabel.setTextFill(Color.RED);
+            return;
         }
         LoginRequest loginRequest = new LoginRequest(username, password);
 

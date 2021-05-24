@@ -9,14 +9,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import request.LoginRequest;
 import request.Response;
+import request.StaffLoginRequest;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,19 +30,31 @@ public class StaffLoginController {
     @FXML
     private TextField usernameField;
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
     @FXML
-    private Label headLabel;
+    private Label headLabel, statusLabel;
 
+    public void onSignupClicked(ActionEvent ae){
+        loadControl("/signup.fxml");
+    }
 
     public void onLoginClicked(ActionEvent ae){
-        String username = usernameField.getText();
+        String staffID = usernameField.getText();
         String password = passwordField.getText();
 
-        if(username.trim().equals("")){
-
+        if(staffID.trim().equals("")){
+            statusLabel.setVisible(true);
+            statusLabel.setText("Enter valid username");
+            statusLabel.setTextFill(Color.RED);
+            return;
         }
-        LoginRequest loginRequest = new LoginRequest(username, password);
+        if (password.trim().length() < 8 ||  password.trim().length() > 16){
+            statusLabel.setVisible(true);
+            statusLabel.setText("Invalid Password");
+            statusLabel.setTextFill(Color.RED);
+            return;
+        }
+        StaffLoginRequest loginRequest = new StaffLoginRequest(staffID, password);
 
         new Thread(new Runnable() {
             @Override
