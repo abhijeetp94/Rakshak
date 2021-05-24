@@ -11,41 +11,46 @@
 <?import javafx.scene.text.Font?>
 
 <GridPane fx:id="primaryGridPane" alignment="CENTER" hgap="10.0" prefHeight="348.0" prefWidth="486.0" vgap="15.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
-   <Label fx:id="headLabel" alignment="CENTER" prefHeight="72.0" prefWidth="237.0" text="Login as User" GridPane.columnSpan="4" GridPane.halignment="LEFT">
+   <Label fx:id="headLabel" alignment="CENTER" prefHeight="37.0" prefWidth="238.0" text="Login as User" GridPane.columnSpan="4" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
       <font>
          <Font name="Times New Roman" size="20.0" />
       </font>
    </Label>
 
-    <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-   <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="148.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-   <Label text="Password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-   <TextField fx:id="passwordField" prefHeight="26.0" prefWidth="148.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginClicked" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-   <Button fx:id="signupButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onSignupClicked" text="SignUp" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-   <Label alignment="CENTER" layoutX="10.0" layoutY="134.0" prefHeight="18.0" prefWidth="57.0" text="OR" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+    <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="148.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+   <Label text="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+   <TextField fx:id="passwordField" prefHeight="26.0" prefWidth="148.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginClicked" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+   <Button fx:id="signupButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onSignupClicked" text="SignUp" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+   <Label alignment="CENTER" layoutX="10.0" layoutY="134.0" prefHeight="18.0" prefWidth="57.0" text="OR" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4">
       <GridPane.margin>
          <Insets left="30.0" />
       </GridPane.margin></Label>
-   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="4">
+   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="5">
       <children>
-         <Button fx:id="staffLogin" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Staff Login">
+         <Button fx:id="staffLogin" onAction="#otherLoginClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Staff Login">
             <HBox.margin>
                <Insets left="20.0" right="20.0" />
             </HBox.margin>
          </Button>
-         <Button fx:id="doctorLogin" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Doctor Login">
+         <Button fx:id="doctorLogin" onAction="#otherLoginClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Doctor Login">
             <HBox.margin>
                <Insets left="20.0" right="20.0" />
             </HBox.margin>
          </Button>
-         <Button fx:id="adminLogin" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Admin Login">
+         <Button fx:id="adminLogin" onAction="#otherLoginClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Admin Login">
             <HBox.margin>
                <Insets left="20.0" right="20.0" />
             </HBox.margin>
          </Button>
       </children>
    </HBox>
+   <Label prefHeight="23.0" prefWidth="298.0" text="Status" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+      <font>
+         <Font name="Baskerville Old Face" size="19.0" />
+      </font>
+   </Label>
    <columnConstraints>
       <ColumnConstraints maxWidth="65.20001220703125" minWidth="10.0" prefWidth="51.7999755859375" />
       <ColumnConstraints maxWidth="82.40002155303955" minWidth="28.79998779296875" prefWidth="67.19998779296873" />
@@ -54,7 +59,8 @@
       <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints />
+      <RowConstraints maxHeight="92.0" minHeight="67.19998168945312" prefHeight="76.0" />
+      <RowConstraints maxHeight="35.20001831054687" minHeight="10.0" prefHeight="26.39999999999999" />
       <RowConstraints />
       <RowConstraints />
       <RowConstraints maxHeight="50.40000915527344" minHeight="0.0" prefHeight="27.20001220703125" />

@@ -29,17 +29,17 @@
       </GridPane.margin></Label>
    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="5">
       <children>
-         <Button fx:id="staffLogin" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Staff Login">
+         <Button fx:id="staffLogin" onAction="#otherLoginClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Staff Login">
             <HBox.margin>
                <Insets left="20.0" right="20.0" />
             </HBox.margin>
          </Button>
-         <Button fx:id="doctorLogin" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Doctor Login">
+         <Button fx:id="doctorLogin" onAction="#otherLoginClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Doctor Login">
             <HBox.margin>
                <Insets left="20.0" right="20.0" />
             </HBox.margin>
          </Button>
-         <Button fx:id="adminLogin" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Admin Login">
+         <Button fx:id="adminLogin" onAction="#otherLoginClicked" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Admin Login">
             <HBox.margin>
                <Insets left="20.0" right="20.0" />
             </HBox.margin>
