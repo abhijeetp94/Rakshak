@@ -2,6 +2,7 @@ package controllers;
 
 import MainApp.Main;
 import constants.ResponseCode;
+import data.Staff;
 import data.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -48,7 +49,7 @@ public class StaffLoginController {
             statusLabel.setTextFill(Color.RED);
             return;
         }
-        if (password.trim().length() < 8 ||  password.trim().length() > 16){
+        if (password.trim().equals("")){
             statusLabel.setVisible(true);
             statusLabel.setText("Invalid Password");
             statusLabel.setTextFill(Color.RED);
@@ -67,7 +68,7 @@ public class StaffLoginController {
                     Main.oisTracker = new ObjectInputStream(Main.socket.getInputStream());
                     Response response = (Response) Main.oisTracker.readObject();
                     if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                        User user = (User) response.getResponseObject();
+                        User user = (Staff) response.getResponseObject();
                         System.out.println("Username = " + user.getUsername());
                         Main.user = user;
                         Platform.runLater(new Runnable() {

@@ -93,7 +93,14 @@ public class ClientHandler implements Runnable {
                     Staff result = LoginHandler.verifyStaff((StaffLoginRequest) request);
                     Response response;
                     if (result!=null){
-                        response = new Response("STAFF_LOGIN", ResponseCode.SUCCESS)
+                        response = new Response("STAFF_LOGIN", ResponseCode.SUCCESS, result);
+                    } else {
+                        response = new Response("STAFF_LOGIN", ResponseCode.FAILURE, result);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        System.out.println("Error in staff login: " + ie.getMessage());
                     }
 
                 }
