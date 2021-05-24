@@ -23,8 +23,15 @@ public class LoginHandler {
         return null;
     }
 
-    public static Staff verifyStaff(StaffLoginRequest){
-        for (Staff staff: Main)
+    public static Staff verifyStaff(StaffLoginRequest request){
+        for (Staff staff: Main.staff){
+            if(staff.getStaffID().equals(request.getStaffID())){
+                if (staff.getPassword().equals(request.getPassword())){
+                    return staff;
+                }
+            }
+        }
+        return null;
     }
 
 }
