@@ -44,7 +44,7 @@ public class ClientHandler implements Runnable {
 
             } catch (IOException | ClassNotFoundException ie){
                 quit = true;
-                ie.printStackTrace();
+                System.out.println("End of inputs: " + ie.getMessage());
 
             }
             try {
