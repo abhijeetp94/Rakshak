@@ -36,11 +36,11 @@ public class ClientHandler implements Runnable {
             Request request = null;
             Object ob;
             try {
-                System.out.println("Here");
+//                System.out.println("Here");
                 ob = oisTracker.readObject();
-                System.out.println("Object Read" + ob.toString());
+//                System.out.println("Object Read" + ob.toString());
                 request = (Request) ob;
-                System.out.println("Object Read" + request.getRequestCode());
+//                System.out.println("Object Read" + request.getRequestCode());
 
             } catch (IOException | ClassNotFoundException ie){
                 quit = true;
@@ -111,6 +111,22 @@ public class ClientHandler implements Runnable {
                         response = new Response("DOCTOR_LOGIN", ResponseCode.SUCCESS, result);
                     } else {
                         response = new Response("DOCTOR_LOGIN", ResponseCode.FAILURE, result);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        System.out.println("Error in staff login: " + ie.getMessage());
+                    }
+
+                } else if(request.getRequestCode().equals(RequestCode.ADMIN_LOGIN_REQUEST)){
+                    System.out.println("Admin Login Request.");
+                    Admin result = LoginHandler.verifyAdmin((AdminLoginRequest) request);
+                    Response response;
+                    if (result!=null){
+                        System.out.println(result.getUsername());
+                        response = new Response("ADMIN_LOGIN", ResponseCode.SUCCESS, result);
+                    } else {
+                        response = new Response("ADMIN_LOGIN", ResponseCode.FAILURE, result);
                     }
                     try {
                         oosTracker.writeObject(response);

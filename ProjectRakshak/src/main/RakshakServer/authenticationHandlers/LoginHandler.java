@@ -1,9 +1,11 @@
 package authenticationHandlers;
 
+import data.Admin;
 import data.Doctor;
 import data.Staff;
 import data.User;
 import mainPack.Main;
+import request.AdminLoginRequest;
 import request.DoctorLoginRequest;
 import request.LoginRequest;
 import request.StaffLoginRequest;
@@ -44,6 +46,15 @@ public class LoginHandler {
                 }
             }
         }
+        return null;
+    }
+
+    public static Admin verifyAdmin(AdminLoginRequest request){
+            if(Main.admin.getStaffID().equals(request.getStaffID())){
+                if (Main.admin.getPassword().equals(request.getPassword()) && Main.admin.isAdmin()){
+                    return Main.admin;
+                }
+            }
         return null;
     }
 
