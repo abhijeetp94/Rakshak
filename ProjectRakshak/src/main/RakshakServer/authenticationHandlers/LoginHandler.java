@@ -5,6 +5,7 @@ import data.Doctor;
 import data.Staff;
 import data.User;
 import mainPack.Main;
+import request.AdminLoginRequest;
 import request.DoctorLoginRequest;
 import request.LoginRequest;
 import request.StaffLoginRequest;
@@ -48,8 +49,15 @@ public class LoginHandler {
         return null;
     }
 
-    public static Admin verifyAdmin(Admin){
-
+    public static Admin verifyAdmin(AdminLoginRequest request){
+        for (Staff staff: Main.staff){
+            if(staff.getStaffID().equals(request.getStaffID())){
+                if (staff.getPassword().equals(request.getPassword()) && staff.isAdmin()){
+                    return (Admin) staff;
+                }
+            }
+        }
+        return null;
     }
 
 }

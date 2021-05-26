@@ -120,12 +120,12 @@ public class ClientHandler implements Runnable {
 
                 } else if(request.getRequestCode().equals(RequestCode.ADMIN_LOGIN_REQUEST)){
                     System.out.println("Admin Login Request.");
-                    Staff result = LoginHandler.verifyAdmin((DoctorLoginRequest) request);
+                    Admin result = LoginHandler.verifyAdmin((AdminLoginRequest) request);
                     Response response;
                     if (result!=null){
-                        response = new Response("DOCTOR_LOGIN", ResponseCode.SUCCESS, result);
+                        response = new Response("ADMIN_LOGIN", ResponseCode.SUCCESS, result);
                     } else {
-                        response = new Response("DOCTOR_LOGIN", ResponseCode.FAILURE, result);
+                        response = new Response("ADMIN_LOGIN", ResponseCode.FAILURE, result);
                     }
                     try {
                         oosTracker.writeObject(response);

@@ -36,7 +36,8 @@ public class Main {
         staff.add(new Staff("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211"));
         staff.add(new Staff("AbhijeetP", "12345678", "Abhijeet", "P", "abijetp94@gmail.com", "45111"));
         staff.add(new Staff("Abhij", "12345678", "Abhi", "Pandey", "abieetp94@gmail.com", "44211"));
-        admin = new Admin("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211");
+//        admin = new Admin("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211");
+        staff.get(0).setAdmin(true);
 
         doctors = new ArrayList<>();
         doctors.add(new Doctor("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211"));
