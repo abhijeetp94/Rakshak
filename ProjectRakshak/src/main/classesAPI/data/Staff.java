@@ -12,6 +12,7 @@ public class Staff extends User implements Serializable {
     PayManager payManager;
     List<Attendance> attendances;
     boolean isAdmin = false;
+    boolean isDoctor = false;
 
     public Staff(String username, String password, String firstname, String lastname, String email, String userUID) {
         super(username, password, firstname, lastname, email, userUID);
@@ -72,6 +73,14 @@ public class Staff extends User implements Serializable {
 
     public void setAdmin(boolean admin) {
         isAdmin = admin;
+    }
+
+    public boolean isDoctor() {
+        return isDoctor;
+    }
+
+    public void setDoctor(boolean doctor) {
+        isDoctor = doctor;
     }
 
     public static Staff findStaff(List<Staff> staffList, String staffID){    // to find a staff member in a list of staffs using only staffID as for every staff member the staffID would be unique

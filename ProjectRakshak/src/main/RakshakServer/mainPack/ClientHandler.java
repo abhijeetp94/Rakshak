@@ -36,11 +36,11 @@ public class ClientHandler implements Runnable {
             Request request = null;
             Object ob;
             try {
-                System.out.println("Here");
+//                System.out.println("Here");
                 ob = oisTracker.readObject();
-                System.out.println("Object Read" + ob.toString());
+//                System.out.println("Object Read" + ob.toString());
                 request = (Request) ob;
-                System.out.println("Object Read" + request.getRequestCode());
+//                System.out.println("Object Read" + request.getRequestCode());
 
             } catch (IOException | ClassNotFoundException ie){
                 quit = true;
@@ -123,6 +123,7 @@ public class ClientHandler implements Runnable {
                     Admin result = LoginHandler.verifyAdmin((AdminLoginRequest) request);
                     Response response;
                     if (result!=null){
+                        System.out.println(result.getUsername());
                         response = new Response("ADMIN_LOGIN", ResponseCode.SUCCESS, result);
                     } else {
                         response = new Response("ADMIN_LOGIN", ResponseCode.FAILURE, result);

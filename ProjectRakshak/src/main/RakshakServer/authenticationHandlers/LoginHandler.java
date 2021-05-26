@@ -50,13 +50,11 @@ public class LoginHandler {
     }
 
     public static Admin verifyAdmin(AdminLoginRequest request){
-        for (Staff staff: Main.staff){
-            if(staff.getStaffID().equals(request.getStaffID())){
-                if (staff.getPassword().equals(request.getPassword()) && staff.isAdmin()){
-                    return (Admin) staff;
+            if(Main.admin.getStaffID().equals(request.getStaffID())){
+                if (Main.admin.getPassword().equals(request.getPassword()) && Main.admin.isAdmin()){
+                    return Main.admin;
                 }
             }
-        }
         return null;
     }
 

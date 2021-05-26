@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import request.AdminLoginRequest;
 import request.DoctorLoginRequest;
 import request.Response;
 
@@ -41,10 +42,10 @@ public class AdminLoginController {
 
 
     public void onLoginClicked(ActionEvent ae){
-        String doctorID = usernameField.getText();
+        String staffID = usernameField.getText();
         String password = passwordField.getText();
 
-        if(doctorID.trim().equals("")){
+        if(staffID.trim().equals("")){
             statusLabel.setVisible(true);
             statusLabel.setText("Enter valid username");
             statusLabel.setTextFill(Color.RED);
@@ -56,7 +57,7 @@ public class AdminLoginController {
             statusLabel.setTextFill(Color.RED);
             return;
         }
-        DoctorLoginRequest loginRequest = new DoctorLoginRequest(doctorID, password);
+        AdminLoginRequest loginRequest = new AdminLoginRequest(staffID, password);
 
         new Thread(new Runnable() {
             @Override

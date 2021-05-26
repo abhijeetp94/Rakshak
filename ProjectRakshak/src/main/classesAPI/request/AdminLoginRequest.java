@@ -1,5 +1,7 @@
 package request;
 
+import constants.RequestCode;
+
 import java.io.Serializable;
 
 public class AdminLoginRequest extends Request implements Serializable {
@@ -9,6 +11,7 @@ public class AdminLoginRequest extends Request implements Serializable {
     public AdminLoginRequest(String staffID, String password) {
         this.staffID = staffID;
         this.password = password;
+        requestCode = RequestCode.ADMIN_LOGIN_REQUEST;
     }
 
     public String getStaffID() {
