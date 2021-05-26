@@ -35,8 +35,8 @@ public class StaffLoginController {
     @FXML
     private Label headLabel, statusLabel;
 
-    public void onSignupClicked(ActionEvent ae){
-        loadControl("/signup.fxml");
+    public void initialize(){
+        statusLabel.setVisible(false);
     }
 
     public void onLoginClicked(ActionEvent ae){
