@@ -2,6 +2,7 @@ package controllers;
 
 import MainApp.Main;
 import constants.ResponseCode;
+import data.Doctor;
 import data.Staff;
 import data.User;
 import javafx.application.Platform;
@@ -14,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import request.DoctorLoginRequest;
 import request.Response;
 import request.StaffLoginRequest;
 
@@ -55,7 +57,7 @@ public class DoctorLoginController {
             statusLabel.setTextFill(Color.RED);
             return;
         }
-        StaffLoginRequest loginRequest = new StaffLoginRequest(doctorID, password);
+        DoctorLoginRequest loginRequest = new DoctorLoginRequest(doctorID, password);
 
         new Thread(new Runnable() {
             @Override
@@ -68,7 +70,7 @@ public class DoctorLoginController {
                     Main.oisTracker = new ObjectInputStream(Main.socket.getInputStream());
                     Response response = (Response) Main.oisTracker.readObject();
                     if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                        User user = (Staff) response.getResponseObject();
+                        User user = (Doctor) response.getResponseObject();
                         System.out.println("Username = " + user.getUsername());
                         Main.user = user;
                         Platform.runLater(new Runnable() {
@@ -82,7 +84,7 @@ public class DoctorLoginController {
                                 Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
                                 Parent root = null;
                                 try {
-                                    root = FXMLLoader.load(getClass().getResource("/StaffDashboard.fxml"));
+                                    root = FXMLLoader.load(getClass().getResource("/DoctorDashboard.fxml"));
                                 } catch (IOException ie){
                                     ie.printStackTrace();
                                 }
