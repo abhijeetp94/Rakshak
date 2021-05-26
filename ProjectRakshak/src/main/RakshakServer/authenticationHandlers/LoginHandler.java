@@ -1,5 +1,6 @@
 package authenticationHandlers;
 
+import data.Admin;
 import data.Doctor;
 import data.Staff;
 import data.User;
@@ -45,6 +46,10 @@ public class LoginHandler {
             }
         }
         return null;
+    }
+
+    public static Admin verifyAdmin(Admin){
+
     }
 
 }

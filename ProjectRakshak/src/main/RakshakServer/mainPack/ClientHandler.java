@@ -118,6 +118,21 @@ public class ClientHandler implements Runnable {
                         System.out.println("Error in staff login: " + ie.getMessage());
                     }
 
+                } else if(request.getRequestCode().equals(RequestCode.ADMIN_LOGIN_REQUEST)){
+                    System.out.println("Admin Login Request.");
+                    Staff result = LoginHandler.verifyAdmin((DoctorLoginRequest) request);
+                    Response response;
+                    if (result!=null){
+                        response = new Response("DOCTOR_LOGIN", ResponseCode.SUCCESS, result);
+                    } else {
+                        response = new Response("DOCTOR_LOGIN", ResponseCode.FAILURE, result);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        System.out.println("Error in staff login: " + ie.getMessage());
+                    }
+
                 }
 
 

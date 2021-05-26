@@ -20,7 +20,7 @@ public class Main {
     public static List<User> users;
     public static List<Staff> staff;
     public static List<Doctor> doctors;
-    public static List<Admin> admins;
+    public static Admin admin;
     // ========================================
 
     public static void main(String[] args) {
@@ -36,7 +36,7 @@ public class Main {
         staff.add(new Staff("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211"));
         staff.add(new Staff("AbhijeetP", "12345678", "Abhijeet", "P", "abijetp94@gmail.com", "45111"));
         staff.add(new Staff("Abhij", "12345678", "Abhi", "Pandey", "abieetp94@gmail.com", "44211"));
-        admins = new ArrayList<>();
+        admin = new Admin("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211");
 
         doctors = new ArrayList<>();
         doctors.add(new Doctor("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211"));

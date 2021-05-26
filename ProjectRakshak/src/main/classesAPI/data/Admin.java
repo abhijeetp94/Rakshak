@@ -13,4 +13,7 @@ public class Admin extends Staff implements Serializable {
         super(username, password, firstname, lastname, email, userUID, staffID, QRCode, payManager, attendances);
     }
 
+    public Admin(String username, String password, String firstname, String lastname, String email, String userUID) {
+        super(username, password, firstname, lastname, email, userUID);
+    }
 }
