@@ -1,14 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.DoctorLoginController"
-            prefHeight="600.0" prefWidth="800.0">
+<GridPane fx:id="primaryGridPane" alignment="CENTER" hgap="10.0" prefHeight="348.0" prefWidth="486.0" vgap="15.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DoctorLoginController">
+    <Label fx:id="headLabel" alignment="CENTER" prefHeight="37.0" prefWidth="238.0" text="Login as Doctor" GridPane.columnSpan="4" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
+        <font>
+            <Font name="Times New Roman" size="20.0" />
+        </font>
+    </Label>
 
-</AnchorPane>
+    <Label text="Username" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <TextField fx:id="usernameField" prefHeight="26.0" prefWidth="148.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+    <Label text="Password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+    <PasswordField fx:id="passwordField" prefHeight="26.0" prefWidth="148.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+    <Button fx:id="loginButton" mnemonicParsing="false" onAction="#onLoginClicked" prefHeight="26.0" prefWidth="70.0" text="Login" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="5">
+        <children>
+            <Button fx:id="userLogin" mnemonicParsing="false" onAction="#otherLoginClicked" prefHeight="26.0" prefWidth="98.0" text="User Login">
+                <HBox.margin>
+                    <Insets left="20.0" right="20.0" />
+                </HBox.margin>
+            </Button>
+            <Button fx:id="staffLogin" mnemonicParsing="false" onAction="#otherLoginClicked" prefHeight="26.0" prefWidth="98.0" text="Staff Login">
+                <HBox.margin>
+                    <Insets left="20.0" right="20.0" />
+                </HBox.margin>
+            </Button>
+            <Button fx:id="adminLogin" mnemonicParsing="false" onAction="#otherLoginClicked" prefHeight="26.0" prefWidth="98.0" text="Admin Login">
+                <HBox.margin>
+                    <Insets left="20.0" right="20.0" />
+                </HBox.margin>
+            </Button>
+        </children>
+    </HBox>
+    <Label fx:id="statusLabel" prefHeight="23.0" prefWidth="298.0" text="Status" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1">
+        <font>
+            <Font name="Baskerville Old Face" size="19.0" />
+        </font>
+    </Label>
+    <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#otherLoginClicked" prefHeight="26.0" prefWidth="89.0" text="Go Back" GridPane.valignment="TOP" />
+    <columnConstraints>
+        <ColumnConstraints maxWidth="65.20001220703125" minWidth="10.0" prefWidth="64.800048828125" />
+        <ColumnConstraints maxWidth="82.40002155303955" minWidth="28.79998779296875" prefWidth="65.60001220703126" />
+        <ColumnConstraints maxWidth="238.4000244140625" minWidth="148.0" prefWidth="222.39998779296872" />
+        <ColumnConstraints maxWidth="148.0" minWidth="47.19997558593752" prefWidth="47.19997558593752" />
+        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="92.0" minHeight="67.19998168945312" prefHeight="76.0" />
+        <RowConstraints maxHeight="35.20001831054687" minHeight="10.0" prefHeight="26.39999999999999" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints maxHeight="50.40000915527344" minHeight="0.0" prefHeight="27.20001220703125" />
+        <RowConstraints maxHeight="56.79999999999998" minHeight="6.399990844726574" prefHeight="29.599987792968733" />
+    </rowConstraints>
+
+</GridPane>

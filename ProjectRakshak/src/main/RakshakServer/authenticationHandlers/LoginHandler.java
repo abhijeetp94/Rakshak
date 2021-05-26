@@ -1,8 +1,10 @@
 package authenticationHandlers;
 
+import data.Doctor;
 import data.Staff;
 import data.User;
 import mainPack.Main;
+import request.DoctorLoginRequest;
 import request.LoginRequest;
 import request.StaffLoginRequest;
 
@@ -28,6 +30,17 @@ public class LoginHandler {
             if(staff.getStaffID().equals(request.getStaffID())){
                 if (staff.getPassword().equals(request.getPassword())){
                     return staff;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Staff verifyDoctor(DoctorLoginRequest request){
+        for (Doctor doctor: Main.doctors){
+            if(doctor.getStaffID().equals(request.getDoctorID())){
+                if (doctor.getPassword().equals(request.getPassword())){
+                    return doctor;
                 }
             }
         }
