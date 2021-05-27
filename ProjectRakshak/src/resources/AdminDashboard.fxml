@@ -19,11 +19,11 @@
             <Font name="Times New Roman Italic" size="26.0" />
          </font>
       </Label>
-      <Button fx:id="registerStaffButton" layoutX="351.0" layoutY="129.0" mnemonicParsing="false" text="Register A Staff" />
+      <Button fx:id="registerStaffButton" onAction="#onRegisterClicked" layoutX="351.0" layoutY="129.0" mnemonicParsing="false" text="Register A Staff" />
       <ToolBar layoutX="574.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="227.0">
         <items>
-          <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
-            <Button fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
+          <Button onAction="#onToolBarButtonClicked" fx:id="exitButton" mnemonicParsing="false" text="Exit" />
+            <Button onAction="#onToolBarButtonClicked" fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
         </items>
       </ToolBar>
    </children>
