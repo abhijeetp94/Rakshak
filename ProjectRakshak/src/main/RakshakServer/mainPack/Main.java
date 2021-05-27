@@ -24,7 +24,6 @@ public class Main {
     // ========================================
 
     public static void main(String[] args) {
-
         //for testing
         // ===================================================================================================================================
         users = new ArrayList<>();
@@ -61,9 +60,9 @@ public class Main {
                 Thread t = new Thread(new ClientHandler(socket));
                 t.start();
 
-        } catch(IOException ie){
-            ie.printStackTrace();
+            } catch(IOException ie){
+                ie.printStackTrace();
+            }
         }
-    }
     }
 }
