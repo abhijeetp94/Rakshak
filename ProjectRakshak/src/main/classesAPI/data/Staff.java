@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Staff extends User implements Serializable {
-    private String staffID;
-    private String QRCode;
-    private String Position;
-    private PayManager payManager;
-    private List<Attendance> attendances;
+    protected String staffID;
+    protected String QRCode;
+    protected String title;
+    protected PayManager payManager;
+    protected List<Attendance> attendances;
     boolean isAdmin = false;
     boolean isDoctor = false;
 
@@ -22,15 +22,17 @@ public class Staff extends User implements Serializable {
         this.payManager = new PayManager(0, 0, 0, new ArrayList<>());
         this.attendances = new ArrayList<>();
         this.isAdmin = false;
+        this.title = "Staff";
     }
 
-    public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String QRCode, PayManager payManager, List<Attendance> attendances, boolean isAdmin) {
+    public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, String QRCode, PayManager payManager, List<Attendance> attendances, boolean isAdmin) {
         super(username, password, firstname, lastname, email, userUID);
         this.staffID = staffID;
         this.QRCode = QRCode;
         this.payManager = payManager;
         this.attendances = attendances;
         this.isAdmin = isAdmin;
+        this.title = title;
     }
 
     public Staff(String username, String password) {
@@ -93,5 +95,13 @@ public class Staff extends User implements Serializable {
             }
         }
         return null;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
