@@ -6,11 +6,11 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Doctor extends Staff implements Serializable {
-    String doctorID;
-    String[] specialities;
-    String[] degrees;
-    Integer experience;
-    Integer cabinNumber;
+    private String doctorID;
+    private String[] specialities;
+    private String[] degrees;
+    private Integer experience;
+    private Integer cabinNumber;
 
     boolean available = true;              // to check if the doctor is available for today or not (Maintain by admins)
 

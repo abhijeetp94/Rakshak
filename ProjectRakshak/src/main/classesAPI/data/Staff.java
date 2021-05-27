@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Staff extends User implements Serializable {
-    String staffID;
-    String QRCode;
-    PayManager payManager;
-    List<Attendance> attendances;
+    private String staffID;
+    private String QRCode;
+    private String Position;
+    private PayManager payManager;
+    private List<Attendance> attendances;
     boolean isAdmin = false;
     boolean isDoctor = false;
 
@@ -20,6 +21,7 @@ public class Staff extends User implements Serializable {
 //        this.QRCode = ""
         this.payManager = new PayManager(0, 0, 0, new ArrayList<>());
         this.attendances = new ArrayList<>();
+        this.isAdmin = false;
     }
 
     public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String QRCode, PayManager payManager, List<Attendance> attendances, boolean isAdmin) {
@@ -28,7 +30,7 @@ public class Staff extends User implements Serializable {
         this.QRCode = QRCode;
         this.payManager = payManager;
         this.attendances = attendances;
-        this.isAdmin = true;
+        this.isAdmin = isAdmin;
     }
 
     public Staff(String username, String password) {
