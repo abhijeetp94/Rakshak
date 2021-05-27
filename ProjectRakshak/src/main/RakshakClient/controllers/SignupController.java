@@ -58,7 +58,7 @@ public class SignupController {
         String username = usernameField.getText(), password = passwordField.getText(), repassword = passwordAgainField.getText();
         String firstname = firstnameField.getText(), lastname = lastnameField.getText(), email = emailField.getText(), userUID = userUIDField.getText();
 
-        if(username.equals("") || password.equals("") || repassword.equals("") || userUID.equals("")){
+        if(username.trim().equals("") || password.trim().equals("") || repassword.trim().equals("") || userUID.trim().equals("")){
             statusLabel.setText("Fill all the fields");
             statusLabel.setVisible(true);
             return;

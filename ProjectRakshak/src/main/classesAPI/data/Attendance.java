@@ -3,9 +3,9 @@ package data;
 import java.time.LocalDate;
 
 public class Attendance {
-    LocalDate date;
-    Staff staff;
-    boolean present;
+    private LocalDate date;
+    private Staff staff;
+    private boolean present;
 
     public Attendance(LocalDate date, Staff staff, boolean present) {
         this.date = date;

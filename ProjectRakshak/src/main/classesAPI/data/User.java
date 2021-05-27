@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 public class User implements Serializable {
-    private String username;
-    private String password;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String userUID;
+    protected String username;
+    protected String password;
+    protected String firstname;
+    protected String lastname;
+    protected String email;
+    protected String userUID;
 
     public User(String username, String password, String firstname, String lastname, String email, String userUID) {
         this.username = username;

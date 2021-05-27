@@ -39,7 +39,7 @@ public class LoginController {
     }
 
     public void onSignupClicked(ActionEvent ae){
-        loadControl("/signup.fxml");
+        Main.loadControl(primaryGridPane,"/signup.fxml");
     }
 
     public void onLoginClicked(ActionEvent ae){
@@ -113,28 +113,13 @@ public class LoginController {
     }
     public void otherLoginClicked(ActionEvent ae){
         if(ae.getSource().equals(staffLogin)){
-            loadControl("/StaffLogin.fxml");
+            Main.loadControl(primaryGridPane ,"/StaffLogin.fxml");
         } else if(ae.getSource().equals(adminLogin)){
-            loadControl("/AdminLogin.fxml");
+            Main.loadControl(primaryGridPane, "/AdminLogin.fxml");
         } else if(ae.getSource().equals(doctorLogin)){
-            loadControl("/DoctorLogin.fxml");
+            Main.loadControl(primaryGridPane,"/DoctorLogin.fxml");
         }
     }
 
-    public void loadControl(String filename){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(getClass().getResource(filename));
 
-                } catch (IOException ie){
-                    ie.printStackTrace();
-                }
-                primaryStage.setScene(new Scene(root, 800, 600));
-            }
-        });
-    }
 }
