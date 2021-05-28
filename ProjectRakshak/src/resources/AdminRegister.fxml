@@ -9,36 +9,35 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminRegisterController">
+<AnchorPane fx:id="primaryPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminRegisterController">
    <children>
-      <TabPane layoutY="34.0" prefHeight="567.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="theTabPane" layoutY="34.0" prefHeight="567.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="staffTab" closable="false" text="Register A Staff Member">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="250.0" layoutY="87.0" text="StaffID" />
-                        <TextField layoutX="372.0" layoutY="83.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="118.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="152.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="187.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="staffIDField" layoutX="372.0" layoutY="83.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="firstNameField" layoutX="372.0" layoutY="118.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="lastNameField" layoutX="372.0" layoutY="152.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="emailField" layoutX="372.0" layoutY="187.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="122.0" text="First Name" />
                         <Label layoutX="250.0" layoutY="156.0" text="Last Name" />
                         <Label layoutX="250.0" layoutY="191.0" text="Email" />
-                        <Label layoutX="250.0" layoutY="51.0" text="Aadhar Number" />
-                        <TextField layoutX="372.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="222.0" prefHeight="26.0" prefWidth="203.0" />
+                        <Label layoutX="250.0" layoutY="51.0" text="Aadhaar Number" />
+                        <TextField fx:id="uidField" layoutX="372.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="titleField" layoutX="372.0" layoutY="222.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="226.0" text="Title" />
-                        <TextField layoutX="372.0" layoutY="256.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="baseSalaryField" layoutX="372.0" layoutY="256.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="260.0" text="Base Salary" />
-                        <TextField layoutX="372.0" layoutY="290.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="gradePayField" layoutX="372.0" layoutY="290.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="294.0" text="Grade Pay" />
                         <Label layoutX="250.0" layoutY="329.0" text="Password" />
                         <Label layoutX="250.0" layoutY="355.0" text="Reenter" />
-                        <PasswordField layoutX="372.0" layoutY="326.0" prefHeight="26.0" prefWidth="202.0" />
-                        <PasswordField layoutX="372.0" layoutY="350.0" prefHeight="26.0" prefWidth="202.0" />
-                        <Button layoutX="358.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Register" />
+                        <PasswordField fx:id="passwordField" layoutX="372.0" layoutY="326.0" prefHeight="26.0" prefWidth="202.0" />
+                        <PasswordField fx:id="rePasswordField" layoutX="372.0" layoutY="350.0" prefHeight="26.0" prefWidth="202.0" />
+                        <Button fx:id="registerStaffButton" layoutX="358.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Register" />
                      </children>
                   </AnchorPane>
             </content>
@@ -47,31 +46,33 @@
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label layoutX="250.0" layoutY="87.0" text="StaffID" />
-                        <TextField layoutX="372.0" layoutY="83.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="118.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="152.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="187.0" prefHeight="26.0" prefWidth="203.0" />
+                        <Label layoutX="250.0" layoutY="87.0" text="Staff ID" />
+                        <TextField fx:id="staffIDFieldDoctor" layoutX="372.0" layoutY="83.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="firstNameFieldDoctor" layoutX="372.0" layoutY="118.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="lastNameFieldDoctor" layoutX="372.0" layoutY="152.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="emailFieldDoctor" layoutX="372.0" layoutY="187.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="122.0" text="First Name" />
                         <Label layoutX="250.0" layoutY="156.0" text="Last Name" />
                         <Label layoutX="250.0" layoutY="191.0" text="Email" />
-                        <Label layoutX="250.0" layoutY="51.0" text="Aadhar Number" />
-                        <TextField layoutX="372.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="222.0" prefHeight="26.0" prefWidth="203.0" />
+                        <Label layoutX="250.0" layoutY="51.0" text="Aadhaar Number" />
+                        <TextField fx:id="uidFieldDoctor" layoutX="372.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="titleFieldDoctor" layoutX="372.0" layoutY="222.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="226.0" text="Title" />
-                        <TextField layoutX="372.0" layoutY="256.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="experienceFieldDoctor" layoutX="372.0" layoutY="256.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="260.0" text="Experience" />
-                        <TextField layoutX="372.0" layoutY="290.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="educationFieldDoctor" layoutX="372.0" layoutY="290.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="294.0" text="Education" />
-                        <Label layoutX="250.0" layoutY="406.0" text="Password" />
-                        <Label layoutX="250.0" layoutY="432.0" text="Reenter" />
-                        <PasswordField layoutX="372.0" layoutY="403.0" prefHeight="26.0" prefWidth="202.0" />
-                        <PasswordField layoutX="372.0" layoutY="427.0" prefHeight="26.0" prefWidth="202.0" />
-                        <Button layoutX="359.0" layoutY="460.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Register" />
-                        <TextField layoutX="372.0" layoutY="324.0" prefHeight="26.0" prefWidth="203.0" />
+                        <Label layoutX="250.0" layoutY="430.0" text="Password" />
+                        <Label layoutX="250.0" layoutY="456.0" text="Reenter" />
+                        <PasswordField fx:id="passwordFieldDoctor" layoutX="372.0" layoutY="427.0" prefHeight="26.0" prefWidth="202.0" />
+                        <PasswordField fx:id="rePasswordFieldDoctor" layoutX="372.0" layoutY="451.0" prefHeight="26.0" prefWidth="202.0" />
+                        <Button fx:id="registerDoctorButton" layoutX="359.0" layoutY="484.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Register" />
+                        <TextField fx:id="baseSalaryFieldDoctor" layoutX="372.0" layoutY="324.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="329.0" text="Base Salary" />
-                        <TextField layoutX="372.0" layoutY="362.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="gradePayFieldDoctor" layoutX="372.0" layoutY="362.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="366.0" text="Grade Pay" />
+                        <TextField fx:id="cabinNumberFieldDoctor" layoutX="371.0" layoutY="396.0" prefHeight="26.0" prefWidth="203.0" />
+                        <Label layoutX="251.0" layoutY="400.0" text="Assign Cabin Number" />
                      </children>
                   </AnchorPane>
                </content>
@@ -81,26 +82,26 @@
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Label layoutX="250.0" layoutY="87.0" text="StaffID" />
-                        <TextField layoutX="372.0" layoutY="83.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="118.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="152.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="187.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="staffIDFieldAdmin" layoutX="372.0" layoutY="83.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="firstNameFieldAdmin" layoutX="372.0" layoutY="118.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="lastNameFieldAdmin" layoutX="372.0" layoutY="152.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="emailFieldAdmin" layoutX="372.0" layoutY="187.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="122.0" text="First Name" />
                         <Label layoutX="250.0" layoutY="156.0" text="Last Name" />
                         <Label layoutX="250.0" layoutY="191.0" text="Email" />
                         <Label layoutX="250.0" layoutY="51.0" text="Aadhar Number" />
-                        <TextField layoutX="372.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
-                        <TextField layoutX="372.0" layoutY="222.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="uidFieldAdmin" layoutX="372.0" layoutY="47.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="titleFieldAdmin" layoutX="372.0" layoutY="222.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="226.0" text="Title" />
-                        <TextField layoutX="372.0" layoutY="256.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="baseSalaryFieldAdmin" layoutX="372.0" layoutY="256.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="260.0" text="Base Salary" />
-                        <TextField layoutX="372.0" layoutY="290.0" prefHeight="26.0" prefWidth="203.0" />
+                        <TextField fx:id="gradePayFieldAdmin" layoutX="372.0" layoutY="290.0" prefHeight="26.0" prefWidth="203.0" />
                         <Label layoutX="250.0" layoutY="294.0" text="Grade Pay" />
                         <Label layoutX="250.0" layoutY="329.0" text="Password" />
                         <Label layoutX="250.0" layoutY="355.0" text="Reenter" />
-                        <PasswordField layoutX="372.0" layoutY="326.0" prefHeight="26.0" prefWidth="202.0" />
-                        <PasswordField layoutX="372.0" layoutY="350.0" prefHeight="26.0" prefWidth="202.0" />
-                        <Button layoutX="358.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Register" />
+                        <PasswordField fx:id="passwordFieldAdmin" layoutX="372.0" layoutY="326.0" prefHeight="26.0" prefWidth="202.0" />
+                        <PasswordField fx:id="rePasswordFieldAdmin" layoutX="372.0" layoutY="350.0" prefHeight="26.0" prefWidth="202.0" />
+                        <Button fx:id="registerAdminButton" layoutX="358.0" layoutY="400.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Register" />
                      </children>
                   </AnchorPane>
                </content>
@@ -109,13 +110,13 @@
       </TabPane>
       <ToolBar layoutY="-2.0" prefHeight="18.0" prefWidth="562.0">
         <items>
-          <Button mnemonicParsing="false" text="Go Back" />
+          <Button fx:id="goBackButton" mnemonicParsing="false" text="Go Back" />
         </items>
       </ToolBar>
       <ToolBar layoutX="562.0" layoutY="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="0.0" prefWidth="238.0">
         <items>
-          <Button mnemonicParsing="false" text="Exit" />
-            <Button mnemonicParsing="false" text="Logout" />
+          <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
         </items>
       </ToolBar>
    </children>

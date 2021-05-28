@@ -19,13 +19,13 @@ public class Doctor extends Staff implements Serializable {
 
     }
 
-    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String QRCode, PayManager payManager, List<Attendance> attendances) {
-        super(username, password, firstname, lastname, email, userUID, staffID, "Doctor", QRCode, payManager, attendances, false);
+    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances) {
+        super(username, password, firstname, lastname, email, userUID, staffID, title, payManager, attendances, false);
         isDoctor = true;
     }
 
-    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String QRCode, PayManager payManager, List<Attendance> attendances, String doctorID, String[] specialities, String[] degrees, Integer experience, Integer cabinNumber, boolean available) {
-        super(username, password, firstname, lastname, email, userUID, staffID, "Doctor", QRCode, payManager, attendances, false);
+    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, PayManager payManager, List<Attendance> attendances, String doctorID, String[] specialities, String[] degrees, Integer experience, Integer cabinNumber, boolean available) {
+        super(username, password, firstname, lastname, email, userUID, staffID, "Doctor", payManager, attendances, false);
         this.doctorID = doctorID;
         this.specialities = specialities;
         this.degrees = degrees;
