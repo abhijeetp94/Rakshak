@@ -9,9 +9,9 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminRegisterController">
+<AnchorPane fx:id="primaryPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminRegisterController">
    <children>
-      <TabPane layoutY="34.0" prefHeight="567.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="theTabPane" layoutY="34.0" prefHeight="567.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="staffTab" closable="false" text="Register A Staff Member">
             <content>
@@ -108,13 +108,13 @@
       </TabPane>
       <ToolBar layoutY="-2.0" prefHeight="18.0" prefWidth="562.0">
         <items>
-          <Button mnemonicParsing="false" text="Go Back" />
+          <Button fx:id="goBackButton" mnemonicParsing="false" text="Go Back" />
         </items>
       </ToolBar>
       <ToolBar layoutX="562.0" layoutY="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="0.0" prefWidth="238.0">
         <items>
-          <Button mnemonicParsing="false" text="Exit" />
-            <Button mnemonicParsing="false" text="Logout" />
+          <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
         </items>
       </ToolBar>
    </children>
