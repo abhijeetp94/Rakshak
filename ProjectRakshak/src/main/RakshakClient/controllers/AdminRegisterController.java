@@ -1,10 +1,14 @@
 package controllers;
 
+import data.Staff;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import request.StaffRegisterRequest;
+import utils.PayManager;
+
+import java.util.ArrayList;
 
 public class AdminRegisterController {
     @FXML
@@ -26,7 +30,8 @@ public class AdminRegisterController {
 
     @FXML
     public void onRegisterButtonClicked(ActionEvent ae){
-        String uid, staffID, firstname, lastname, email, title, baseSalary, gradePay, password, rePassword;
+        String uid, staffID, firstname, lastname, email, title, password, rePassword;
+        Double baseSalary, gradePay;
         String[] experience, education;
         StaffRegisterRequest staffRegisterRequest = null;
         if(theTabPane.getSelectionModel().getSelectedItem().equals(staffTab) && ae.getSource().equals(registerStaffButton)){
@@ -36,10 +41,13 @@ public class AdminRegisterController {
             lastname = lastNameField.getText().trim();
             email = emailField.getText().trim();
             title = titleField.getText().trim();
-            baseSalary = baseSalaryField.getText().trim();
-            gradePay = gradePayField.getText().trim();
+            baseSalary = Double.parseDouble(baseSalaryField.getText().trim());
+            gradePay = Double.parseDouble(gradePayField.getText().trim());
             password = passwordField.getText().trim();
             rePassword = rePasswordField.getText().trim();
+            PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
+            Staff staff = new Staff(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>(), false);
+            
 
         } else if(theTabPane.getSelectionModel().getSelectedItem().equals(adminTab) && ae.getSource().equals(registerAdminButton)){
             uid = uidFieldAdmin.getText().trim();
@@ -48,8 +56,8 @@ public class AdminRegisterController {
             lastname = lastNameFieldAdmin.getText().trim();
             email = emailFieldAdmin.getText().trim();
             title = titleFieldAdmin.getText().trim();
-            gradePay = gradePayFieldAdmin.getText().trim();
-            baseSalary = baseSalaryFieldAdmin.getText().trim();
+            gradePay = Double.parseDouble(gradePayFieldAdmin.getText().trim());
+            baseSalary = Double.parseDouble(baseSalaryFieldAdmin.getText().trim());
             password = passwordFieldAdmin.getText().trim();
             rePassword = rePasswordFieldAdmin.getText().trim();
 
@@ -62,8 +70,8 @@ public class AdminRegisterController {
             title = titleFieldDoctor.getText().trim();
             experience = experienceFieldDoctor.getText().trim().split(", ");
             education = educationFieldDoctor.getText().trim().split(", ");
-            baseSalary = baseSalaryFieldDoctor.getText().trim();
-            gradePay = gradePayFieldDoctor.getText().trim();
+            baseSalary = Double.parseDouble(baseSalaryFieldDoctor.getText().trim());
+            gradePay = Double.parseDouble(gradePayFieldDoctor.getText().trim());
             password = passwordFieldDoctor.getText().trim();
             rePassword = rePasswordFieldDoctor.getText().trim();
 

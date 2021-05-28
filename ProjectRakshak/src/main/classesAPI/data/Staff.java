@@ -19,16 +19,15 @@ public class Staff extends User implements Serializable {
         super(username, password, firstname, lastname, email, userUID);
         this.staffID = username;
 //        this.QRCode = ""
-        this.payManager = new PayManager(0, 0, 0, new ArrayList<>());
+        this.payManager = new PayManager(0.0, 0.0, 0, new ArrayList<>());
         this.attendances = new ArrayList<>();
         this.isAdmin = false;
         this.title = "Staff";
     }
 
-    public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, String QRCode, PayManager payManager, List<Attendance> attendances, boolean isAdmin) {
+    public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances, boolean isAdmin) {
         super(username, password, firstname, lastname, email, userUID);
         this.staffID = staffID;
-        this.QRCode = QRCode;
         this.payManager = payManager;
         this.attendances = attendances;
         this.isAdmin = isAdmin;

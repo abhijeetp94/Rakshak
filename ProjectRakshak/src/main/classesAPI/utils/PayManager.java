@@ -4,31 +4,31 @@ import java.io.Serializable;
 import java.util.List;
 
 public class PayManager implements Serializable {
-    Integer gradePay;
-    Integer baseSalary;
+    Double gradePay;
+    Double baseSalary;
     Integer paidLeave;
     List<Integer> bonus;
 
-    public PayManager(Integer gradePay, Integer baseSalary, Integer paidLeave, List<Integer> bonus) {
+    public PayManager(Double gradePay, Double baseSalary, Integer paidLeave, List<Integer> bonus) {
         this.gradePay = gradePay;
         this.baseSalary = baseSalary;
         this.paidLeave = paidLeave;
         this.bonus = bonus;
     }
 
-    public Integer getGradePay() {
+    public Double getGradePay() {
         return gradePay;
     }
 
-    public void setGradePay(Integer gradePay) {
+    public void setGradePay(Double gradePay) {
         this.gradePay = gradePay;
     }
 
-    public Integer getBaseSalary() {
+    public Double getBaseSalary() {
         return baseSalary;
     }
 
-    public void setBaseSalary(Integer baseSalary) {
+    public void setBaseSalary(Double baseSalary) {
         this.baseSalary = baseSalary;
     }
 
