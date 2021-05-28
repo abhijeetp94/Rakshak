@@ -1,5 +1,7 @@
 package controllers;
 
+import data.Admin;
+import data.Doctor;
 import data.Staff;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,13 +26,14 @@ public class AdminRegisterController {
     @FXML
     private PasswordField passwordField, rePasswordField, passwordFieldDoctor, rePasswordFieldDoctor, passwordFieldAdmin, rePasswordFieldAdmin;
     @FXML
-    private TextField uidFieldDoctor, staffIDFieldDoctor, firstNameFieldDoctor, lastNameFieldDoctor, emailFieldDoctor, titleFieldDoctor, baseSalaryFieldDoctor, gradePayFieldDoctor, experienceFieldDoctor, educationFieldDoctor;
+    private TextField uidFieldDoctor, staffIDFieldDoctor, firstNameFieldDoctor, lastNameFieldDoctor, emailFieldDoctor, titleFieldDoctor, baseSalaryFieldDoctor, gradePayFieldDoctor, experienceFieldDoctor, educationFieldDoctor, cabinNumberField;
     @FXML
     private TextField uidFieldAdmin, staffIDFieldAdmin, firstNameFieldAdmin, lastNameFieldAdmin, emailFieldAdmin, titleFieldAdmin, baseSalaryFieldAdmin, gradePayFieldAdmin;
 
     @FXML
     public void onRegisterButtonClicked(ActionEvent ae){
         String uid, staffID, firstname, lastname, email, title, password, rePassword;
+        Integer cabinNumber;
         Double baseSalary, gradePay;
         String[] experience, education;
         StaffRegisterRequest staffRegisterRequest = null;
@@ -47,7 +50,7 @@ public class AdminRegisterController {
             rePassword = rePasswordField.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
             Staff staff = new Staff(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>(), false);
-            
+
 
         } else if(theTabPane.getSelectionModel().getSelectedItem().equals(adminTab) && ae.getSource().equals(registerAdminButton)){
             uid = uidFieldAdmin.getText().trim();
@@ -60,6 +63,9 @@ public class AdminRegisterController {
             baseSalary = Double.parseDouble(baseSalaryFieldAdmin.getText().trim());
             password = passwordFieldAdmin.getText().trim();
             rePassword = rePasswordFieldAdmin.getText().trim();
+            PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
+            Admin admin = new Admin(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>());
+
 
         } else if(theTabPane.getSelectionModel().getSelectedItem().equals(doctorTab) && ae.getSource().equals(registerDoctorButton)){
             uid = uidFieldDoctor.getText().trim();
@@ -72,8 +78,12 @@ public class AdminRegisterController {
             education = educationFieldDoctor.getText().trim().split(", ");
             baseSalary = Double.parseDouble(baseSalaryFieldDoctor.getText().trim());
             gradePay = Double.parseDouble(gradePayFieldDoctor.getText().trim());
+            cabinNumber = Integer.parseInt(cabinNumberField.getText().trim());
             password = passwordFieldDoctor.getText().trim();
             rePassword = rePasswordFieldDoctor.getText().trim();
+            PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
+            Doctor doctor = new Doctor(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>());
+
 
 
         }
