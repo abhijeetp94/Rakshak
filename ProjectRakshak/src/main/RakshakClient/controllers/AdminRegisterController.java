@@ -6,10 +6,15 @@ import constants.StaffType;
 import data.Admin;
 import data.Doctor;
 import data.Staff;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import request.Response;
 import request.StaffRegisterRequest;
 import utils.PayManager;
@@ -107,11 +112,35 @@ public class AdminRegisterController {
                     Response response = (Response) Main.oisTracker.readObject();
                     System.out.println("Register Response received");
                     if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Success");
-                        alert.setHeaderText("Staff member successfully registered");
-                        alert.showAndWait();
-                        Main.loadControl(primaryPane, "/AdminDashboard.fxml");
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                alert.setTitle("Success");
+                                alert.setHeaderText("Staff member successfully registered");
+                                alert.showAndWait();
+                                Stage primaryStage = (Stage) primaryPane.getScene().getWindow();
+                                Parent root = null;
+                                try {
+                                    root = FXMLLoader.load(getClass().getResource("/AdminDashboard.fxml"));
+
+                                } catch (IOException ie){
+                                    ie.printStackTrace();
+                                }
+                                primaryStage.setScene(new Scene(root, 800, 600));
+                            }
+                        });
+                    } else if (response.getResponseCode().equals(ResponseCode.FAILURE)){
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Alert alert = new Alert(Alert.AlertType.WARNING);
+                                alert.setTitle("Registration Failed");
+                                alert.setHeaderText("Staff member Already exists.");
+                                alert.showAndWait();
+                            }
+                        });
                     }
 
 
