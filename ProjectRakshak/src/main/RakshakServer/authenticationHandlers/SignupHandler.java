@@ -1,8 +1,13 @@
 package authenticationHandlers;
 
+import constants.StaffType;
+import data.Admin;
+import data.Doctor;
+import data.Staff;
 import data.User;
 import mainPack.Main;
 import request.SignupRequest;
+import request.StaffRegisterRequest;
 
 public class SignupHandler {
     SignupRequest signupRequest;
@@ -27,8 +32,27 @@ public class SignupHandler {
         }
         return false;
     }
-    public static boolean verifyStaffRegistration(){
+    public static boolean verifyStaffRegistration(StaffRegisterRequest request){
+        boolean found=false;
+        if (request.getType().equals(StaffType.STAFF)){
+            found = (Staff.findStaff(Main.staff, request.getStaff().getStaffID())!=null);
+            if(!found)
+                return false;
+            Main.staff.add(request.getStaff());
 
+        } else if (request.getType().equals(StaffType.ADMIN)){
+            found = (Admin.findAdmin(Main.admins, request.getStaff().getStaffID())!=null);
+            if(!found)
+                return false;
+            Main.admins.add((Admin) request.getStaff());
+
+        } else if(request.getType().equals(StaffType.DOCTOR)){
+            found = (Staff.findStaff(Main.staff, request.getStaff().getStaffID())!=null);
+            if(!found)
+                return false;
+            Main.doctors.add((Doctor) request.getStaff());
+        }
+        return true;
     }
 
 }

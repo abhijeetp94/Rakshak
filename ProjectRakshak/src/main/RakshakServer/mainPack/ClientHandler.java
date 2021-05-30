@@ -136,7 +136,8 @@ public class ClientHandler implements Runnable {
 
                 } else if(request.getRequestCode().equals(RequestCode.STAFF_REGISTER_REQUEST)) {
                     System.out.println("Staff Register Request.");
-                    
+                    boolean result = SignupHandler.verifyStaffRegistration((StaffRegisterRequest) request);
+
                 }
 
 
