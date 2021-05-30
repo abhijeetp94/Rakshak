@@ -46,7 +46,7 @@ public class AdminRegisterController {
         Integer cabinNumber;
         Double baseSalary, gradePay;
         String[] experience, education;
-        StaffRegisterRequest staffRegisterRequest = null;
+        StaffRegisterRequest request = null;
         if(theTabPane.getSelectionModel().getSelectedItem().equals(staffTab) && ae.getSource().equals(registerStaffButton)){
             uid = uidField.getText().trim();
             staffID = staffIDField.getText().trim();
@@ -60,7 +60,7 @@ public class AdminRegisterController {
             rePassword = rePasswordField.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
             Staff staff = new Staff(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>(), false);
-            StaffRegisterRequest request = new StaffRegisterRequest(staff, StaffType.STAFF);
+            request = new StaffRegisterRequest(staff, StaffType.STAFF);
 
 
         } else if(theTabPane.getSelectionModel().getSelectedItem().equals(adminTab) && ae.getSource().equals(registerAdminButton)){
@@ -76,7 +76,7 @@ public class AdminRegisterController {
             rePassword = rePasswordFieldAdmin.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
             Admin admin = new Admin(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>());
-            StaffRegisterRequest request = new StaffRegisterRequest(admin, StaffType.ADMIN);
+            request = new StaffRegisterRequest(admin, StaffType.ADMIN);
 
 
 
@@ -95,14 +95,14 @@ public class AdminRegisterController {
             password = passwordFieldDoctor.getText().trim();
             rePassword = rePasswordFieldDoctor.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
-            Doctor doctor = new Doctor(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>());
-            StaffRegisterRequest request = new StaffRegisterRequest(doctor, StaffType.DOCTOR);
-
+            Doctor doctor = new Doctor(staffID, password, firstname, lastname, email, uid, staffID, payManager, new ArrayList<>(), title,  education, Integer.parseInt(experience[0]), cabinNumber, true);
+            request = new StaffRegisterRequest(doctor, StaffType.DOCTOR);
 
         }
+        handleRegisterRequest(request);
     }
 
-    public void sendRegisterRequest(StaffRegisterRequest request){
+    public void handleRegisterRequest(StaffRegisterRequest request){
         new Thread(new Runnable() {
             @Override
             public void run() {

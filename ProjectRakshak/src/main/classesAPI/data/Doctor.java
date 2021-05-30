@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Doctor extends Staff implements Serializable {
     protected String doctorID;
-    protected String[] specialities;
+    protected String speciality;
     protected String[] degrees;
     protected Integer experience;
     protected Integer cabinNumber;
@@ -20,14 +20,14 @@ public class Doctor extends Staff implements Serializable {
     }
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances) {
-        super(username, password, firstname, lastname, email, userUID, staffID, title, payManager, attendances, false);
+        super(username, password, firstname, lastname, email, userUID, staffID, "Doctor", payManager, attendances, false);
         isDoctor = true;
     }
 
-    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, PayManager payManager, List<Attendance> attendances, String doctorID, String[] specialities, String[] degrees, Integer experience, Integer cabinNumber, boolean available) {
+    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, PayManager payManager, List<Attendance> attendances, String speciality, String[] degrees, Integer experience, Integer cabinNumber, boolean available) {
         super(username, password, firstname, lastname, email, userUID, staffID, "Doctor", payManager, attendances, false);
-        this.doctorID = doctorID;
-        this.specialities = specialities;
+        this.doctorID = staffID;
+        this.speciality = speciality;
         this.degrees = degrees;
         this.experience = experience;
         this.cabinNumber = cabinNumber;
@@ -43,12 +43,12 @@ public class Doctor extends Staff implements Serializable {
         this.doctorID = doctorID;
     }
 
-    public String[] getSpecialities() {
-        return specialities;
+    public String getSpeciality() {
+        return speciality;
     }
 
-    public void setSpecialities(String[] specialities) {
-        this.specialities = specialities;
+    public void setSpeciality(String specialities) {
+        this.speciality = specialities;
     }
 
     public String[] getDegrees() {

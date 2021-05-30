@@ -134,6 +134,9 @@ public class ClientHandler implements Runnable {
                         System.out.println("Error in staff login: " + ie.getMessage());
                     }
 
+                } else if(request.getRequestCode().equals(RequestCode.STAFF_REGISTER_REQUEST)) {
+                    System.out.println("Staff Register Request.");
+                    
                 }
 
 

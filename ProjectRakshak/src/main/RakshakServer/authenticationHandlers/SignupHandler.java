@@ -27,5 +27,8 @@ public class SignupHandler {
         }
         return false;
     }
+    public static boolean verifyStaffRegistration(){
+
+    }
 
 }
