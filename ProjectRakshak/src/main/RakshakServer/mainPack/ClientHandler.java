@@ -141,8 +141,9 @@ public class ClientHandler implements Runnable {
                     if (result){
                         response = new Response("STAFF_REGISTRATION", ResponseCode.SUCCESS, null);
                     } else {
-                        response = new Response("STAFF_REGISTRATION", ResponseCode.SUCCESS, null);
+                        response = new Response("STAFF_REGISTRATION", ResponseCode.FAILURE, null);
                     }
+
                     try {
                         oosTracker.writeObject(response);
                     } catch (IOException ie){

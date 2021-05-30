@@ -32,6 +32,7 @@ public class Main {
         users.add(new User("Abhij", "12345678", "Abhi", "Pandey", "abieetp94@gmail.com", "44211"));
 
         staff = new ArrayList<>();
+        admins = new ArrayList<>();
         staff.add(new Staff("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211"));
         staff.add(new Staff("AbhijeetP", "12345678", "Abhijeet", "P", "abijetp94@gmail.com", "45111"));
         staff.add(new Staff("Abhij", "12345678", "Abhi", "Pandey", "abieetp94@gmail.com", "44211"));

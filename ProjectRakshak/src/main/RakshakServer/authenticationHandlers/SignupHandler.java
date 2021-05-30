@@ -36,19 +36,19 @@ public class SignupHandler {
         boolean found=false;
         if (request.getType().equals(StaffType.STAFF)){
             found = (Staff.findStaff(Main.staff, request.getStaff().getStaffID())!=null);
-            if(!found)
+            if(found)
                 return false;
             Main.staff.add(request.getStaff());
 
         } else if (request.getType().equals(StaffType.ADMIN)){
             found = (Admin.findAdmin(Main.admins, request.getStaff().getStaffID())!=null);
-            if(!found)
+            if(found)
                 return false;
             Main.admins.add((Admin) request.getStaff());
 
         } else if(request.getType().equals(StaffType.DOCTOR)){
             found = (Staff.findStaff(Main.staff, request.getStaff().getStaffID())!=null);
-            if(!found)
+            if(found)
                 return false;
             Main.doctors.add((Doctor) request.getStaff());
         }
