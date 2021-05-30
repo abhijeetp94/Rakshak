@@ -137,6 +137,17 @@ public class ClientHandler implements Runnable {
                 } else if(request.getRequestCode().equals(RequestCode.STAFF_REGISTER_REQUEST)) {
                     System.out.println("Staff Register Request.");
                     boolean result = SignupHandler.verifyStaffRegistration((StaffRegisterRequest) request);
+                    Response response;
+                    if (result){
+                        response = new Response("STAFF_REGISTRATION", ResponseCode.SUCCESS, null);
+                    } else {
+                        response = new Response("STAFF_REGISTRATION", ResponseCode.SUCCESS, null);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        System.out.println("Error in staff registration: " + ie.getMessage());
+                    }
 
                 }
 
