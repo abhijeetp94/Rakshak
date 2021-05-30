@@ -1,5 +1,8 @@
 package controllers;
 
+import MainApp.Main;
+import constants.ResponseCode;
+import constants.StaffType;
 import data.Admin;
 import data.Doctor;
 import data.Staff;
@@ -7,9 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import request.Response;
 import request.StaffRegisterRequest;
 import utils.PayManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class AdminRegisterController {
@@ -50,6 +55,7 @@ public class AdminRegisterController {
             rePassword = rePasswordField.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
             Staff staff = new Staff(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>(), false);
+            StaffRegisterRequest request = new StaffRegisterRequest(staff, StaffType.STAFF);
 
 
         } else if(theTabPane.getSelectionModel().getSelectedItem().equals(adminTab) && ae.getSource().equals(registerAdminButton)){
@@ -65,6 +71,8 @@ public class AdminRegisterController {
             rePassword = rePasswordFieldAdmin.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
             Admin admin = new Admin(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>());
+            StaffRegisterRequest request = new StaffRegisterRequest(admin, StaffType.ADMIN);
+
 
 
         } else if(theTabPane.getSelectionModel().getSelectedItem().equals(doctorTab) && ae.getSource().equals(registerDoctorButton)){
@@ -83,10 +91,35 @@ public class AdminRegisterController {
             rePassword = rePasswordFieldDoctor.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
             Doctor doctor = new Doctor(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>());
-
+            StaffRegisterRequest request = new StaffRegisterRequest(doctor, StaffType.DOCTOR);
 
 
         }
     }
 
+    public void sendRegisterRequest(StaffRegisterRequest request){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Main.oosTracker.writeObject(request);
+                    System.out.println("Sending register request");
+                    Response response = (Response) Main.oisTracker.readObject();
+                    System.out.println("Register Response received");
+                    if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Success");
+                        alert.setHeaderText("Staff member successfully registered");
+                        alert.showAndWait();
+                        Main.loadControl(primaryPane, "/AdminDashboard.fxml");
+                    }
+
+
+                } catch (IOException | ClassNotFoundException ie){
+                    System.out.println("Error in sending register request: "+ie.getMessage());
+                }
+            }
+        }).start();
+
+    }
 }
