@@ -6,9 +6,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane fx:id="primaryPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.StaffDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="800.0">
+    <ToolBar layoutY="-2.0" prefHeight="18.0" prefWidth="562.0">
+        <items>
+            <Button fx:id="goBackButton" mnemonicParsing="false" text="Go Back" />
+        </items>
+    </ToolBar>
+    <ToolBar layoutX="562.0" layoutY="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="0.0" prefWidth="238.0">
+        <items>
+            <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
+            <Button fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
+        </items>
+    </ToolBar>
 
 </AnchorPane>

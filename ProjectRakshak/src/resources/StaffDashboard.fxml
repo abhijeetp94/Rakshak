@@ -6,9 +6,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane fx:id="primaryPane" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="controllers.StaffDashboardController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600.0" prefWidth="800.0">
+    <children>
+        <HBox prefHeight="23.0" prefWidth="800.0">
+            <children>
+                <ToolBar prefHeight="36.0" prefWidth="519.0">
+                    <items>
+                        <Button fx:id="accountButton" mnemonicParsing="false" prefHeight="14.0" prefWidth="70.0" text="Account" />
+                        <Button fx:id="payManagerButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="PayManager" />
+                        <Button fx:id="scheduleButton" mnemonicParsing="false" text="Schedule" />
+                        <Button fx:id="contactButton" mnemonicParsing="false" text="Contacts" />
+                    </items>
+                </ToolBar>
+                <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="283.0">
+                    <items>
+                        <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
+                    </items>
+                </ToolBar>
+            </children>
+        </HBox>
+    </children>
 
 </AnchorPane>
