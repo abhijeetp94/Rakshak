@@ -14,16 +14,16 @@
          <children>
             <ToolBar prefHeight="36.0" prefWidth="519.0">
               <items>
-                <Button fx:id="accountButton" mnemonicParsing="false" prefHeight="14.0" prefWidth="70.0" text="Account" />
-                  <Button fx:id="historyButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="History" />
-                  <Button fx:id="scheduleButton" mnemonicParsing="false" text="Schedule" />
-                  <Button fx:id="contactButton" mnemonicParsing="false" text="Contacts" />
+                <Button onAction="#onToolBarButtonClicked" fx:id="accountButton" mnemonicParsing="false" prefHeight="14.0" prefWidth="70.0" text="Account" />
+                  <Button onAction="#onToolBarButtonClicked" fx:id="historyButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="History" />
+                  <Button onAction="#onToolBarButtonClicked" fx:id="scheduleButton" mnemonicParsing="false" text="Schedule" />
+                  <Button onAction="#onToolBarButtonClicked" fx:id="contactButton" mnemonicParsing="false" text="Contacts" />
               </items>
             </ToolBar>
             <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="283.0">
               <items>
-                  <Button fx:id="exitButton" mnemonicParsing="false" text="Exit" />
-                <Button fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
+                  <Button onAction="#onToolBarButtonClicked" fx:id="exitButton" mnemonicParsing="false" text="Exit" />
+                <Button onAction="#onToolBarButtonClicked" fx:id="logoutButton" mnemonicParsing="false" text="Logout" />
               </items>
             </ToolBar>
          </children>

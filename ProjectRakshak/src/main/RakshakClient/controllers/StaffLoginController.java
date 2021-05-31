@@ -82,7 +82,11 @@ public class StaffLoginController {
                                 Stage primaryStage = (Stage) primaryGridPane.getScene().getWindow();
                                 Parent root = null;
                                 try {
-                                    root = FXMLLoader.load(getClass().getResource("/StaffDashboard.fxml"));
+                                    if(((Staff) Main.user).isReceptionist()){
+                                        root = FXMLLoader.load(getClass().getResource("/ReceptionDashboard.fxml"));
+                                    } else {
+                                        root = FXMLLoader.load(getClass().getResource("/StaffDashboard.fxml"));
+                                    }
                                 } catch (IOException ie){
                                     ie.printStackTrace();
                                 }

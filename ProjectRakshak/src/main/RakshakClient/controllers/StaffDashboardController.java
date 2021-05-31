@@ -4,9 +4,7 @@ import MainApp.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -15,7 +13,11 @@ public class StaffDashboardController {
     @FXML
     private AnchorPane primaryPane;
     @FXML
-    private Button exitButton, logoutButton, goBackButton, accountButton, scheduleButton, payManagerButton, contactButton;
+    private Button exitButton, logoutButton, goBackButton, accountButton, scheduleButton, payManagerButton, contactButton, attendanceButton;
+    @FXML
+    private Label dateLabel;
+    @FXML
+    private ListView staffScheduleList;
 
     public void onToolBarButtonClicked(ActionEvent ae){
         if(ae.getSource().equals(logoutButton)){
@@ -36,6 +38,7 @@ public class StaffDashboardController {
 
         }
         if(ae.getSource().equals(exitButton)){
+            Main.user = null;
             Platform.exit();
         }
 

@@ -14,6 +14,7 @@ public class Staff extends User implements Serializable {
     protected List<Attendance> attendances;
     boolean isAdmin = false;
     boolean isDoctor = false;
+    boolean isReceptionist = false;
 
     public Staff(String username, String password, String firstname, String lastname, String email, String userUID) {
         super(username, password, firstname, lastname, email, userUID);
@@ -25,13 +26,14 @@ public class Staff extends User implements Serializable {
         this.title = "Staff";
     }
 
-    public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances, boolean isAdmin) {
+    public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances, boolean isAdmin, boolean isReceptionist) {
         super(username, password, firstname, lastname, email, userUID);
         this.staffID = staffID;
         this.payManager = payManager;
         this.attendances = attendances;
         this.isAdmin = isAdmin;
         this.title = title;
+
     }
 
     public Staff(String username, String password) {
@@ -102,5 +104,13 @@ public class Staff extends User implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean isReceptionist() {
+        return isReceptionist;
+    }
+
+    public void setReceptionist(boolean receptionist) {
+        isReceptionist = receptionist;
     }
 }

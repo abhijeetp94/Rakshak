@@ -39,12 +39,15 @@ public class AdminRegisterController {
     private TextField uidFieldDoctor, staffIDFieldDoctor, firstNameFieldDoctor, lastNameFieldDoctor, emailFieldDoctor, titleFieldDoctor, baseSalaryFieldDoctor, gradePayFieldDoctor, experienceFieldDoctor, educationFieldDoctor, cabinNumberField;
     @FXML
     private TextField uidFieldAdmin, staffIDFieldAdmin, firstNameFieldAdmin, lastNameFieldAdmin, emailFieldAdmin, titleFieldAdmin, baseSalaryFieldAdmin, gradePayFieldAdmin;
+    @FXML
+    private CheckBox receptionistBox;
 
     @FXML
     public void onRegisterButtonClicked(ActionEvent ae){
         String uid, staffID, firstname, lastname, email, title, password, rePassword;
         Integer cabinNumber;
         Double baseSalary, gradePay;
+        boolean isReceptionist;
         String[] experience, education;
         StaffRegisterRequest request = null;
         if(theTabPane.getSelectionModel().getSelectedItem().equals(staffTab) && ae.getSource().equals(registerStaffButton)){
@@ -54,12 +57,13 @@ public class AdminRegisterController {
             lastname = lastNameField.getText().trim();
             email = emailField.getText().trim();
             title = titleField.getText().trim();
-            baseSalary = Double.parseDouble(baseSalaryField.getText().trim());
+            isReceptionist = receptionistBox.isSelected();
             gradePay = Double.parseDouble(gradePayField.getText().trim());
-            password = passwordField.getText().trim();
+            baseSalary = Double.parseDouble(baseSalaryField.getText().trim());
             rePassword = rePasswordField.getText().trim();
+            password = passwordField.getText().trim();
             PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
-            Staff staff = new Staff(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>(), false);
+            Staff staff = new Staff(staffID, password, firstname, lastname, email, uid, staffID, title, payManager, new ArrayList<>(), false, isReceptionist);
             request = new StaffRegisterRequest(staff, StaffType.STAFF);
 
 

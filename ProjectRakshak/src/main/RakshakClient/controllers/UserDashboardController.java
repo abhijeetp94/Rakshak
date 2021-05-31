@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class UserDashboardController {
     @FXML
-    private Button accountButton, scheduleButton, historyButton, logoutButton, contactButton, bedButton, appointmentButton, exitButton, bloodBankButton, plasmaBankButton, vaccineButton, medicalStoreButton;
+    private Button accountButton, scheduleButton, historyButton, logoutButton, contactButton, bedButton, appointmentButton, exitButton, bloodBankButton, plasmaBankButton, vaccineButton, medicalStoreButton, seeAppointmentButton;
     @FXML
     private AnchorPane primaryPane;
 
@@ -36,6 +36,7 @@ public class UserDashboardController {
 
         }
         if(ae.getSource().equals(exitButton)){
+            Main.user = null;
             Platform.exit();
         }
 
