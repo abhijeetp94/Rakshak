@@ -10,7 +10,7 @@ public class Admin extends Staff implements Serializable {
 
 
     public Admin(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances) {
-        super(username, password, firstname, lastname, email, userUID, staffID, title, payManager, attendances, true);
+        super(username, password, firstname, lastname, email, userUID, staffID, title, payManager, attendances, true, false);
     }
 
     public Admin(String username, String password, String firstname, String lastname, String email, String userUID) {
