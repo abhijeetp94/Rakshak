@@ -4,6 +4,8 @@ import MainApp.Main;
 import constants.ResponseCode;
 import data.TimeTable;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -58,7 +60,8 @@ public class UserDashboardController {
                         Main.oosTracker.writeObject(request);
                         Response response = (Response) Main.oisTracker.readObject();
                         if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                            ArrayList timeTableList = (ArrayList) response.getResponseObject();
+                            ArrayList<TimeTable> timeTableList = (ArrayList<TimeTable>) response.getResponseObject();
+
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
@@ -66,7 +69,15 @@ public class UserDashboardController {
                                     dialog.initOwner(primaryPane.getScene().getWindow());
                                     dialog.setTitle("TimeTable");
                                     FXMLLoader loader = new FXMLLoader();
-                                    loader.setLocation(getClass().getResource("/"));
+                                    loader.setLocation(getClass().getResource("/TimeTableDialog.fxml"));
+                                    try {
+                                        dialog.getDialogPane().setContent(loader.load());
+                                    } catch (IOException ie){
+                                        ie.printStackTrace();
+                                    }
+                                    TimeTableDialogController controller = loader.getController();
+                                    ObservableList<TimeTable> timeTables = FXCollections.observableArrayList();
+                                    timeTables.setAll(timeTableList);
 
                                 }
                             });

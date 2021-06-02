@@ -14,4 +14,8 @@ public class TimeTableDialogController {
     TableView<TimeTable> doctorTableView;
     @FXML
     private TableColumn<TimeTable, String> doctorColumn, fieldColumn, timeColumn, availableColumn;
+
+    public void setData(){
+
+    }
 }
