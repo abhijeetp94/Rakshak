@@ -1,15 +1,14 @@
 package mainPack;
 
-import data.Admin;
-import data.Doctor;
-import data.Staff;
-import data.User;
+import data.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +20,8 @@ public class Main {
     public static List<Staff> staff;
     public static List<Doctor> doctors;
     public static List<Admin> admins;
+    public static List<Schedule> schedules;
+    public static List<TimeTable> timeTableList;
     // ========================================
 
     public static void main(String[] args) {
@@ -43,6 +44,15 @@ public class Main {
         doctors.add(new Doctor("AbhijeetP94", "12345678", "Abhijeet", "Pandey", "abijeetp94@gmail.com", "45211"));
         doctors.add(new Doctor("AbhijeetP", "12345678", "Abhijeet", "P", "abijetp94@gmail.com", "45111"));
         doctors.add(new Doctor("Abhij", "12345678", "Abhi", "Pandey", "abieetp94@gmail.com", "44211"));
+
+        schedules = new ArrayList<>();
+        schedules.add(new Schedule(LocalDate.now(), LocalTime.now(), doctors.get(0), users));
+        schedules.add(new Schedule(LocalDate.now().plusDays(1), LocalTime.now().minusHours(1), doctors.get(0), users));
+
+        timeTableList = new ArrayList<>();
+        timeTableList.add(new TimeTable(doctors.get(0), LocalDate.now(), LocalTime.of(14, 30), LocalTime.of(18, 30)));
+        timeTableList.add(new TimeTable(doctors.get(0), LocalDate.now(), LocalTime.of(9, 30), LocalTime.of(12, 30)));
+
         // =====================================================================================================================================
 
 

@@ -20,6 +20,7 @@ public enum RequestCode implements Serializable {
     VACCINATION_REQUEST,
     LOGOUT_REQUEST,
     PATIENT_REQUEST,
+    TIMETABLE_REQUEST,
     SCHEDULE_REQUEST;
 
     @Override
