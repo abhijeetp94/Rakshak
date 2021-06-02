@@ -10,6 +10,7 @@ public class User implements Serializable {
     protected String lastname;
     protected String email;
     protected String userUID;
+    protected String fullName;
 
     public User(String username, String password, String firstname, String lastname, String email, String userUID) {
         this.username = username;
@@ -18,6 +19,7 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.email = email;
         this.userUID = userUID;
+        fullName = firstname + " " + lastname;
     }
 
     public User(String username, String password) {
@@ -81,5 +83,13 @@ public class User implements Serializable {
             }
         }
         return null;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

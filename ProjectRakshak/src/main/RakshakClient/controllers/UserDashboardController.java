@@ -75,10 +75,12 @@ public class UserDashboardController {
                                     } catch (IOException ie){
                                         ie.printStackTrace();
                                     }
+                                    dialog.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
                                     TimeTableDialogController controller = loader.getController();
                                     ObservableList<TimeTable> timeTables = FXCollections.observableArrayList();
                                     timeTables.setAll(timeTableList);
-
+                                    controller.setData(timeTables);
+                                    dialog.showAndWait();
                                 }
                             });
                         }
