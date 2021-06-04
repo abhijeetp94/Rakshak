@@ -46,8 +46,9 @@ public class Main {
         doctors.add(new Doctor("Abhij", "12345678", "Abhi", "Pandey", "abieetp94@gmail.com", "44211"));
 
         schedules = new ArrayList<>();
-        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users));
-        schedules.add(new Schedule(LocalDate.now().plusDays(1), 2, doctors.get(0), users));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(0)));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(1)));
+        schedules.add(new Schedule(LocalDate.now().plusDays(1), 2, doctors.get(0), users.get(1)));
 
         timeTableList = new ArrayList<>();
         timeTableList.add(new TimeTable(doctors.get(0), LocalDate.now(), LocalTime.of(14, 30), LocalTime.of(18, 30)));

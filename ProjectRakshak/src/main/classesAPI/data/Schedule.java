@@ -9,13 +9,13 @@ public class Schedule implements Serializable {
     private LocalDate theDate;
     private Integer shift;
     private Doctor doctor;
-    private List<User> userList;
+    private User user;
 
-    public Schedule(LocalDate theDate, Integer shift, Doctor doctor, List<User> userList) {
+    public Schedule(LocalDate theDate, Integer shift, Doctor doctor, User user) {
         this.theDate = theDate;
         this.shift = shift;
         this.doctor = doctor;
-        this.userList = userList;
+        this.user = user;
     }
 
     public LocalDate getTheDate() {
@@ -35,13 +35,6 @@ public class Schedule implements Serializable {
         this.doctor = doctor;
     }
 
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
 
     public Integer getShift() {
         return shift;
@@ -51,19 +44,11 @@ public class Schedule implements Serializable {
         this.shift = shift;
     }
 
-    public void addUser(User user){
-        this.userList.add(user);
+    public User getUser() {
+        return user;
     }
-    public int findUser(User user){
-        int index=0;
-        boolean found = this.userList.contains(user);
-        return (found?this.userList.indexOf(user):-1);
-    }
-    public boolean deleteUser(User user){
-        boolean found = this.userList.contains(user);
-        if(found){
-            this.userList.remove(user);
-        }
-        return found;
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
