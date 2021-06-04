@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Schedule implements Serializable {
     private LocalDate theDate;
-    private LocalTime theTime;
+    private Integer shift;
     private Doctor doctor;
     private List<User> userList;
 
-    public Schedule(LocalDate theDate, LocalTime theTime, Doctor doctor, List<User> userList) {
+    public Schedule(LocalDate theDate, Integer shift, Doctor doctor, List<User> userList) {
         this.theDate = theDate;
-        this.theTime = theTime;
+        this.shift = shift;
         this.doctor = doctor;
         this.userList = userList;
     }
@@ -26,13 +26,6 @@ public class Schedule implements Serializable {
         this.theDate = theDate;
     }
 
-    public LocalTime getTheTime() {
-        return theTime;
-    }
-
-    public void setTheTime(LocalTime theTime) {
-        this.theTime = theTime;
-    }
 
     public Doctor getDoctor() {
         return doctor;
@@ -48,6 +41,14 @@ public class Schedule implements Serializable {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    public Integer getShift() {
+        return shift;
+    }
+
+    public void setShift(Integer shift) {
+        this.shift = shift;
     }
 
     public void addUser(User user){

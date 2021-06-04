@@ -1,6 +1,7 @@
 package controllers;
 
 import MainApp.Main;
+import data.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,7 +18,13 @@ public class DoctorDashboardController {
     @FXML
     private Label dateLabel;
     @FXML
-    private ListView staffScheduleList;
+    private TableView<User> userList;
+    @FXML
+    private TableColumn<User, String> patientColumn, uidColumn;
+
+    public void initialize(){
+
+    }
 
     public void onToolBarButtonClicked(ActionEvent ae){
         if(ae.getSource().equals(logoutButton)){

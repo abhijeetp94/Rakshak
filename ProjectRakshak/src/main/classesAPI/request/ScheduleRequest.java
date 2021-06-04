@@ -9,7 +9,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ScheduleRequest extends Request implements Serializable {
-    public ScheduleRequest() {
+    private String doctorID;
+    public ScheduleRequest(String doctorID) {
+        this.doctorID = doctorID;
         requestCode = RequestCode.SCHEDULE_REQUEST;
+    }
+
+    public String getDoctorID() {
+        return doctorID;
+    }
+
+    public void setDoctorID(String doctorID) {
+        this.doctorID = doctorID;
     }
 }

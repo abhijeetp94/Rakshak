@@ -1,8 +1,10 @@
 package data;
 
+import javafx.util.Pair;
 import utils.PayManager;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Doctor extends Staff implements Serializable {
@@ -11,6 +13,7 @@ public class Doctor extends Staff implements Serializable {
     protected String[] degrees;
     protected Integer experience;
     protected Integer cabinNumber;
+    private List<Pair<LocalTime, LocalTime>> shifts;
 
     boolean available = true;              // to check if the doctor is available for today or not (Maintain by admins)
 
@@ -93,4 +96,20 @@ public class Doctor extends Staff implements Serializable {
         }
         return null;
     }
+
+    public List<Pair<LocalTime, LocalTime>> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(List<Pair<LocalTime, LocalTime>> shifts) {
+        this.shifts = shifts;
+    }
+
+    public void addShift(LocalTime start, LocalTime end){
+        shifts.add(new Pair<>(start, end));
+    }
+    public void removeShift(LocalTime start, LocalTime end){
+        shifts.remove(new Pair<>(start, end));
+    }
+
 }

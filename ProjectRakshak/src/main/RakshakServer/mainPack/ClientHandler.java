@@ -162,6 +162,9 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if(request.getRequestCode().equals(RequestCode.SCHEDULE_REQUEST)){
+                    System.out.println("Schedule Request.");
+//                    List<Schedule> =
                 }
 
 
