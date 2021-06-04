@@ -1,6 +1,7 @@
 package controllers;
 
 import data.TimeTable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -22,15 +23,29 @@ public class TimeTableDialogController {
     @FXML
     private TableColumn<TimeTable, LocalTime> startTimeColumn, endTimeColumn;
     @FXML
-    private TableColumn<TimeTable, Boolean> availableColumn;
+    private TableColumn<TimeTable, String> availableColumn;
 
     public void setData(ObservableList<TimeTable> timeTables){
-        doctorColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("doctorName"));
+//        doctorColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("doctorName"));
         fieldColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("fieldName"));
         startTimeColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, LocalTime>("shiftStartTime"));
         endTimeColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, LocalTime>("shiftEndTime"));
-        availableColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, Boolean>("available"));
+//        availableColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, Boolean>("available"));
+
+        doctorColumn.setCellValueFactory(cellData -> {
+            String name = cellData.getValue().getDoctor().getFullName();
+            return new SimpleStringProperty(name);
+        });
+        availableColumn.setCellValueFactory(cellData -> {
+            if(cellData.getValue().isAvailable()){
+                return new SimpleStringProperty("YES");
+            } else {
+                return new SimpleStringProperty("NO");
+            }
+        });
+
         doctorTableView.setItems(timeTables);
+
         doctorTableView.getColumns().setAll(doctorColumn, fieldColumn, startTimeColumn, endTimeColumn, availableColumn);
 
     }
