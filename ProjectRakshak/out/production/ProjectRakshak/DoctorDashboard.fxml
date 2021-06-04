@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.DoctorDashboardController"
-            prefHeight="600.0" prefWidth="800.0">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DoctorDashboardController">
     <HBox prefHeight="23.0" prefWidth="800.0">
         <children>
             <ToolBar prefHeight="36.0" prefWidth="519.0">
@@ -29,5 +26,11 @@
             </ToolBar>
         </children>
     </HBox>
+   <TableView fx:id="scheduleTable" layoutX="231.0" layoutY="113.0" prefHeight="402.0" prefWidth="378.0">
+     <columns>
+       <TableColumn fx:id="patientColumn" prefWidth="235.19993591308594" text="Patient Name" />
+       <TableColumn fx:id="slotColumn" prefWidth="140.800048828125" text="Slot" />
+     </columns>
+   </TableView>
 
 </AnchorPane>

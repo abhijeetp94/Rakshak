@@ -163,8 +163,15 @@ public class ClientHandler implements Runnable {
                         ie.printStackTrace();
                     }
                 } else if(request.getRequestCode().equals(RequestCode.SCHEDULE_REQUEST)){
-                    System.out.println("Schedule Request.");
-//                    List<Schedule> =
+                    System.out.println("Schedule Get Request.");
+                    List<Schedule> schedules = ScheduleHandler.getSchedule(((ScheduleRequest) request).getDoctorID());
+                    Response response;
+                    response = new Response("GET_DOCTOR_SCHEDULE", ResponseCode.SUCCESS, schedules);
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 

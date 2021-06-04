@@ -29,7 +29,7 @@
    <TableView fx:id="scheduleTable" layoutX="231.0" layoutY="113.0" prefHeight="402.0" prefWidth="378.0">
      <columns>
        <TableColumn fx:id="patientColumn" prefWidth="235.19993591308594" text="Patient Name" />
-       <TableColumn fx:id="uidColumn" prefWidth="140.800048828125" text="UID Number" />
+       <TableColumn fx:id="slotColumn" prefWidth="140.800048828125" text="Slot" />
      </columns>
    </TableView>
 

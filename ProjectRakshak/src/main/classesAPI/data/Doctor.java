@@ -19,6 +19,9 @@ public class Doctor extends Staff implements Serializable {
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID) {
         super(username, password, firstname, lastname, email, userUID);
+        this.doctorID = userUID;
+        isDoctor = true;
+        title = "Doctor";
 
     }
 
