@@ -16,6 +16,7 @@ public class TimeTableDialogController {
     private AnchorPane primaryPane;
     @FXML
     TableView<TimeTable> doctorTableView;
+
     @FXML
     private TableColumn<TimeTable, String> doctorColumn, fieldColumn;
     @FXML
@@ -24,11 +25,13 @@ public class TimeTableDialogController {
     private TableColumn<TimeTable, Boolean> availableColumn;
 
     public void setData(ObservableList<TimeTable> timeTables){
-        doctorColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("doctor.fullName"));
-        fieldColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("doctor.title"));
+        doctorColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("doctorName"));
+        fieldColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, String>("fieldName"));
         startTimeColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, LocalTime>("shiftStartTime"));
         endTimeColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, LocalTime>("shiftEndTime"));
-        availableColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, Boolean>("doctor.isAvailable"));
+        availableColumn.setCellValueFactory(new PropertyValueFactory<TimeTable, Boolean>("available"));
         doctorTableView.setItems(timeTables);
+        doctorTableView.getColumns().setAll(doctorColumn, fieldColumn, startTimeColumn, endTimeColumn, availableColumn);
+
     }
 }

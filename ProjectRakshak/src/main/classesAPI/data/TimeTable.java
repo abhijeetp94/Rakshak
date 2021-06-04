@@ -9,12 +9,18 @@ public class TimeTable implements Serializable {
     private LocalDate date;
     private LocalTime shiftStartTime;
     private LocalTime shiftEndTime;
+    private String doctorName;
+    private boolean available;
+    private String fieldName;
 
     public TimeTable(Doctor doctor, LocalDate date, LocalTime shiftStartTime, LocalTime shiftEndTime) {
         this.doctor = doctor;
         this.date = date;
         this.shiftStartTime = shiftStartTime;
         this.shiftEndTime = shiftEndTime;
+        doctorName = doctor.getFullName();
+        available = doctor.isAvailable();
+        fieldName = doctor.getTitle();
     }
 
     public Doctor getDoctor() {
@@ -47,5 +53,29 @@ public class TimeTable implements Serializable {
 
     public void setShiftEndTime(LocalTime shiftEndTime) {
         this.shiftEndTime = shiftEndTime;
+    }
+
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 }

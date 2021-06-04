@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="primaryPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.TimeTableDialogController">
+   <children>
+      <TableView fx:id="doctorTableView" prefHeight="390.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="doctorColumn" prefWidth="136.0" text="Doctor" />
+            <TableColumn fx:id="fieldColumn" minWidth="0.0" prefWidth="197.60003662109375" text="Field" />
+            <TableColumn fx:id="startTimeColumn" prefWidth="104.0" text="Start Time" />
+          <TableColumn fx:id="endTimeColumn" minWidth="0.0" prefWidth="84.79998779296875" text="End Time" />
+            <TableColumn fx:id="availableColumn" prefWidth="76.800048828125" text="Available" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

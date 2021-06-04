@@ -57,11 +57,12 @@ public class UserDashboardController {
                 @Override
                 public void run() {
                     try {
+                        System.out.println("Reached here");
                         Main.oosTracker.writeObject(request);
                         Response response = (Response) Main.oisTracker.readObject();
                         if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                             ArrayList<TimeTable> timeTableList = (ArrayList<TimeTable>) response.getResponseObject();
-
+                            System.out.println("Response object get");
                             Platform.runLater(new Runnable() {
                                 @Override
                                 public void run() {
@@ -70,6 +71,7 @@ public class UserDashboardController {
                                     dialog.setTitle("TimeTable");
                                     FXMLLoader loader = new FXMLLoader();
                                     loader.setLocation(getClass().getResource("/TimeTableDialog.fxml"));
+                                    System.out.println("Dialog Created");
                                     try {
                                         dialog.getDialogPane().setContent(loader.load());
                                     } catch (IOException ie){
@@ -80,9 +82,13 @@ public class UserDashboardController {
                                     ObservableList<TimeTable> timeTables = FXCollections.observableArrayList();
                                     timeTables.setAll(timeTableList);
                                     controller.setData(timeTables);
+                                    System.out.println("Dialog Shown");
                                     dialog.showAndWait();
                                 }
                             });
+                        }
+                        else {
+                            System.out.println("Some error");
                         }
 
 

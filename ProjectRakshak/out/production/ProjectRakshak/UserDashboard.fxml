@@ -16,7 +16,7 @@
               <items>
                 <Button onAction="#onToolBarButtonClicked" fx:id="accountButton" mnemonicParsing="false" prefHeight="14.0" prefWidth="70.0" text="Account" />
                   <Button onAction="#onToolBarButtonClicked" fx:id="historyButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="History" />
-                  <Button onAction="#onToolBarButtonClicked" fx:id="scheduleButton" mnemonicParsing="false" text="Schedule" />
+                  <Button onAction="#onToolBarButtonClicked" fx:id="timeTableButton" mnemonicParsing="false" text="Schedule" />
                   <Button onAction="#onToolBarButtonClicked" fx:id="contactButton" mnemonicParsing="false" text="Contacts" />
               </items>
             </ToolBar>

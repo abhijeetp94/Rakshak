@@ -6,6 +6,7 @@ import constants.RequestCode;
 import constants.ResponseCode;
 //import data.Staff;
 import data.*;
+import generalHandlers.ScheduleHandler;
 import request.*;
 
 import java.io.EOFException;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
@@ -150,6 +152,16 @@ public class ClientHandler implements Runnable {
                         System.out.println("Error in staff registration: " + ie.getMessage());
                     }
 
+                } else if(request.getRequestCode().equals(RequestCode.TIMETABLE_REQUEST)){
+                    System.out.println("TimeTable Get Request.");
+                    List<TimeTable> timeTables = ScheduleHandler.getTimeTable();
+                    Response response;
+                    response = new Response("GET_TIMETABLE", ResponseCode.SUCCESS, timeTables);
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 
