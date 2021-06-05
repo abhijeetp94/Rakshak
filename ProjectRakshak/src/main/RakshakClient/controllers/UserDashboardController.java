@@ -33,14 +33,38 @@ public class UserDashboardController {
 
     public void onAppointmentButtonClicked(){
         GetDoctorsRequest request = new GetDoctorsRequest();
-        try {
-            Main.oosTracker.writeObject(request);
-            Response response = (Response) Main.oisTracker.readObject();
-            ArrayList<Doctor> doctors = (ArrayList<Doctor>) response.getResponseObject();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Main.oosTracker.writeObject(request);
+                    Response response = (Response) Main.oisTracker.readObject();
+                    ArrayList<Doctor> doctors = (ArrayList<Doctor>) response.getResponseObject();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
 
-        } catch (IOException | ClassNotFoundException ie){
-            ie.printStackTrace();
-        }
+                            Dialog<ButtonType> dialog = new Dialog<>();
+                            dialog.initOwner(primaryPane.getScene().getWindow());
+                            dialog.setTitle("Book Appointment");
+                            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(getClass().getResource("/BookAppointmentDialog.fxml"));
+                            try {
+                                dialog.getDialogPane().setContent(loader.load());
+                            } catch (IOException ie){
+                                ie.printStackTrace();
+                            }
+                            BookAppointmentController controller = loader.getController();
+
+                        }
+                    });
+
+                } catch (IOException | ClassNotFoundException ie){
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void onToolBarButtonClicked(ActionEvent ae){

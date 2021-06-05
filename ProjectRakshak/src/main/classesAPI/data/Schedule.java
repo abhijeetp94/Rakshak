@@ -19,6 +19,14 @@ public class Schedule implements Serializable {
         this.user = user;
     }
 
+    public Schedule(LocalDate theDate, Integer shift, Doctor doctor, User user, Boolean approved) {
+        this.theDate = theDate;
+        this.shift = shift;
+        this.doctor = doctor;
+        this.user = user;
+        this.approved = approved;
+    }
+
     public LocalDate getTheDate() {
         return theDate;
     }
