@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BookAppointmentController">
+   <children>
+      <ComboBox layoutX="152.0" layoutY="70.0" prefHeight="26.0" prefWidth="416.0" promptText="Select Doctor" />
+      <ComboBox layoutX="152.0" layoutY="143.0" prefWidth="150.0" promptText="Select Shift" />
+      <DatePicker layoutX="152.0" layoutY="212.0" promptText="Date For Appointment" />
+      <Label layoutX="59.0" layoutY="75.0" text="Doctor" />
+      <Label layoutX="59.0" layoutY="147.0" text="Shift" />
+      <Label layoutX="59.0" layoutY="216.0" text="Date" />
+      <Label alignment="CENTER" layoutX="91.0" layoutY="284.0" prefHeight="18.0" prefWidth="359.0" text="Status Label">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

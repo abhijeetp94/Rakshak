@@ -2,6 +2,7 @@ package controllers;
 
 import MainApp.Main;
 import constants.ResponseCode;
+import data.Doctor;
 import data.TimeTable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.AnchorPane;
+import request.GetDoctorsRequest;
 import request.Request;
 import request.Response;
 import request.TimeTableRequest;
@@ -28,6 +30,18 @@ public class UserDashboardController {
     private Button accountButton, timeTableButton, historyButton, logoutButton, contactButton, bedButton, appointmentButton, exitButton, bloodBankButton, plasmaBankButton, vaccineButton, medicalStoreButton, seeAppointmentButton;
     @FXML
     private AnchorPane primaryPane;
+
+    public void onAppointmentButtonClicked(){
+        GetDoctorsRequest request = new GetDoctorsRequest();
+        try {
+            Main.oosTracker.writeObject(request);
+            Response response = (Response) Main.oisTracker.readObject();
+            ArrayList<Doctor> doctors = (ArrayList<Doctor>) response.getResponseObject();
+
+        } catch (IOException | ClassNotFoundException ie){
+            ie.printStackTrace();
+        }
+    }
 
     public void onToolBarButtonClicked(ActionEvent ae){
         if(ae.getSource().equals(logoutButton)){
@@ -90,7 +104,6 @@ public class UserDashboardController {
                         else {
                             System.out.println("Some error");
                         }
-
 
                     } catch (IOException | ClassNotFoundException | ClassCastException ie){
                         ie.printStackTrace();

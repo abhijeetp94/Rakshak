@@ -10,6 +10,7 @@ public class Schedule implements Serializable {
     private Integer shift;
     private Doctor doctor;
     private User user;
+    private Boolean approved = false;
 
     public Schedule(LocalDate theDate, Integer shift, Doctor doctor, User user) {
         this.theDate = theDate;
@@ -50,5 +51,13 @@ public class Schedule implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Boolean getApproved() {
+        return approved;
+    }
+
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 }
