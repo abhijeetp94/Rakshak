@@ -5,6 +5,8 @@ import utils.PayManager;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Doctor extends Staff implements Serializable {
@@ -22,12 +24,14 @@ public class Doctor extends Staff implements Serializable {
         this.doctorID = userUID;
         isDoctor = true;
         title = "Doctor";
+        shifts = new ArrayList<>();
 
     }
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances) {
         super(username, password, firstname, lastname, email, userUID, staffID, "Doctor", payManager, attendances, false, false);
         isDoctor = true;
+        shifts = new ArrayList<>();
     }
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, PayManager payManager, List<Attendance> attendances, String speciality, String[] degrees, Integer experience, Integer cabinNumber, boolean available) {
@@ -39,6 +43,7 @@ public class Doctor extends Staff implements Serializable {
         this.cabinNumber = cabinNumber;
         this.available = available;
         isDoctor = true;
+        shifts = new ArrayList<>();
     }
 
     public String getDoctorID() {
@@ -110,9 +115,16 @@ public class Doctor extends Staff implements Serializable {
 
     public void addShift(LocalTime start, LocalTime end){
         shifts.add(new Pair<>(start, end));
+        shifts.sort(new PairCompare());
     }
     public void removeShift(LocalTime start, LocalTime end){
         shifts.remove(new Pair<>(start, end));
     }
 
+    static class PairCompare implements Comparator<Pair<LocalTime, LocalTime>>{
+        @Override
+        public int compare(Pair<LocalTime, LocalTime> o1, Pair<LocalTime, LocalTime> o2) {
+            return (o1.getKey().compareTo(o2.getKey())==0)?(o1.getValue().compareTo(o2.getValue())):(o1.getKey().compareTo(o2.getKey()));
+        }
+    }
 }
