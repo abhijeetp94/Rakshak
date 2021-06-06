@@ -24,12 +24,13 @@ public class Doctor extends Staff implements Serializable {
         this.doctorID = userUID;
         isDoctor = true;
         title = "Doctor";
+        speciality = "Doctor";
         shifts = new ArrayList<>();
 
     }
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances) {
-        super(username, password, firstname, lastname, email, userUID, staffID, "Doctor", payManager, attendances, false, false);
+        super(username, password, firstname, lastname, email, userUID, staffID, title, payManager, attendances, false, false);
         isDoctor = true;
         shifts = new ArrayList<>();
     }
@@ -126,5 +127,10 @@ public class Doctor extends Staff implements Serializable {
         public int compare(Pair<LocalTime, LocalTime> o1, Pair<LocalTime, LocalTime> o2) {
             return (o1.getKey().compareTo(o2.getKey())==0)?(o1.getValue().compareTo(o2.getValue())):(o1.getKey().compareTo(o2.getKey()));
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Dr. " + firstname + " " + lastname + " (" + speciality + ") ";
     }
 }

@@ -17,10 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.AnchorPane;
-import request.GetDoctorsRequest;
-import request.Request;
-import request.Response;
-import request.TimeTableRequest;
+import request.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +59,39 @@ public class UserDashboardController {
                             Optional<ButtonType> result = dialog.showAndWait();
                             if(result.isPresent() && result.get().equals(ButtonType.OK)){
                                 Schedule schedule = controller.processData();
-
+                                AppointmentRequest appointmentRequest = new AppointmentRequest(schedule);
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Main.oosTracker.writeObject(appointmentRequest);
+                                            Response response1 = (Response) Main.oisTracker.readObject();
+                                            if(response1.getResponseCode().equals(ResponseCode.SUCCESS)){
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                                        alert.setTitle("Appointment");
+                                                        alert.setHeaderText("Appointment requested, we will get back to you soon.");
+                                                        alert.showAndWait();
+                                                    }
+                                                });
+                                            } else {
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                                        alert.setTitle("Appointment");
+                                                        alert.setHeaderText("Appointment is already booked, we will get back to you soon.");
+                                                        alert.showAndWait();
+                                                    }
+                                                });
+                                            }
+                                        } catch (IOException | ClassNotFoundException ie){
+                                            ie.printStackTrace();
+                                        }
+                                    }
+                                }).start();
                             }
                         }
                     });

@@ -35,15 +35,20 @@ public class ScheduleHandler {
         Main.schedules.add(schedule);
         return true;
     }
-    public static boolean approveSchedule(Schedule schedule){
+    public static boolean approveSchedule(List<Schedule> schedules){
         int id=-1;
-        if(Main.schedules.contains(schedule)){
-            id = Main.schedules.indexOf(schedule);
+        for(Schedule schedule: schedules){
+            schedule.setApproved(true);
+            if(Main.schedules.contains(schedule)){
+                id = Main.schedules.indexOf(schedule);
+            }
+            if(id!=-1){
+                Main.schedules.set(id, schedule);
+            }else {
+                Main.schedules.add(schedule);
+            }
+
         }
-        if(id!=-1){
-            Main.schedules.set(id, schedule);
-        }
-        Main.schedules.add(schedule);
 
         return true;
     }

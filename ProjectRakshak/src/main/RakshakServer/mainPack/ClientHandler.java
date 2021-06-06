@@ -193,7 +193,19 @@ public class ClientHandler implements Runnable {
                     }
                 } else if(request.getRequestCode().equals(RequestCode.APPOINTMENT_REQUEST)){
                     AppointmentRequest appointmentRequest = (AppointmentRequest) request;
-                    
+                    Boolean res = ScheduleHandler.addSchedule(appointmentRequest.getSchedule());
+                    Response response = null;
+                    if(res){
+                        response = new Response("APPOINTMENT_RESPONSE", ResponseCode.SUCCESS, null);
+                    }
+                    else {
+                        response = new Response("APPOINTMENT_RESPONSE", ResponseCode.FAILURE, null);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 
