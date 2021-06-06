@@ -31,7 +31,7 @@ public class UserDashboardController {
     @FXML
     private AnchorPane primaryPane;
 
-    public void onAppointmentButtonClicked(){
+    public void onAppointmentButtonClicked(){                                       // if the book appointment button is clicked
         GetDoctorsRequest request = new GetDoctorsRequest();
         new Thread(new Runnable() {
             @Override
@@ -67,6 +67,7 @@ public class UserDashboardController {
         }).start();
     }
 
+    // when toolbar buttons are pressed
     public void onToolBarButtonClicked(ActionEvent ae){
         if(ae.getSource().equals(logoutButton)){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
