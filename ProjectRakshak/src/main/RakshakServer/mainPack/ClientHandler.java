@@ -4,8 +4,8 @@ import authenticationHandlers.LoginHandler;
 import authenticationHandlers.SignupHandler;
 import constants.RequestCode;
 import constants.ResponseCode;
-//import data.Staff;
 import data.*;
+import generalHandlers.DataHandler;
 import generalHandlers.ScheduleHandler;
 import request.*;
 
@@ -175,8 +175,25 @@ public class ClientHandler implements Runnable {
                 } else if(request.getRequestCode().equals(RequestCode.GET_DOCTORS_REQUEST)){
                     GetDoctorsRequest doctorsRequest = (GetDoctorsRequest) request;
                     if(doctorsRequest.getDoctorID().equalsIgnoreCase("ALL")){
-                        
+                        List<Doctor> docList = DataHandler.getDoctors();
+                        Response response = new Response("ALL_DOCTORS_RESPONSE", ResponseCode.SUCCESS, docList);
+                        try {
+                            oosTracker.writeObject(response);
+                        } catch (IOException ie){
+                            ie.printStackTrace();
+                        }
+                    } else {
+                        Doctor doc = DataHandler.getDoctor(doctorsRequest.getDoctorID());
+                        Response response = new Response("SINGLE_DOCTOR_RESPONSE", ResponseCode.SUCCESS, doc);
+                        try {
+                            oosTracker.writeObject(response);
+                        } catch (IOException ie){
+                            ie.printStackTrace();
+                        }
                     }
+                } else if(request.getRequestCode().equals(RequestCode.APPOINTMENT_REQUEST)){
+                    AppointmentRequest appointmentRequest = (AppointmentRequest) request;
+                    
                 }
 
 

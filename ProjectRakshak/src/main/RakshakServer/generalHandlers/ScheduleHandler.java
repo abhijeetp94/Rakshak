@@ -27,4 +27,26 @@ public class ScheduleHandler {
         }
         return result;
     }
+
+    public static boolean addSchedule(Schedule schedule){
+        if(Main.schedules.contains(schedule)){
+            return false;
+        }
+        Main.schedules.add(schedule);
+        return true;
+    }
+    public static boolean approveSchedule(Schedule schedule){
+        int id=-1;
+        if(Main.schedules.contains(schedule)){
+            id = Main.schedules.indexOf(schedule);
+        }
+        if(id!=-1){
+            Main.schedules.set(id, schedule);
+        }
+        Main.schedules.add(schedule);
+
+        return true;
+    }
+
+
 }
