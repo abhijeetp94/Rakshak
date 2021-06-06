@@ -3,6 +3,7 @@ package controllers;
 import MainApp.Main;
 import constants.ResponseCode;
 import data.Doctor;
+import data.Schedule;
 import data.TimeTable;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -24,6 +25,7 @@ import request.TimeTableRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDashboardController {
     @FXML
@@ -57,6 +59,11 @@ public class UserDashboardController {
                             }
                             BookAppointmentController controller = loader.getController();
                             controller.setData(doctors);
+                            Optional<ButtonType> result = dialog.showAndWait();
+                            if(result.isPresent() && result.get().equals(ButtonType.OK)){
+                                Schedule schedule = controller.processData();
+
+                            }
                         }
                     });
 

@@ -172,6 +172,11 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if(request.getRequestCode().equals(RequestCode.GET_DOCTORS_REQUEST)){
+                    GetDoctorsRequest doctorsRequest = (GetDoctorsRequest) request;
+                    if(doctorsRequest.getDoctorID().equalsIgnoreCase("ALL")){
+                        
+                    }
                 }
 
 

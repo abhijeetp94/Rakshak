@@ -43,4 +43,9 @@ public class BookAppointmentController {
 
     }
 
+    public Schedule processData(){
+
+        return null;
+    }
+
 }
