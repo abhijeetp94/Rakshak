@@ -11,12 +11,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.Pair;
 import request.GetDoctorsRequest;
 import request.Request;
 import request.Response;
 import request.ScheduleRequest;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class BookAppointmentController {
     @FXML
     private ComboBox<Doctor> doctorBox;
     @FXML
-    private ComboBox<Integer> slotBox;
+    private ComboBox<Pair<LocalTime, LocalTime>> slotBox;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -35,15 +38,27 @@ public class BookAppointmentController {
 
     public void initialize(){
         statusLabel.setVisible(false);
+        doctorBox.setVisibleRowCount(5);
+
+    }
+
+    public void onDoctorSelected(){
+        if(!doctorBox.getSelectionModel().isEmpty()){
+            ObservableList<Pair<LocalTime, LocalTime>> slots = FXCollections.observableArrayList();
+            slots.setAll(doctorBox.getSelectionModel().getSelectedItem().getShifts());
+            slotBox.setItems(slots);
+        }
     }
 
     public void setData(List<Doctor> doctors){
         this.doctors.setAll(doctors);
         doctorBox.setItems(this.doctors);
-
     }
 
+
+
     public Schedule processData(){
+        Doctor doc = doctorBox.getSelectionModel().getSelectedItem();
 
         return null;
     }
