@@ -56,7 +56,7 @@ public class UserDashboardController {
                                 ie.printStackTrace();
                             }
                             BookAppointmentController controller = loader.getController();
-
+                            controller.setData(doctors);
                         }
                     });
 

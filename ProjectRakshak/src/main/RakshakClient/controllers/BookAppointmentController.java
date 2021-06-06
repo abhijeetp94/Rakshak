@@ -2,6 +2,9 @@ package controllers;
 
 import MainApp.Main;
 import data.Doctor;
+import data.Schedule;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -11,8 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import request.GetDoctorsRequest;
 import request.Request;
 import request.Response;
+import request.ScheduleRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookAppointmentController {
     @FXML
@@ -25,28 +31,16 @@ public class BookAppointmentController {
     private DatePicker datePicker;
     @FXML
     private Label statusLabel;
-    private ObservableList<Doctor> doctors;
+    private ObservableList<Doctor> doctors = FXCollections.observableArrayList();
 
     public void initialize(){
         statusLabel.setVisible(false);
     }
 
-    public void setData(){
-        GetDoctorsRequest request = new GetDoctorsRequest();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Main.oosTracker.writeObject(request);
-                    Response response = (Response) Main.oisTracker.readObject();
+    public void setData(List<Doctor> doctors){
+        this.doctors.setAll(doctors);
+        doctorBox.setItems(this.doctors);
 
-
-
-                } catch (IOException | ClassNotFoundException ie){
-                    ie.printStackTrace();
-                }
-            }
-        }).start();
     }
 
 }
