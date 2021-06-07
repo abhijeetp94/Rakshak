@@ -63,8 +63,7 @@ public class BookAppointmentController {
         Pair<LocalTime, LocalTime> slot = slotBox.getSelectionModel().getSelectedItem();
         int shift = doc.getShifts().indexOf(slot) + 1;
         LocalDate date = datePicker.getValue();
-        Schedule schedule = new Schedule(date, shift, doc, Main.user);
-        return schedule;
+        return new Schedule(date, shift, doc, Main.user);
     }
 
 }
