@@ -19,7 +19,7 @@ public class ScheduleHandler {
     public static List<Schedule> getSchedule(String doctorID) {
         List<Schedule> result = new ArrayList<>();
         for(Schedule schedule: Main.schedules){
-            if(schedule.getDoctor().getDoctorID().equals(doctorID)){
+            if(schedule!=null && schedule.getDoctor().getDoctorID().equals(doctorID)){
                 if(schedule.getTheDate().equals(LocalDate.now())){
                     result.add(schedule);
                 }

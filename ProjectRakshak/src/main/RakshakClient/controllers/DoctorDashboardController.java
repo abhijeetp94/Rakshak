@@ -57,6 +57,7 @@ public class DoctorDashboardController {
                             public void run() {
                                 scheduleList = FXCollections.observableArrayList();
                                 scheduleList.setAll(schedules);
+
                                 scheduleTable.setItems(scheduleList);
                             }
                         });
