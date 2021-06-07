@@ -19,6 +19,7 @@ import request.ScheduleRequest;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,11 @@ public class BookAppointmentController {
 
     public Schedule processData(){
         Doctor doc = doctorBox.getSelectionModel().getSelectedItem();
-
-        return null;
+        Pair<LocalTime, LocalTime> slot = slotBox.getSelectionModel().getSelectedItem();
+        int shift = doc.getShifts().indexOf(slot) + 1;
+        LocalDate date = datePicker.getValue();
+        Schedule schedule = new Schedule(date, shift, doc, Main.user);
+        return schedule;
     }
 
 }
