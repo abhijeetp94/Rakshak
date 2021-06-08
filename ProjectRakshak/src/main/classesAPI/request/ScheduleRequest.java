@@ -15,6 +15,11 @@ public class ScheduleRequest extends Request implements Serializable {
         requestCode = RequestCode.SCHEDULE_REQUEST;
     }
 
+    public ScheduleRequest() {
+        this.doctorID = "ALL";
+        requestCode = RequestCode.SCHEDULE_REQUEST;
+    }
+
     public String getDoctorID() {
         return doctorID;
     }

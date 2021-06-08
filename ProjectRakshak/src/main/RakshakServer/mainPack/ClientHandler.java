@@ -164,14 +164,19 @@ public class ClientHandler implements Runnable {
                     }
                 } else if(request.getRequestCode().equals(RequestCode.SCHEDULE_REQUEST)){
                     System.out.println("Schedule Get Request.");
-                    List<Schedule> schedules = ScheduleHandler.getSchedule(((ScheduleRequest) request).getDoctorID());
+                    List<Schedule> schedules;
+                    if(((ScheduleRequest) request).getDoctorID().equalsIgnoreCase("ALL")){
+                        schedules = ScheduleHandler.getSchedule();
+                    }else{
+                        schedules = ScheduleHandler.getSchedule(((ScheduleRequest) request).getDoctorID());
+                    }
                     for (Schedule schedule: schedules){
                         System.out.println("=================================================================");
                         System.out.println(schedule.getUser().getUsername());
                     }
 
                     Response response;
-                    response = new Response("GET_DOCTOR_SCHEDULE", ResponseCode.SUCCESS, schedules);
+                    response = new Response("GET_SCHEDULE", ResponseCode.SUCCESS, schedules);
                     try {
                         oosTracker.writeObject(response);
                     } catch (IOException ie){

@@ -16,6 +16,10 @@ public class ScheduleHandler {
         return Main.timeTableList;
     }
 
+    public static List<Schedule> getSchedule() {
+        return Main.schedules;
+    }
+
     public static List<Schedule> getSchedule(String doctorID) {
         List<Schedule> result = new ArrayList<>();
         for(Schedule schedule: Main.schedules){
