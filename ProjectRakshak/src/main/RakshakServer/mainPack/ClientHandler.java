@@ -162,19 +162,14 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
-                } else if(request.getRequestCode().equals(RequestCode.SCHEDULE_REQUEST)){
+                } else if(request.getRequestCode().equals(RequestCode.SCHEDULE_REQUEST)){        // to get schedules and schedule related to doctor
                     System.out.println("Schedule Get Request.");
                     List<Schedule> schedules;
-                    if(((ScheduleRequest) request).getDoctorID().equalsIgnoreCase("ALL")){
+                    if(((ScheduleRequest) request).getDoctorID().equalsIgnoreCase("ALL")){ // if request demands all doctors
                         schedules = ScheduleHandler.getSchedule();
                     }else{
-                        schedules = ScheduleHandler.getSchedule(((ScheduleRequest) request).getDoctorID());
+                        schedules = ScheduleHandler.getSchedule(((ScheduleRequest) request).getDoctorID()); // if doctor id is provided for specific doctor
                     }
-                    for (Schedule schedule: schedules){
-                        System.out.println("=================================================================");
-                        System.out.println(schedule.getUser().getUsername());
-                    }
-
                     Response response;
                     response = new Response("GET_SCHEDULE", ResponseCode.SUCCESS, schedules);
                     try {

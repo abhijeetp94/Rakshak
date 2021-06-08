@@ -31,14 +31,20 @@ public class UserDashboardController {
     private AnchorPane primaryPane;
 
     public void onAppointmentButtonClicked(){                                       // if the book appointment button is clicked
-        GetDoctorsRequest request = new GetDoctorsRequest();
+        GetDoctorsRequest request1 = new GetDoctorsRequest();
+        ScheduleRequest request2 = new ScheduleRequest();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Main.oosTracker.writeObject(request);
+                    Main.oosTracker.writeObject(request1);
                     Response response = (Response) Main.oisTracker.readObject();
                     ArrayList<Doctor> doctors = (ArrayList<Doctor>) response.getResponseObject();
+
+                    Main.oosTracker.writeObject(request2);
+                    Response response1 = (Response) Main.oisTracker.readObject();
+                    ArrayList<Schedule> schedule = (ArrayList<Schedule>) response1.getResponseObject();
+
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -55,7 +61,7 @@ public class UserDashboardController {
                                 ie.printStackTrace();
                             }
                             BookAppointmentController controller = loader.getController();
-                            controller.setData(doctors);
+                            controller.setData(doctors, schedule);
                             Optional<ButtonType> result = dialog.showAndWait();
                             if(result.isPresent() && result.get().equals(ButtonType.OK)){
                                 Schedule schedule = controller.processData();

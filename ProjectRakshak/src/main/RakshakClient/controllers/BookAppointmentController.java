@@ -36,6 +36,7 @@ public class BookAppointmentController {
     @FXML
     private Label statusLabel;
     private ObservableList<Doctor> doctors = FXCollections.observableArrayList();
+    private ObservableList<Schedule> schedules = FXCollections.observableArrayList();
 
     public void initialize(){
         statusLabel.setVisible(false);
@@ -51,8 +52,9 @@ public class BookAppointmentController {
         }
     }
 
-    public void setData(List<Doctor> doctors){
+    public void setData(List<Doctor> doctors, List<Schedule> schedules){
         this.doctors.setAll(doctors);
+        this.schedules.setAll(schedules);
         doctorBox.setItems(this.doctors);
     }
 

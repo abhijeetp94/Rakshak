@@ -49,7 +49,7 @@ public class Main {
         doctors.get(0).addShift(LocalTime.of(14, 30), LocalTime.of(18, 30));
 
         schedules = new ArrayList<>();
-        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(0)));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(0), true));
         schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(1)));
         schedules.add(new Schedule(LocalDate.now().plusDays(1), 2, doctors.get(0), users.get(1)));
 
