@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.ApproveAppointmentController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="600.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ApproveAppointmentController">
+   <children>
+      <ToolBar prefHeight="35.0" prefWidth="814.0">
+        <items>
+          <Button mnemonicParsing="false" text="Approve All" />
+            <Button mnemonicParsing="false" text="Approve Selected" />
+        </items>
+      </ToolBar>
+      <TableView layoutX="14.0" layoutY="75.0" prefHeight="476.0" prefWidth="426.0">
+        <columns>
+          <TableColumn prefWidth="189.59998166561127" text="Doctor" />
+          <TableColumn prefWidth="76.0" text="Slot" />
+            <TableColumn prefWidth="158.4000244140625" text="User" />
+        </columns>
+      </TableView>
+      <TableView layoutX="459.0" layoutY="75.0" prefHeight="476.0" prefWidth="342.0">
+        <columns>
+          <TableColumn prefWidth="203.19992065429688" text="Doctor" />
+          <TableColumn prefWidth="48.79998779296875" text="Slot" />
+            <TableColumn prefWidth="89.60009765625" text="Patient Count" />
+        </columns>
+      </TableView>
+   </children>
 </AnchorPane>
