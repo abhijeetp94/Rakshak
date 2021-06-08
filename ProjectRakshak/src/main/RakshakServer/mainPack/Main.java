@@ -50,6 +50,11 @@ public class Main {
 
         schedules = new ArrayList<>();
         schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(0), true));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(1), true));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(2), true));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(0)));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(1)));
+        schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(2)));
         schedules.add(new Schedule(LocalDate.now(), 1, doctors.get(0), users.get(1)));
         schedules.add(new Schedule(LocalDate.now().plusDays(1), 2, doctors.get(0), users.get(1)));
 

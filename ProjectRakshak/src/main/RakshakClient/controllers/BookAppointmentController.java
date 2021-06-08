@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import request.GetDoctorsRequest;
 import request.Request;
@@ -41,7 +42,7 @@ public class BookAppointmentController {
     public void initialize(){
         statusLabel.setVisible(false);
         doctorBox.setVisibleRowCount(5);
-
+        datePicker.setDisable(true);
     }
 
     public void onDoctorSelected(){
@@ -52,12 +53,38 @@ public class BookAppointmentController {
         }
     }
 
+    public void onSlotSelected(){
+        if(!slotBox.getSelectionModel().isEmpty()){
+            datePicker.setDisable(false);
+        }
+    }
+    public void onDateSelected(){
+        int cnt = 0;
+        if((datePicker.getValue()!=null)){
+            for(Schedule schedule : schedules){
+                Doctor doc = doctorBox.getSelectionModel().getSelectedItem();
+                Pair<LocalTime, LocalTime> slot = slotBox.getSelectionModel().getSelectedItem();
+                int shift = doc.getShifts().indexOf(slot) + 1;
+                if(schedule.getDoctor().equals(doc) && schedule.getShift().equals(shift)){
+                    cnt++;
+                }
+            }
+        }
+        if(cnt>5){
+            statusLabel.setText("Already more than 5 patients are booked for this slot today, it will take some time, if it is urgent contact at the reception.");
+            statusLabel.setTextFill(Color.RED);
+            statusLabel.setWrapText(true);
+            statusLabel.setVisible(true);
+        } else {
+            statusLabel.setVisible(false);
+        }
+    }
+
     public void setData(List<Doctor> doctors, List<Schedule> schedules){
         this.doctors.setAll(doctors);
         this.schedules.setAll(schedules);
         doctorBox.setItems(this.doctors);
     }
-
 
 
     public Schedule processData(){
