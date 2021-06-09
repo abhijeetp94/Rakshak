@@ -4,23 +4,20 @@ import MainApp.Main;
 import data.Doctor;
 import data.Schedule;
 import data.TimeTable;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import request.GetDoctorsRequest;
-import request.Response;
-import request.ScheduleRequest;
-import request.TimeTableRequest;
+import request.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class ReceptionDashboardController {
     @FXML
@@ -79,7 +76,54 @@ public class ReceptionDashboardController {
         } catch (IOException ie){
             ie.printStackTrace();
         }
-        
+        ApproveAppointmentController controller = loader.getController();
+        controller.setData(schedules);
+        Optional<ButtonType> result = dialog.showAndWait();
+        if(result.isPresent() && (result.get().getText().equals("Approve") || result.get().getText().equals("ApproveAll"))){
+            List<Schedule> toApprove;
+            if(result.get().getText().equals("Approve")){
+                toApprove = controller.approveAppointments();
+            }
+            else{
+                toApprove = controller.getAllAppointments();
+            }
+            AppointmentApproveRequest request = new AppointmentApproveRequest(toApprove);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Main.oosTracker.writeObject(request);
+                        Response response = (Response) Main.oisTracker.readObject();
+                        boolean res = (Boolean) response.getResponseObject();
+                        if(res){
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Appointment");
+                                    alert.setHeaderText("Appointments Approved.");
+                                    alert.showAndWait();
+                                }
+                            });
+                        }
+                        else {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Appointment");
+                                    alert.setHeaderText("Some error occurred.");
+                                    alert.showAndWait();
+                                }
+                            });
+                        }
+                    } catch (IOException | ClassNotFoundException ie){
+                        ie.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+
     }
 
     public void onToolBarButtonClicked(ActionEvent ae){

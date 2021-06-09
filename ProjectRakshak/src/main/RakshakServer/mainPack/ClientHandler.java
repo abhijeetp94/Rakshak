@@ -211,6 +211,16 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if(request.getRequestCode().equals(RequestCode.APPROVE_APPOINTMENT_REQUEST)){
+                    AppointmentApproveRequest approveRequest = (AppointmentApproveRequest) request;
+                    boolean res = ScheduleHandler.approveSchedule(approveRequest.getSchedules());
+                    Response response = new Response("APPROVED_APPOINTMENTS", ResponseCode.SUCCESS, res);
+
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 

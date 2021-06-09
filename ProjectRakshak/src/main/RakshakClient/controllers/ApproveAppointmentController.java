@@ -64,15 +64,22 @@ public class ApproveAppointmentController {
             String data = cellData.getValue().getUser().getFullName();
             return new SimpleStringProperty(data);
         });
-        scheduleList.setAll(schedules);
+        for(Schedule a: schedules){
+            if(!a.getApproved()){
+                scheduleList.add(a);
+            }
+        }
         scheduleTableView.setItems(scheduleList);
 
 
     }
 
-    public boolean approveAppointments(){
-
-        return false;
+    public List<Schedule> approveAppointments(){
+        ObservableList<Schedule> sc = scheduleTableView.getSelectionModel().getSelectedItems();
+        return sc;
+    }
+    public List<Schedule> getAllAppointments(){
+        return scheduleList;
     }
 
 }
