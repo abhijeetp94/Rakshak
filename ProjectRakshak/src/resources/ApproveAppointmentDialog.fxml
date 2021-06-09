@@ -9,12 +9,12 @@
 
 <AnchorPane fx:id="primaryPane" prefHeight="600.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ApproveAppointmentController">
    <children>
-      <ToolBar prefHeight="35.0" prefWidth="814.0">
-        <items>
-          <Button fx:id="approveAllButton" mnemonicParsing="false" text="Approve All" />
-            <Button fx:id="approveSelectedButton" mnemonicParsing="false" text="Approve Selected" />
-        </items>
-      </ToolBar>
+<!--      <ToolBar prefHeight="35.0" prefWidth="814.0">-->
+<!--        <items>-->
+<!--          <Button fx:id="approveAllButton" mnemonicParsing="false" text="Approve All" />-->
+<!--            <Button fx:id="approveSelectedButton" mnemonicParsing="false" text="Approve Selected" />-->
+<!--        </items>-->
+<!--      </ToolBar>-->
       <TableView fx:id="scheduleTableView" layoutX="14.0" layoutY="75.0" prefHeight="476.0" prefWidth="426.0">
         <columns>
           <TableColumn fx:id="doctorColumn" prefWidth="189.59998166561127" text="Doctor" />

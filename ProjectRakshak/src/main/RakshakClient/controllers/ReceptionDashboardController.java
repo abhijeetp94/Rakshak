@@ -8,7 +8,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.AnchorPane;
 import request.GetDoctorsRequest;
 import request.Response;
@@ -62,7 +66,20 @@ public class ReceptionDashboardController {
     }
 
     public void approveAppointmentsClicked(){
-
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.initOwner(primaryPane.getScene().getWindow());
+        dialog.setTitle("Approve Appointments");
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType("ApproveAll", ButtonBar.ButtonData.OK_DONE));
+        dialog.getDialogPane().getButtonTypes().add(new ButtonType("Approve", ButtonBar.ButtonData.OK_DONE));
+        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/ApproveAppointmentDialog.fxml"));
+        try {
+            dialog.getDialogPane().setContent(loader.load());
+        } catch (IOException ie){
+            ie.printStackTrace();
+        }
+        
     }
 
     public void onToolBarButtonClicked(ActionEvent ae){
