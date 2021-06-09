@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ApproveAppointmentController">
+<AnchorPane fx:id="primaryPane" prefHeight="600.0" prefWidth="814.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ApproveAppointmentController">
    <children>
       <ToolBar prefHeight="35.0" prefWidth="814.0">
         <items>
-          <Button mnemonicParsing="false" text="Approve All" />
-            <Button mnemonicParsing="false" text="Approve Selected" />
+          <Button fx:id="approveAllButton" mnemonicParsing="false" text="Approve All" />
+            <Button fx:id="approveSelectedButton" mnemonicParsing="false" text="Approve Selected" />
         </items>
       </ToolBar>
-      <TableView layoutX="14.0" layoutY="75.0" prefHeight="476.0" prefWidth="426.0">
+      <TableView fx:id="scheduleTableView" layoutX="14.0" layoutY="75.0" prefHeight="476.0" prefWidth="426.0">
         <columns>
-          <TableColumn prefWidth="189.59998166561127" text="Doctor" />
-          <TableColumn prefWidth="76.0" text="Slot" />
-            <TableColumn prefWidth="158.4000244140625" text="User" />
+          <TableColumn fx:id="doctorColumn" prefWidth="189.59998166561127" text="Doctor" />
+          <TableColumn fx:id="slotColumn" prefWidth="76.0" text="Slot" />
+            <TableColumn fx:id="userColumn" prefWidth="158.4000244140625" text="User" />
         </columns>
       </TableView>
-      <TableView layoutX="459.0" layoutY="75.0" prefHeight="476.0" prefWidth="342.0">
+      <TableView fx:id="doctorTableView" layoutX="459.0" layoutY="75.0" prefHeight="476.0" prefWidth="342.0">
         <columns>
-          <TableColumn prefWidth="203.19992065429688" text="Doctor" />
-          <TableColumn prefWidth="48.79998779296875" text="Slot" />
-            <TableColumn prefWidth="89.60009765625" text="Patient Count" />
+          <TableColumn fx:id="doctorDetailsColumn" prefWidth="203.19992065429688" text="Doctor" />
+          <TableColumn fx:id="shiftColumn" prefWidth="48.79998779296875" text="Slot" />
+            <TableColumn fx:id="patientColumn" prefWidth="89.60009765625" text="Patient Count" />
         </columns>
       </TableView>
    </children>
