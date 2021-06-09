@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import request.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -65,6 +66,13 @@ public class UserDashboardController {
                             Optional<ButtonType> result = dialog.showAndWait();
                             if(result.isPresent() && result.get().equals(ButtonType.OK)){
                                 Schedule schedule = controller.processData();
+                                if((!schedule.getDoctor().isAvailable()) && schedule.getTheDate().equals(LocalDate.now())){
+                                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                    alert.setTitle("Appointment");
+                                    alert.setHeaderText("Selected Doctor Not Available Today.");
+                                    alert.showAndWait();
+                                    return;
+                                }
                                 AppointmentRequest appointmentRequest = new AppointmentRequest(schedule);
                                 new Thread(new Runnable() {
                                     @Override

@@ -60,15 +60,22 @@ public class BookAppointmentController {
     }
     public void onDateSelected(){
         int cnt = 0;
+        Doctor doc = doctorBox.getSelectionModel().getSelectedItem();
+        Pair<LocalTime, LocalTime> slot = slotBox.getSelectionModel().getSelectedItem();
+        int shift = doc.getShifts().indexOf(slot) + 1;
         if((datePicker.getValue()!=null)){
             for(Schedule schedule : schedules){
-                Doctor doc = doctorBox.getSelectionModel().getSelectedItem();
-                Pair<LocalTime, LocalTime> slot = slotBox.getSelectionModel().getSelectedItem();
-                int shift = doc.getShifts().indexOf(slot) + 1;
                 if(schedule.getDoctor().equals(doc) && schedule.getShift().equals(shift)){
                     cnt++;
                 }
             }
+        }
+        if(!doc.isAvailable()){
+            statusLabel.setText("Doctor Not Available Today.");
+            statusLabel.setTextFill(Color.RED);
+            statusLabel.setWrapText(true);
+            statusLabel.setVisible(true);
+            return;
         }
         if(cnt>5){
             statusLabel.setText("Already more than 5 patients are booked for this slot today, it will take some time, if it is urgent contact at the reception.");
