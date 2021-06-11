@@ -221,6 +221,20 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if (request.getRequestCode().equals(RequestCode.EDIT_STAFF_DETAILS_REQUEST)){
+                    EditStaffDetailsRequest detailsRequest = (EditStaffDetailsRequest) request;
+                    boolean res = DataHandler.updateStaff(detailsRequest.getStaff());
+                    Response response;
+                    if(res)
+                        response = new Response("EDIT_STAFF_DETAILS", ResponseCode.SUCCESS, null);
+                    else
+                        response = new Response("EDIT_STAFF_DETAILS", ResponseCode.FAILURE, null);
+
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 

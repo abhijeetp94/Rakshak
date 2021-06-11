@@ -21,6 +21,21 @@ public class DataHandler {
         return staff;
     }
 
+    public static boolean updateStaff(Staff staff){
+        int id = -1;
+        for (Staff s:
+              Main.staff) {
+            if(s.getStaffID().equals(staff.getStaffID())){
+                id = Main.staff.indexOf(s);
+            }
+        }
+        if(id == -1){
+            return false;
+        }
+        Main.staff.set(id, staff);
+        return true;
+    }
+
     public static List<Staff> getStaff(){
         return Main.staff;
     }
