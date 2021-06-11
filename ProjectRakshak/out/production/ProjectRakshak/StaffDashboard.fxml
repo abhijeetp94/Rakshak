@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -29,7 +29,24 @@
         </HBox>
       <Label fx:id="dateLabel" layoutX="218.0" layoutY="51.0" text="Date" />
       <Button fx:id="attendanceButton" layoutX="337.0" layoutY="47.0" mnemonicParsing="false" text="Mark Attendance" />
-      <ListView fx:id="staffScheduleList" layoutX="150.0" layoutY="138.0" prefHeight="351.0" prefWidth="530.0" />
+      <TextField fx:id="staffIDField" layoutX="143.0" layoutY="262.0" />
+      <TextField fx:id="nameField" layoutX="143.0" layoutY="330.0" />
+      <TextField fx:id="emailField" layoutX="143.0" layoutY="401.0" />
+      <TextField fx:id="uidField" layoutX="143.0" layoutY="474.0" />
+      <TextField fx:id="titleField" layoutX="466.0" layoutY="330.0" />
+      <TextField fx:id="qrCodeField" layoutX="466.0" layoutY="401.0" />
+      <TextField fx:id="dateJoinedField" layoutX="466.0" layoutY="262.0" />
+      <Label layoutX="60.0" layoutY="266.0" text="StaffID" />
+      <Label layoutX="60.0" layoutY="405.0" text="Email" />
+      <Label layoutX="60.0" layoutY="334.0" text="Name" />
+      <Label layoutX="60.0" layoutY="478.0" text="UID Number" />
+      <Label layoutX="377.0" layoutY="266.0" text="Date Joined" />
+      <Label layoutX="377.0" layoutY="334.0" text="Title" />
+      <Label layoutX="377.0" layoutY="405.0" text="QR Code" />
+      <Button layoutX="244.0" layoutY="544.0" mnemonicParsing="false" text="Edit Details" />
+      <Button layoutX="356.0" layoutY="544.0" mnemonicParsing="false" text="Change Password" />
+      <TextField fx:id="phoneNumberField" layoutX="460.0" layoutY="483.0" />
+      <Label layoutX="377.0" layoutY="487.0" text="Phone Number" />
     </children>
 
 </AnchorPane>

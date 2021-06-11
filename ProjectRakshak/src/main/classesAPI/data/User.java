@@ -115,4 +115,12 @@ public class User implements Serializable {
     public void setDateJoined(LocalDate dateJoined) {
         this.dateJoined = dateJoined;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }
