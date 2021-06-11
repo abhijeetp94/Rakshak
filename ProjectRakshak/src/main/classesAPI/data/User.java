@@ -1,6 +1,7 @@
 package data;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 public class User implements Serializable {
@@ -11,6 +12,7 @@ public class User implements Serializable {
     protected String email;
     protected String userUID;
     protected String fullName;
+    protected LocalDate dateJoined;
 
     public User(String username, String password, String firstname, String lastname, String email, String userUID) {
         this.username = username;
@@ -19,6 +21,7 @@ public class User implements Serializable {
         this.lastname = lastname;
         this.email = email;
         this.userUID = userUID;
+        this.dateJoined = LocalDate.now();
         fullName = firstname + " " + lastname;
     }
 
@@ -91,5 +94,13 @@ public class User implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public LocalDate getDateJoined() {
+        return dateJoined;
+    }
+
+    public void setDateJoined(LocalDate dateJoined) {
+        this.dateJoined = dateJoined;
     }
 }

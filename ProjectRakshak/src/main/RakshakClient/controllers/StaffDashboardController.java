@@ -16,8 +16,7 @@ public class StaffDashboardController {
     private Button exitButton, logoutButton, goBackButton, accountButton, scheduleButton, payManagerButton, contactButton, attendanceButton;
     @FXML
     private Label dateLabel;
-    @FXML
-    private ListView staffScheduleList;
+
 
     public void onToolBarButtonClicked(ActionEvent ae){
         if(ae.getSource().equals(logoutButton)){
