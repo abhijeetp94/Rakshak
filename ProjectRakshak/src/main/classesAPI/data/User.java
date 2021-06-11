@@ -12,6 +12,7 @@ public class User implements Serializable {
     protected String email;
     protected String userUID;
     protected String fullName;
+    protected String phone;
     protected LocalDate dateJoined;
 
     public User(String username, String password, String firstname, String lastname, String email, String userUID) {
@@ -22,6 +23,17 @@ public class User implements Serializable {
         this.email = email;
         this.userUID = userUID;
         this.dateJoined = LocalDate.now();
+        fullName = firstname + " " + lastname;
+    }
+    public User(String username, String password, String firstname, String lastname, String email, String userUID, String phone) {
+        this.username = username;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.userUID = userUID;
+        this.dateJoined = LocalDate.now();
+        this.phone = phone;
         fullName = firstname + " " + lastname;
     }
 

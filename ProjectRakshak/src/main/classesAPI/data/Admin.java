@@ -13,6 +13,10 @@ public class Admin extends Staff implements Serializable {
         super(username, password, firstname, lastname, email, userUID, staffID, title, payManager, attendances, true, false);
     }
 
+    public Admin(String username, String password, String firstname, String lastname, String email, String userUID, String phone, String staffID, String QRCode, String title, PayManager payManager, List<Attendance> attendances) {
+        super(username, password, firstname, lastname, email, userUID, phone, staffID, QRCode, title, payManager, attendances, false);
+    }
+
     public Admin(String username, String password, String firstname, String lastname, String email, String userUID) {
         super(username, password, firstname, lastname, email, userUID);
         this.title = "Admin";

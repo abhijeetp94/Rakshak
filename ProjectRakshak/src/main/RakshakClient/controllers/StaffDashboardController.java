@@ -13,10 +13,11 @@ public class StaffDashboardController {
     @FXML
     private AnchorPane primaryPane;
     @FXML
-    private Button exitButton, logoutButton, goBackButton, accountButton, scheduleButton, payManagerButton, contactButton, attendanceButton;
+    private Button changePasswordButton, editDetailsButton, exitButton, logoutButton, goBackButton, accountButton, scheduleButton, payManagerButton, contactButton, attendanceButton;
     @FXML
     private Label dateLabel;
-
+    @FXML
+    private TextField nameField, staffIDField, uidField, emailField, qrCodeField, titleField, phoneNumberField;
 
     public void onToolBarButtonClicked(ActionEvent ae){
         if(ae.getSource().equals(logoutButton)){

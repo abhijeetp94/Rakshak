@@ -47,6 +47,17 @@ public class Doctor extends Staff implements Serializable {
         shifts = new ArrayList<>();
     }
 
+    public Doctor(String username, String password, String firstname, String lastname, String email, String userUID, String phone, String staffID, String QRCode, String title, PayManager payManager, List<Attendance> attendances, boolean isReceptionist, String doctorID, String speciality, String[] degrees, Integer experience, Integer cabinNumber) {
+        super(username, password, firstname, lastname, email, userUID, phone, staffID, QRCode, title, payManager, attendances, isReceptionist);
+        this.doctorID = doctorID;
+        this.speciality = speciality;
+        this.degrees = degrees;
+        this.experience = experience;
+        this.cabinNumber = cabinNumber;
+        isDoctor = true;
+        shifts = new ArrayList<>();
+    }
+
     public String getDoctorID() {
         return doctorID;
     }
