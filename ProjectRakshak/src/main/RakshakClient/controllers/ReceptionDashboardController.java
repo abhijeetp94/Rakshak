@@ -1,6 +1,7 @@
 package controllers;
 
 import MainApp.Main;
+import data.Bed;
 import data.Doctor;
 import data.Schedule;
 import data.TimeTable;
@@ -23,11 +24,12 @@ public class ReceptionDashboardController {
     @FXML
     private AnchorPane primaryPane;
     @FXML
-    private Button approveAppointmentButton, allotBedButton, bloodBankApproveButton, plasmaBankApproveButton, checkAvailabilityButton, medicalStoreButton, registerUserButton, scheduleButton, staffDashboardButton, logoutButton, exitButton;
+    private Button approveAppointmentButton, allotBedButton, bedAvailabilityButton, bloodBankApproveButton, plasmaBankApproveButton, checkAvailabilityButton, medicalStoreButton, registerUserButton, scheduleButton, staffDashboardButton, logoutButton, exitButton;
 
     private ObservableList<Schedule> schedules;
     private ObservableList<TimeTable> timeTables;
     private ObservableList<Doctor> doctors;
+    private ObservableList<Bed> beds;
 
     public void initialize(){
         ScheduleRequest request1 = new ScheduleRequest();
@@ -123,6 +125,10 @@ public class ReceptionDashboardController {
                 }
             }).start();
         }
+
+    }
+    public void onBedAvailabilityClicked(){
+        BedAvailabilityRequest request = new BedAvailabilityRequest();
 
     }
 

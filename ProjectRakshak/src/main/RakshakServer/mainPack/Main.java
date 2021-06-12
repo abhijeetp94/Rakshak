@@ -22,6 +22,7 @@ public class Main {
     public static List<Admin> admins;
     public static List<Schedule> schedules;
     public static List<TimeTable> timeTableList;
+    public static List<Bed> beds;
     // ========================================
 
     public static void main(String[] args) {
@@ -62,6 +63,7 @@ public class Main {
         timeTableList.add(new TimeTable(doctors.get(0), LocalDate.now(), LocalTime.of(14, 30), LocalTime.of(18, 30)));
         timeTableList.add(new TimeTable(doctors.get(0), LocalDate.now(), LocalTime.of(9, 30), LocalTime.of(12, 30)));
 
+        beds = new ArrayList<>();
         // =====================================================================================================================================
 
 
