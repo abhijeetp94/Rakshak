@@ -1,6 +1,7 @@
 package controllers;
 
 import MainApp.Main;
+import constants.ResponseCode;
 import data.Bed;
 import data.Doctor;
 import data.Schedule;
@@ -129,7 +130,40 @@ public class ReceptionDashboardController {
     }
     public void onBedAvailabilityClicked(){
         BedAvailabilityRequest request = new BedAvailabilityRequest();
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Main.oosTracker.writeObject(request);
+                    Response response = (Response) Main.oisTracker.readObject();
+                    if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                        ArrayList<Bed> bedList = (ArrayList<Bed>) response.getResponseObject();
+                        beds.setAll(bedList);
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Dialog<ButtonType> dialog = new Dialog<>();
+                                dialog.setTitle("Bed Availability");
+                                dialog.initOwner(primaryPane.getScene().getWindow());
+                                FXMLLoader loader = new FXMLLoader();
+                                loader.setLocation(getClass().getResource("/BedViewDialog.fxml"));
+                                try {
+                                    dialog.getDialogPane().setContent(loader.load());
+                                } catch (IOException ie){
+                                    ie.printStackTrace();
+                                }
+                                dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                                BedViewController controller = loader.getController();
+                                controller.setData(beds);
+                                dialog.showAndWait();
+                            }
+                        });
+                    }
+                } catch (IOException | ClassNotFoundException ie){
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     public void onToolBarButtonClicked(ActionEvent ae){

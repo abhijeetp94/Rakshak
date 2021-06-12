@@ -12,6 +12,15 @@ public class Bed implements Serializable {
     private Doctor prescribingDoctor; // doctor who prescribed the bed
     private boolean occupied;
 
+    public Bed(int bedNumber, int cabinNumber, BedType type, boolean occupied) {
+        this.bedNumber = bedNumber;
+        this.cabinNumber = cabinNumber;
+        this.type = type;
+        this.occupied = occupied;
+        patient = null;
+        prescribingDoctor = null;
+    }
+
     public Bed(int bedNumber, int cabinNumber, BedType type, User patient, Doctor prescribingDoctor) {
         this.bedNumber = bedNumber;
         this.cabinNumber = cabinNumber;
