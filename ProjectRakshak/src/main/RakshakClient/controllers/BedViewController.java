@@ -2,6 +2,7 @@ package controllers;
 
 import data.Bed;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
@@ -18,7 +19,7 @@ public class BedViewController {
     @FXML
     private TableColumn<Bed, String> bedTypeColumn, patientColumn, availableColumn, cabinNumberColumn, bedNumberColumn;
 
-    private ObservableList<Bed> beds;
+    private ObservableList<Bed> beds = FXCollections.observableArrayList();
 
     public void initialize(){
         bedTableView.getColumns().setAll(bedNumberColumn, bedTypeColumn, cabinNumberColumn, availableColumn, patientColumn);
@@ -32,7 +33,12 @@ public class BedViewController {
             }
             return new SimpleStringProperty("Available");
         });
-        patientColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPatient().getFullName()));
+        patientColumn.setCellValueFactory(cellData -> {
+            if(cellData.getValue().getPatient() == null){
+                return new SimpleStringProperty("None");
+            }
+            return new SimpleStringProperty(cellData.getValue().getPatient().getFullName());
+        });
     }
 
     public void setData(List<Bed> bedList){

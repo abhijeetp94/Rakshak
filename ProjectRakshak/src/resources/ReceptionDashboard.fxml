@@ -32,6 +32,6 @@
             <Font name="Times New Roman" size="28.0" />
          </font>
       </Label>
-      <Button fx:id="bedAvailabilityButton" layoutX="477.0" layoutY="351.0" mnemonicParsing="false" text="Check Bed Availability" />
+      <Button fx:id="bedAvailabilityButton" onAction="#onBedAvailabilityClicked" layoutX="477.0" layoutY="351.0" mnemonicParsing="false" text="Check Bed Availability" />
    </children>
 </AnchorPane>

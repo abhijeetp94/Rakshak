@@ -30,7 +30,7 @@ public class ReceptionDashboardController {
     private ObservableList<Schedule> schedules;
     private ObservableList<TimeTable> timeTables;
     private ObservableList<Doctor> doctors;
-    private ObservableList<Bed> beds;
+    private ObservableList<Bed> beds = FXCollections.observableArrayList();
 
     public void initialize(){
         ScheduleRequest request1 = new ScheduleRequest();

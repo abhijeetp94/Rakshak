@@ -43,8 +43,9 @@
       <Label layoutX="377.0" layoutY="266.0" text="Date Joined" />
       <Label layoutX="377.0" layoutY="334.0" text="Title" />
       <Label layoutX="377.0" layoutY="405.0" text="QR Code" />
-      <Button layoutX="244.0" layoutY="544.0" mnemonicParsing="false" text="Edit Details" />
-      <Button layoutX="356.0" layoutY="544.0" mnemonicParsing="false" text="Change Password" />
+      <Button fx:id="editDetailsButton" onAction="#onEditClicked" layoutX="244.0" layoutY="544.0" mnemonicParsing="false" text="Edit Details" />
+        <Button fx:id="doneButton" onAction="#onDoneClicked" layoutX="244.0" layoutY="544.0" mnemonicParsing="false" text="Done" />
+      <Button fx:id="changePasswordButton" layoutX="356.0" layoutY="544.0" mnemonicParsing="false" text="Change Password" />
       <TextField fx:id="phoneNumberField" layoutX="460.0" layoutY="483.0" />
       <Label layoutX="377.0" layoutY="487.0" text="Phone Number" />
     </children>

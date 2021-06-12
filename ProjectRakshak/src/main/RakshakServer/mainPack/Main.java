@@ -1,5 +1,6 @@
 package mainPack;
 
+import constants.BedType;
 import data.*;
 
 import java.io.IOException;
@@ -64,6 +65,7 @@ public class Main {
         timeTableList.add(new TimeTable(doctors.get(0), LocalDate.now(), LocalTime.of(9, 30), LocalTime.of(12, 30)));
 
         beds = new ArrayList<>();
+        beds.add(new Bed(1, 31, BedType.GENERAL, users.get(2), doctors.get(0)));
         // =====================================================================================================================================
 
 

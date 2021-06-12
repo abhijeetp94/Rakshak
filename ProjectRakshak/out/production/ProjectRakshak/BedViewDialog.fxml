@@ -12,7 +12,7 @@
           <TableColumn fx:id="bedTypeColumn" editable="false" prefWidth="152.0" text="Bed Type" />
           <TableColumn fx:id="cabinNumberColumn" editable="false" prefWidth="104.79998779296875" text="Cabin Number" />
             <TableColumn fx:id="availableColumn" editable="false" prefWidth="105.60003662109375" text="Availability" />
-            <TableColumn fx:id="patientColumn" editable="false" prefWidth="203.99997558593748" text="Prescribed to" />
+            <TableColumn fx:id="patientColumn" editable="false" prefWidth="203.99997558593748" text="Occupied By" />
         </columns>
       </TableView>
    </children>
