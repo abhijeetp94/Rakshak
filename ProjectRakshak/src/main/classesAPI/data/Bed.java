@@ -5,8 +5,8 @@ import constants.BedType;
 import java.io.Serializable;
 
 public class Bed implements Serializable {
-    private int bedNumber;
-    private int cabinNumber;
+    private Integer bedNumber;
+    private Integer cabinNumber;
     private BedType type;
     private User patient;
     private Doctor prescribingDoctor; // doctor who prescribed the bed
@@ -55,7 +55,7 @@ public class Bed implements Serializable {
         this.prescribingDoctor = prescribingDoctor;
     }
 
-    public int getCabinNumber() {
+    public Integer getCabinNumber() {
         return cabinNumber;
     }
 
@@ -71,7 +71,7 @@ public class Bed implements Serializable {
         this.type = type;
     }
 
-    public int getBedNumber() {
+    public Integer getBedNumber() {
         return bedNumber;
     }
 
