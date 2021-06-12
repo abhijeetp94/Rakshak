@@ -235,6 +235,17 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if(request.getRequestCode().equals(RequestCode.BED_AVAILABILITY_REQUEST)){
+                    BedAvailabilityRequest bedRequest = (BedAvailabilityRequest) request;
+                    List<Bed> beds = DataHandler.getBeds();
+                    Response response;
+                    response = new Response("BES_AVAILABILITY", ResponseCode.SUCCESS, beds);
+
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 

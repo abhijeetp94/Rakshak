@@ -1,5 +1,6 @@
 package generalHandlers;
 
+import data.Bed;
 import data.Doctor;
 import data.Staff;
 import mainPack.Main;
@@ -34,6 +35,10 @@ public class DataHandler {
         }
         Main.staff.set(id, staff);
         return true;
+    }
+
+    public static List<Bed> getBeds(){
+        return Main.beds;
     }
 
     public static List<Staff> getStaff(){
