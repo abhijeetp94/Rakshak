@@ -3,6 +3,7 @@ package generalHandlers;
 import data.Bed;
 import data.Doctor;
 import data.Staff;
+import data.User;
 import mainPack.Main;
 
 import java.util.List;
@@ -20,6 +21,11 @@ public class DataHandler {
     public static Staff getStaffMember(String staffID){
         Staff staff = Staff.findStaff(Main.staff, staffID);
         return staff;
+    }
+
+    public static User getUser(String userID){
+        User user = User.findUser(Main.users, userID);
+        return user;
     }
 
     public static boolean updateStaff(Staff staff){

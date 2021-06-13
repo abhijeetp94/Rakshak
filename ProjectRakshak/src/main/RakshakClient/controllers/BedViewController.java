@@ -5,8 +5,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.List;
@@ -39,6 +39,14 @@ public class BedViewController {
             }
             return new SimpleStringProperty(cellData.getValue().getPatient().getFullName());
         });
+    }
+
+    public void bookBedClicked(){
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Book Bed");
+        dialog.initOwner(primaryPane.getScene().getWindow());
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(""));
     }
 
     public void setData(List<Bed> bedList){
