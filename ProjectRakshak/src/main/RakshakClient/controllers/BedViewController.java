@@ -88,7 +88,7 @@ public class BedViewController {
                             alert.setTitle("Bed Not Booked");
                             alert.setHeaderText("The bed has not booked please try again.");
                         }
-                        
+
                     } catch (IOException | ClassNotFoundException ie){
                         ie.printStackTrace();
                     }

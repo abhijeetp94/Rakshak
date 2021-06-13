@@ -246,7 +246,32 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if(request.getRequestCode().equals(RequestCode.GET_USER_REQUEST)){
+                    GetUserRequest doctorsRequest = (GetUserRequest) request;
+                    User user = DataHandler.getUser(doctorsRequest.getUserID());
+                    Response response = new Response("SINGLE_USER_RESPONSE", ResponseCode.SUCCESS, user);
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
+                } else if(request.getRequestCode().equals(RequestCode.BOOK_BED_REQUEST)){
+                    BookBedRequest bedRequest = (BookBedRequest) request;
+                    boolean res = DataHandler.bookBed(bedRequest);
+                    Response response;
+                    if(res){
+                        response = new Response("BOOK_BED_RESPONSE", ResponseCode.SUCCESS, null);
+                    }
+                    else {
+                        response = new Response("BOOK_BED_RESPONSE", ResponseCode.FAILURE, null);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
+
 
 
 

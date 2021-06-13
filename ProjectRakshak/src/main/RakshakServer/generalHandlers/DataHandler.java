@@ -5,6 +5,7 @@ import data.Doctor;
 import data.Staff;
 import data.User;
 import mainPack.Main;
+import request.BookBedRequest;
 
 import java.util.List;
 
@@ -40,6 +41,10 @@ public class DataHandler {
             return false;
         }
         Main.staff.set(id, staff);
+        return true;
+    }
+
+    public static boolean bookBed(BookBedRequest request){
         return true;
     }
 
