@@ -98,7 +98,7 @@ public class AdminRegisterController {
             cabinNumber = Integer.parseInt(cabinNumberField.getText().trim());
             password = passwordFieldDoctor.getText().trim();
             rePassword = rePasswordFieldDoctor.getText().trim();
-            PayManager payManager = new PayManager(gradePay, baseSalary, 0, new ArrayList<>());
+            PayManager payManager = new PayManager(gradePay, baseSalary, 0);
             Doctor doctor = new Doctor(staffID, password, firstname, lastname, email, uid, staffID, payManager, new ArrayList<>(), title,  education, Integer.parseInt(experience[0]), cabinNumber, true);
             request = new StaffRegisterRequest(doctor, StaffType.DOCTOR);
 
