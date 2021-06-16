@@ -2,12 +2,14 @@ package mainPack;
 
 import constants.BedType;
 import data.*;
+import utils.DBConnection;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
 
 public class Main {
     public static ServerSocket serverSocket;
-
+    public static Connection connection;
     // ========================================
     public static List<User> users;
     public static List<Staff> staff;
@@ -67,6 +69,10 @@ public class Main {
         beds = new ArrayList<>();
         beds.add(new Bed(1, 31, BedType.GENERAL, users.get(2), doctors.get(0)));
         // =====================================================================================================================================
+
+        DBConnection dbConnection = new DBConnection();
+        connection = dbConnection.getConnection();
+        System.out.println("Database connected: " + connection.toString());
 
 
         try{
