@@ -1,12 +1,14 @@
 package data;
 
+import javafx.util.Pair;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class TimeTable implements Serializable {
     private Doctor doctor;
-    private LocalDate date;
+    private LocalDate date = LocalDate.now();
     private LocalTime shiftStartTime;
     private LocalTime shiftEndTime;
     private String doctorName;
@@ -21,6 +23,13 @@ public class TimeTable implements Serializable {
         doctorName = doctor.getFullName();
         available = doctor.isAvailable();
         fieldName = doctor.getTitle();
+    }
+
+    public TimeTable(Doctor doctor, LocalTime shiftStartTime, LocalTime shiftEndTime) {
+        this.doctor = doctor;
+        this.shiftStartTime = shiftStartTime;
+        this.shiftEndTime = shiftEndTime;
+        doctor.addShift(shiftStartTime, shiftEndTime);
     }
 
     public Doctor getDoctor() {

@@ -15,8 +15,7 @@ public class Doctor extends Staff implements Serializable {
     protected String[] degrees;
     protected Integer experience;
     protected Integer cabinNumber;
-    private List<Pair<LocalTime, LocalTime>> shifts;
-
+    private List<Pair<LocalTime, LocalTime>> shifts;    // in a separate database mark at the doctor with foreign key
     boolean available = true;              // to check if the doctor is available for today or not (Maintain by admins)
 
     public Doctor(String username, String password, String firstname, String lastname, String email, String userUID) {
@@ -133,7 +132,7 @@ public class Doctor extends Staff implements Serializable {
         shifts.remove(new Pair<>(start, end));
     }
 
-    static class PairCompare implements Comparator<Pair<LocalTime, LocalTime>>{
+    public static class PairCompare implements Comparator<Pair<LocalTime, LocalTime>>{
         @Override
         public int compare(Pair<LocalTime, LocalTime> o1, Pair<LocalTime, LocalTime> o2) {
             return (o1.getKey().compareTo(o2.getKey())==0)?(o1.getValue().compareTo(o2.getValue())):(o1.getKey().compareTo(o2.getKey()));

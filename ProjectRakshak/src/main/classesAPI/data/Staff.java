@@ -10,7 +10,7 @@ public class Staff extends User implements Serializable {
     protected String staffID;
     protected String QRCode;
     protected String title;
-    protected PayManager payManager;
+    protected List<PayManager> payManager = new ArrayList<>();;
     protected List<Attendance> attendances;
     boolean isAdmin = false;
     boolean isDoctor = false;
@@ -20,7 +20,8 @@ public class Staff extends User implements Serializable {
         super(username, password, firstname, lastname, email, userUID);
         this.staffID = username;
 //        this.QRCode = ""
-        this.payManager = new PayManager(0.0, 0.0, 0, new ArrayList<>());
+//        this.payManager =
+        this.payManager.add(new PayManager(0.0, 0.0, 0, new ArrayList<>()));
         this.attendances = new ArrayList<>();
         this.isAdmin = false;
         this.title = "Staff";
@@ -29,7 +30,7 @@ public class Staff extends User implements Serializable {
     public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String staffID, String title, PayManager payManager, List<Attendance> attendances, boolean isAdmin, boolean isReceptionist) {
         super(username, password, firstname, lastname, email, userUID);
         this.staffID = staffID;
-        this.payManager = payManager;
+        this.payManager.add(payManager);
         this.attendances = attendances;
         this.isAdmin = isAdmin;
         this.title = title;
@@ -41,7 +42,7 @@ public class Staff extends User implements Serializable {
         this.staffID = staffID;
         this.QRCode = QRCode;
         this.title = title;
-        this.payManager = payManager;
+        this.payManager.add(payManager);
         this.attendances = attendances;
         this.isReceptionist = isReceptionist;
     }
@@ -66,12 +67,12 @@ public class Staff extends User implements Serializable {
         this.QRCode = QRCode;
     }
 
-    public PayManager getPayManager() {
+    public List<PayManager> getPayManager() {
         return payManager;
     }
 
     public void setPayManager(PayManager payManager) {
-        this.payManager = payManager;
+        this.payManager.add(payManager);
     }
 
     public List<Attendance> getAttendances() {
