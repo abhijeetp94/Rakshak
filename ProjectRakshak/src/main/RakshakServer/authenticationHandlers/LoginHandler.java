@@ -39,7 +39,7 @@ public class LoginHandler {
                             result.getString("email"),
                             result.getString("userid"),
                             result.getString("phone"),
-                            LocalDate.parse(result.getString("joining_date")));
+                            LocalDate.parse(result.getString("joining_date"), Main.formatter));
                 }
             }
 
@@ -108,7 +108,7 @@ public class LoginHandler {
             ResultSet attendResult = attendStatement.executeQuery();
             ArrayList<Attendance> attendances = new ArrayList<>();
             while (attendResult.next()){
-                Attendance attendance = new Attendance(LocalDate.parse(attendResult.getString("date")), (attendResult.getInt("isPresent")!=0));
+                Attendance attendance = new Attendance(LocalDate.parse(attendResult.getString("date"), Main.formatter), (attendResult.getInt("isPresent")!=0));
                 attendances.add(attendance);
             }
 
@@ -121,7 +121,7 @@ public class LoginHandler {
                         result2.getString("email"),
                         result2.getString("userid"),
                         result2.getString("phone"),
-                        LocalDate.parse(result.getString("joining_date")),
+                        LocalDate.parse(result.getString("joining_date"), Main.formatter),
                         result.getString("staffID"),
                         result.getString("qr_code"),
                         result.getString("title"),

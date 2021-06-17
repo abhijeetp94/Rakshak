@@ -10,14 +10,17 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static ServerSocket serverSocket;
     public static Connection connection;
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     // ========================================
     public static List<User> users;
     public static List<Staff> staff;
