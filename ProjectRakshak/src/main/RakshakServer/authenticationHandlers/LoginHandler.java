@@ -1,14 +1,22 @@
 package authenticationHandlers;
 
-import data.Admin;
-import data.Doctor;
-import data.Staff;
-import data.User;
+import data.*;
 import mainPack.Main;
 import request.AdminLoginRequest;
 import request.DoctorLoginRequest;
 import request.LoginRequest;
 import request.StaffLoginRequest;
+import utils.Bonus;
+import utils.PayManager;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class LoginHandler {
     LoginRequest request;
@@ -17,23 +25,114 @@ public class LoginHandler {
         this.request = request;
     }
     public static User verifyUser(LoginRequest request){
-        for (User user: Main.users) {
-            if(user.getUsername().equals(request.getUsername()) || user.getUserUID().equals(request.getUsername())){
-                if (user.getPassword().equals(request.getPassword())){
+
+        String query = "SELECT * FROM users where userid = " + request.getUsername() + " OR username = " + request.getUsername();
+        try {
+            PreparedStatement statement = Main.connection.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                if(result.getString("password").equals(request.getPassword())){
+                    User user = new User(result.getString("username"),
+                            result.getString("password"),
+                            result.getString("firstname"),
+                            result.getString("lastname"),
+                            result.getString("email"),
+                            result.getString("userid"),
+                            result.getString("phone"),
+                            LocalDate.parse(result.getString("joining_date")));
+
                     return user;
                 }
             }
+
+            statement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
         }
         return null;
     }
 
     public static Staff verifyStaff(StaffLoginRequest request){
-        for (Staff staff: Main.staff){
-            if(staff.getStaffID().equals(request.getStaffID())){
-                if (staff.getPassword().equals(request.getPassword())){
-                    return staff;
-                }
+
+        return null;
+    }
+
+    // get staff from database
+    public static Staff retrieveStaff(String StaffID){
+
+        String staffQuery = "SELECT * FROM staff where staffID = " + StaffID;
+
+        try {
+            PreparedStatement statement = Main.connection.prepareStatement(staffQuery);
+            ResultSet result = statement.executeQuery();
+            if(!result.next()){
+                return null;
             }
+//            result.previous();
+            String userQuery = "SELECT * FROM users where _id = " + result.getInt("user");
+            String payQuery = "SELECT * FROM pay_managers where staff = " + result.getInt("_id");
+            PreparedStatement statement2 = Main.connection.prepareStatement(userQuery);
+            ResultSet result2 = statement2.executeQuery();
+            PreparedStatement statement3 = Main.connection.prepareStatement(payQuery);
+            ResultSet result3 = statement3.executeQuery();
+
+
+
+            Map<Integer, PayManager> payMap = new TreeMap<>();
+
+            // fill pay Manager data;
+            while (result3.next()){
+                PayManager payManager = new PayManager(result3.getDouble("grade_pay"),
+                        result3.getDouble("base_salary"), result3.getInt("paid_leaves"));
+                ArrayList<Bonus> bonuses = new ArrayList<>();
+                String bonusQuery = "SELECT * FROM bonuses where pay_manager = " + result;
+                PreparedStatement statement4 = Main.connection.prepareStatement(bonusQuery);
+                ResultSet result4 = statement4.executeQuery();
+
+                while (result4.next()){
+                    Bonus bonus = new Bonus(result4.getString("title"), result4.getDouble("amount"));
+                    bonuses.add(bonus);
+                }
+                payManager.setBonus(bonuses);
+                payMap.put(result3.getInt("month"), payManager);
+            }
+
+            // attendance queries
+            String attendQuery = "SELECT * FROM attendance where staff = " + result.getInt("_id");
+            PreparedStatement attendStatement = Main.connection.prepareStatement(attendQuery);
+            ResultSet attendResult = attendStatement.executeQuery();
+            ArrayList<Attendance> attendances = new ArrayList<>();
+            while (attendResult.next()){
+                Attendance attendance = new Attendance(LocalDate.parse(attendResult.getString("date")), (attendResult.getInt("isPresent")!=0));
+                attendances.add(attendance);
+            }
+
+            if(result2.next()){
+
+                    Staff staff = new Staff(result2.getString("username"),
+                            result2.getString("password"),
+                            result2.getString("firstname"),
+                            result2.getString("lastname"),
+                            result2.getString("email"),
+                            result2.getString("userid"),
+                            result2.getString("phone"),
+                            LocalDate.parse(result.getString("joining_date")),
+                            result.getString("staffID"),
+                            result.getString("qr_code"),
+                            result.getString("title"),
+                            payMap,
+                            attendances,
+                            result.getInt("isAdmin")!=0,
+                            result.getInt("isDoctor")!=0,
+                            result.getInt("isReceptionist")!=0);
+                    return staff;
+
+            }
+
+            statement2.close();
+            statement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
         }
         return null;
     }

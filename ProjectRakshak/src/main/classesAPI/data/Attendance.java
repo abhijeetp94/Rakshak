@@ -13,6 +13,11 @@ public class Attendance {
         this.present = present;
     }
 
+    public Attendance(LocalDate date, boolean present) {
+        this.date = date;
+        this.present = present;
+    }
+
     public LocalDate getDate() {
         return date;
     }
