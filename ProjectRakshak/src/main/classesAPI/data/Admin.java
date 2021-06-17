@@ -22,6 +22,9 @@ public class Admin extends Staff implements Serializable {
         this.title = "Admin";
         isAdmin = true;
     }
+    public Admin(Staff staff){
+        super(staff.getUsername(), staff.getPassword(), staff.getFirstname(), staff.getLastname(), staff.getEmail(), staff.getUserUID(), staff.getPhone(), staff.getDateJoined(), staff.getStaffID(), staff.getQRCode(), staff.getTitle(), staff.getPayManager(), staff.getAttendances(), staff.isAdmin(), staff.isDoctor(), staff.isReceptionist());
+    }
 
     public static Admin findAdmin(List<Admin> adminList, String staffID){    // to find a staff member in a list of staffs using only staffID as for every staff member the staffID would be unique
         for (Admin d:

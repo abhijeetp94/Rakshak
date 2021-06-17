@@ -1,6 +1,7 @@
 package authenticationHandlers;
 
 import data.*;
+import javafx.util.Pair;
 import mainPack.Main;
 import request.AdminLoginRequest;
 import request.DoctorLoginRequest;
@@ -13,10 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.time.LocalTime;
+import java.util.*;
 
 public class LoginHandler {
     LoginRequest request;
@@ -32,7 +31,8 @@ public class LoginHandler {
             ResultSet result = statement.executeQuery();
             if(result.next()){
                 if(result.getString("password").equals(request.getPassword())){
-                    User user = new User(result.getString("username"),
+
+                    return new User(result.getString("username"),
                             result.getString("password"),
                             result.getString("firstname"),
                             result.getString("lastname"),
@@ -40,8 +40,6 @@ public class LoginHandler {
                             result.getString("userid"),
                             result.getString("phone"),
                             LocalDate.parse(result.getString("joining_date")));
-
-                    return user;
                 }
             }
 
@@ -53,6 +51,13 @@ public class LoginHandler {
     }
 
     public static Staff verifyStaff(StaffLoginRequest request){
+        Staff staff = retrieveStaff(request.getStaffID());
+        if(staff == null)
+            return null;
+
+        if(staff.getPassword().equals(request.getPassword())){
+            return staff;
+        }
 
         return null;
     }
@@ -68,18 +73,17 @@ public class LoginHandler {
             if(!result.next()){
                 return null;
             }
-//            result.previous();
+
             String userQuery = "SELECT * FROM users where _id = " + result.getInt("user");
             String payQuery = "SELECT * FROM pay_managers where staff = " + result.getInt("_id");
-            PreparedStatement statement2 = Main.connection.prepareStatement(userQuery);
+            PreparedStatement statement2 = Main.connection.prepareStatement(userQuery);  // for user data
             ResultSet result2 = statement2.executeQuery();
-            PreparedStatement statement3 = Main.connection.prepareStatement(payQuery);
+            PreparedStatement statement3 = Main.connection.prepareStatement(payQuery); // for pay manager data
             ResultSet result3 = statement3.executeQuery();
 
 
 
             Map<Integer, PayManager> payMap = new TreeMap<>();
-
             // fill pay Manager data;
             while (result3.next()){
                 PayManager payManager = new PayManager(result3.getDouble("grade_pay"),
@@ -97,6 +101,7 @@ public class LoginHandler {
                 payMap.put(result3.getInt("month"), payManager);
             }
 
+
             // attendance queries
             String attendQuery = "SELECT * FROM attendance where staff = " + result.getInt("_id");
             PreparedStatement attendStatement = Main.connection.prepareStatement(attendQuery);
@@ -109,26 +114,27 @@ public class LoginHandler {
 
             if(result2.next()){
 
-                    Staff staff = new Staff(result2.getString("username"),
-                            result2.getString("password"),
-                            result2.getString("firstname"),
-                            result2.getString("lastname"),
-                            result2.getString("email"),
-                            result2.getString("userid"),
-                            result2.getString("phone"),
-                            LocalDate.parse(result.getString("joining_date")),
-                            result.getString("staffID"),
-                            result.getString("qr_code"),
-                            result.getString("title"),
-                            payMap,
-                            attendances,
-                            result.getInt("isAdmin")!=0,
-                            result.getInt("isDoctor")!=0,
-                            result.getInt("isReceptionist")!=0);
-                    return staff;
+                return new Staff(result2.getString("username"),
+                        result2.getString("password"),
+                        result2.getString("firstname"),
+                        result2.getString("lastname"),
+                        result2.getString("email"),
+                        result2.getString("userid"),
+                        result2.getString("phone"),
+                        LocalDate.parse(result.getString("joining_date")),
+                        result.getString("staffID"),
+                        result.getString("qr_code"),
+                        result.getString("title"),
+                        payMap,
+                        attendances,
+                        result.getInt("isAdmin")!=0,
+                        result.getInt("isDoctor")!=0,
+                        result.getInt("isReceptionist")!=0);
 
             }
 
+            attendStatement.close();
+            statement3.close();
             statement2.close();
             statement.close();
         } catch (SQLException se){
@@ -137,24 +143,69 @@ public class LoginHandler {
         return null;
     }
 
-    public static Staff verifyDoctor(DoctorLoginRequest request){
-        for (Doctor doctor: Main.doctors){
-            if(doctor.getStaffID().equals(request.getDoctorID())){
-                if (doctor.getPassword().equals(request.getPassword())){
-                    return doctor;
-                }
+    public static Doctor retrieveDoctor(String doctorID){
+        String docQuery = "SELECT * FROM doctors WHERE doctorID = " + doctorID;
+
+        try {
+            PreparedStatement docStatement = Main.connection.prepareStatement(docQuery);
+            ResultSet docResult = docStatement.executeQuery();
+            if(!docResult.next())
+                return null;
+
+            int staff_id = docResult.getInt("staff");
+            String staffQuery = "SELECT * FROM staff WHERE _id = " + staff_id;
+            PreparedStatement staffStatement = Main.connection.prepareStatement(staffQuery);
+            ResultSet staffResult = staffStatement.executeQuery();
+            if(!staffResult.next()){
+                return null;
             }
+            String staffID = staffResult.getString("staffID");
+            Staff staff = retrieveStaff(staffID);
+            String timeTableQuery = "SELECT * FROM time_table WHERE doctor = " + docResult.getInt("_id") + " ORDER BY shift ";
+            PreparedStatement timeTableStatement = Main.connection.prepareStatement(timeTableQuery);
+            ResultSet timeTableResult = timeTableStatement.executeQuery();
+            List<Pair<LocalTime, LocalTime>> shifts = new ArrayList<>();
+            while (timeTableResult.next()){
+                Pair<LocalTime, LocalTime> current = new Pair<>(LocalTime.parse(timeTableResult.getString("start_time")),
+                        LocalTime.parse(timeTableResult.getString("end_time")));
+                shifts.add(current);
+            }
+            if(staff != null){
+
+                return new Doctor(
+                        staff,
+                        docResult.getString("doctorID"),
+                        docResult.getString("speciality"),
+                        docResult.getString("degrees").split(","),
+                        docResult.getInt("experience"),
+                        docResult.getInt("cabin_number"),
+                        shifts,
+                        (docResult.getInt("available")!=0)
+                );
+            }
+
+
+        } catch (SQLException se){
+            se.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static Staff verifyDoctor(DoctorLoginRequest request){
+        Doctor doctor = retrieveDoctor(request.getDoctorID());
+        if(doctor != null){
+            if(doctor.getPassword().equals(request.getPassword()))
+                return doctor;
         }
         return null;
     }
 
     public static Admin verifyAdmin(AdminLoginRequest request){
-        for(Admin admin: Main.admins) {
-            if (admin.getStaffID().equals(request.getStaffID())) {
-                if (admin.getPassword().equals(request.getPassword()) && admin.isAdmin()) {
-                    return admin;
-                }
-            }
+        Staff staff = verifyStaff(new StaffLoginRequest(request.getStaffID(), request.getPassword()));
+        if(staff != null){
+            if(staff.isAdmin())
+                return new Admin(staff);
         }
         return null;
     }
