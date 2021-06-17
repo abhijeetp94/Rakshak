@@ -25,7 +25,7 @@ public class LoginHandler {
     }
     public static User verifyUser(LoginRequest request){
 
-        String query = "SELECT * FROM users where userid = " + request.getUsername() + " OR username = " + request.getUsername();
+        String query = "SELECT * FROM users where userid = '" + request.getUsername() + "' OR users.username = '" + request.getUsername() + "'";
         try {
             PreparedStatement statement = Main.connection.prepareStatement(query);
             ResultSet result = statement.executeQuery();
@@ -65,7 +65,7 @@ public class LoginHandler {
     // get staff from database
     public static Staff retrieveStaff(String StaffID){
 
-        String staffQuery = "SELECT * FROM staff where staffID = " + StaffID;
+        String staffQuery = "SELECT * FROM staff where staffID = '" + StaffID + "'";
 
         try {
             PreparedStatement statement = Main.connection.prepareStatement(staffQuery);
@@ -89,7 +89,7 @@ public class LoginHandler {
                 PayManager payManager = new PayManager(result3.getDouble("grade_pay"),
                         result3.getDouble("base_salary"), result3.getInt("paid_leaves"));
                 ArrayList<Bonus> bonuses = new ArrayList<>();
-                String bonusQuery = "SELECT * FROM bonuses where pay_manager = " + result;
+                String bonusQuery = "SELECT * FROM bonuses where pay_manager = " + result3.getInt("_id");
                 PreparedStatement statement4 = Main.connection.prepareStatement(bonusQuery);
                 ResultSet result4 = statement4.executeQuery();
 
@@ -144,7 +144,7 @@ public class LoginHandler {
     }
 
     public static Doctor retrieveDoctor(String doctorID){
-        String docQuery = "SELECT * FROM doctors WHERE doctorID = " + doctorID;
+        String docQuery = "SELECT * FROM doctors WHERE doctorID = '" + doctorID + "'";
 
         try {
             PreparedStatement docStatement = Main.connection.prepareStatement(docQuery);
@@ -166,8 +166,8 @@ public class LoginHandler {
             ResultSet timeTableResult = timeTableStatement.executeQuery();
             List<Pair<LocalTime, LocalTime>> shifts = new ArrayList<>();
             while (timeTableResult.next()){
-                Pair<LocalTime, LocalTime> current = new Pair<>(LocalTime.parse(timeTableResult.getString("start_time")),
-                        LocalTime.parse(timeTableResult.getString("end_time")));
+                Pair<LocalTime, LocalTime> current = new Pair<>(LocalTime.parse(timeTableResult.getString("start_time"), Main.timeFormatter),
+                        LocalTime.parse(timeTableResult.getString("end_time"), Main.timeFormatter));
                 shifts.add(current);
             }
             if(staff != null){

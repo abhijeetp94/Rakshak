@@ -21,6 +21,7 @@ public class Main {
     public static ServerSocket serverSocket;
     public static Connection connection;
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm");
     // ========================================
     public static List<User> users;
     public static List<Staff> staff;
