@@ -7,11 +7,48 @@ import data.User;
 import mainPack.Main;
 import request.BookBedRequest;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DataHandler {
     public static List<Doctor> getDoctors(){
         return Main.doctors;
+    }
+
+    public static boolean findUser(User user){
+        String searchQuery = "Select * from users where userid = ? or username = ?";
+        try {
+            PreparedStatement searchStatement = Main.connection.prepareStatement(searchQuery);
+            searchStatement.setString(1, user.getUserUID());
+            searchStatement.setString(2, user.getUsername());
+            ResultSet result = searchStatement.executeQuery();
+            if (result.next()){
+                return true;
+            }
+
+            searchStatement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean findStaff(String staffID){
+        String searchQuery = "Select * from staffs where staffID = ?";
+        try {
+            PreparedStatement searchStatement = Main.connection.prepareStatement(searchQuery);
+            searchStatement.setString(1, staffID);
+            ResultSet result = searchStatement.executeQuery();
+            if (result.next()){
+                return true;
+            }
+
+            searchStatement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
+        }
+        return false;
     }
 
     public static Doctor getDoctor(String doctorID){
