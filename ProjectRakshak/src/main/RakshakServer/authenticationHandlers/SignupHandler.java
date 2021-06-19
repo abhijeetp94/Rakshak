@@ -9,10 +9,12 @@ import generalHandlers.DataHandler;
 import mainPack.Main;
 import request.SignupRequest;
 import request.StaffRegisterRequest;
+import utils.PayManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Map;
 
 public class SignupHandler {
     SignupRequest signupRequest;
@@ -62,11 +64,14 @@ public class SignupHandler {
         String getUserIDQuery = "SELECT _id FROM users where userid = ?";
         String staffInsertQuery = "INSERT INTO staff (user, staffID, title, isAdmin, isDoctor, isReceptionist, qr_code) " +
                 "values (?, ?, ?, ?, ?, ?, ?)";
-        String getStaff = "SELECT _id FROM users where staffID = ?";
-        String insertPaymanagerQuery
+        String getStaffIDQuery = "SELECT _id FROM staffs where staffID = ?";
+        String insertPayManagerQuery = "INSERT INTO pay_managers (grade_pay, base_salary, staff, month, paid_leaves) " +
+                "values (?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement getUserStatement = Main.connection.prepareStatement(getUserIDQuery);
+            PreparedStatement getStaffStatement = Main.connection.prepareStatement(getStaffIDQuery);
+
             if(!foundUser){
                 PreparedStatement userInsertStatement = Main.connection.prepareStatement(userInsertQuery);
                 userInsertStatement.setString(1, staff.getUserUID());
@@ -97,6 +102,25 @@ public class SignupHandler {
             staffInsertStatement.setString(7, staff.getQRCode());
             staffInsertStatement.execute();
 
+            // get _id of the inserted staff
+            getStaffStatement.setString(1, staff.getStaffID());
+            ResultSet getStaffResult = getStaffStatement.executeQuery();
+            int staffID = 0;
+            if(getStaffResult.next()){
+                staffID = getStaffResult.getInt("_id");
+            }
+
+            // insert PayManager of the inserted staff;
+            for(Map.Entry<Integer, PayManager> entry: staff.getPayManager().entrySet()){
+                PreparedStatement payManagerStatement = Main.connection.prepareStatement(insertPayManagerQuery);
+                payManagerStatement.setDouble(1, entry.getValue().getBaseSalary());
+                payManagerStatement.setDouble(2, entry.getValue().getBaseSalary());
+                payManagerStatement.setInt(3, staffID);
+                payManagerStatement.setInt(4, entry.getKey());
+                payManagerStatement.setInt(5, entry.getValue().getPaidLeave());
+                payManagerStatement.execute();
+            }
+
         } catch (SQLException se){
             se.printStackTrace();
         }
@@ -108,6 +132,7 @@ public class SignupHandler {
             found = (DataHandler.findDoctor(doctor.getDoctorID()));
             if(found)
                 return false;
+
             Main.doctors.add((Doctor) request.getStaff());
         }
         return true;
