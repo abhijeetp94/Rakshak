@@ -64,7 +64,7 @@ public class SignupHandler {
         String getUserIDQuery = "SELECT _id FROM users where userid = ?";
         String staffInsertQuery = "INSERT INTO staff (user, staffID, title, isAdmin, isDoctor, isReceptionist, qr_code) " +
                 "values (?, ?, ?, ?, ?, ?, ?)";
-        String getStaffIDQuery = "SELECT _id FROM staffs where staffID = ?";
+        String getStaffIDQuery = "SELECT _id FROM staff where staffID = ?";
         String insertPayManagerQuery = "INSERT INTO pay_managers (grade_pay, base_salary, staff, month, paid_leaves) " +
                 "values (?, ?, ?, ?, ?)";
 
@@ -100,6 +100,10 @@ public class SignupHandler {
             staffInsertStatement.setString(3, staff.getTitle());
             staffInsertStatement.setInt(4, (staff.isAdmin()?1:0));
             staffInsertStatement.setInt(5, (staff.isDoctor()?1:0));
+
+            System.out.println(staff.isReceptionist());
+            System.out.println((staff.isReceptionist()?1:0));
+
             staffInsertStatement.setInt(6, (staff.isReceptionist()?1:0));
             staffInsertStatement.setString(7, staff.getQRCode());
             staffInsertStatement.execute();
@@ -121,6 +125,8 @@ public class SignupHandler {
                 payManagerStatement.setInt(4, entry.getKey());
                 payManagerStatement.setInt(5, entry.getValue().getPaidLeave());
                 payManagerStatement.execute();
+
+                payManagerStatement.close();
             }
 
             // doctor
@@ -141,10 +147,14 @@ public class SignupHandler {
                 doctorInsertStatement.setInt(7, doctor.isAvailable()?1:0);
                 doctorInsertStatement.execute();
 
-                
+                doctorInsertStatement.close();
+                getStaffStatement.close();
+                getUserStatement.close();
+                staffInsertStatement.close();
             }
         } catch (SQLException se){
             se.printStackTrace();
+            return false;
         }
 
 

@@ -49,6 +49,7 @@ public class AdminRegisterController {
         Double baseSalary, gradePay;
         boolean isReceptionist;
         String[] experience, education;
+        System.out.println(theTabPane.getSelectionModel().getSelectedItem().toString());
         StaffRegisterRequest request = null;
         if(theTabPane.getSelectionModel().getSelectedItem().equals(staffTab) && ae.getSource().equals(registerStaffButton)){
             uid = uidField.getText().trim();
@@ -58,6 +59,7 @@ public class AdminRegisterController {
             email = emailField.getText().trim();
             title = titleField.getText().trim();
             isReceptionist = receptionistBox.isSelected();
+            System.out.println(isReceptionist);
             gradePay = Double.parseDouble(gradePayField.getText().trim());
             baseSalary = Double.parseDouble(baseSalaryField.getText().trim());
             rePassword = rePasswordField.getText().trim();

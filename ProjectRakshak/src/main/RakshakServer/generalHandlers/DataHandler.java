@@ -35,7 +35,7 @@ public class DataHandler {
         return false;
     }
     public static boolean findStaff(String staffID){
-        String searchQuery = "Select * from staffs where staffID = ?";
+        String searchQuery = "Select * from staff where staffID = ?";
         try {
             PreparedStatement searchStatement = Main.connection.prepareStatement(searchQuery);
             searchStatement.setString(1, staffID);

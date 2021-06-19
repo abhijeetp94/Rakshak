@@ -12,9 +12,9 @@ public class Staff extends User implements Serializable {
     protected String title;
     protected Map<Integer, PayManager> payManager = new TreeMap<>();
     protected List<Attendance> attendances;
-    boolean isAdmin = false;
-    boolean isDoctor = false;
-    boolean isReceptionist = false;
+    boolean isAdmin;
+    boolean isDoctor;
+    boolean isReceptionist;
 
     public Staff(String username, String password, String firstname, String lastname, String email, String userUID) {
         super(username, password, firstname, lastname, email, userUID);
@@ -31,7 +31,7 @@ public class Staff extends User implements Serializable {
         this.attendances = attendances;
         this.isAdmin = isAdmin;
         this.title = title;
-
+        this.isReceptionist = isReceptionist;
     }
 
     public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String phone, String staffID, String QRCode, String title, PayManager payManager, List<Attendance> attendances, boolean isReceptionist) {
@@ -42,6 +42,7 @@ public class Staff extends User implements Serializable {
         this.payManager.put(LocalDate.now().getMonthValue(), payManager);
         this.attendances = attendances;
         this.isReceptionist = isReceptionist;
+        System.out.println("In constructor " + this.isReceptionist);
     }
 
     public Staff(String username, String password, String firstname, String lastname, String email, String userUID, String phone, LocalDate dateJoined, String staffID, String QRCode, String title, Map<Integer, PayManager> payManager, List<Attendance> attendances, boolean isAdmin, boolean isDoctor, boolean isReceptionist) {

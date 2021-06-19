@@ -121,7 +121,7 @@ public class LoginHandler {
                         result2.getString("email"),
                         result2.getString("userid"),
                         result2.getString("phone"),
-                        LocalDate.parse(result.getString("joining_date"), Main.formatter),
+                        LocalDate.parse(result2.getString("joining_date"), Main.formatter),
                         result.getString("staffID"),
                         result.getString("qr_code"),
                         result.getString("title"),
