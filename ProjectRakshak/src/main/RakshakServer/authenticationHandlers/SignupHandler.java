@@ -72,6 +72,7 @@ public class SignupHandler {
             PreparedStatement getUserStatement = Main.connection.prepareStatement(getUserIDQuery);
             PreparedStatement getStaffStatement = Main.connection.prepareStatement(getStaffIDQuery);
 
+            // insert in the user database first
             if(!foundUser){
                 PreparedStatement userInsertStatement = Main.connection.prepareStatement(userInsertQuery);
                 userInsertStatement.setString(1, staff.getUserUID());
@@ -86,6 +87,7 @@ public class SignupHandler {
                 userInsertStatement.close();
             }
 
+            // get ID of the inserted user
             getUserStatement.setString(1, staff.getUserUID());
             ResultSet getUserResult = getUserStatement.executeQuery();
             int userID = 0;
@@ -121,20 +123,31 @@ public class SignupHandler {
                 payManagerStatement.execute();
             }
 
+            // doctor
+            if(request.getType().equals(StaffType.DOCTOR)){
+                Doctor doctor = (Doctor) staff;
+                found = (DataHandler.findDoctor(doctor.getDoctorID()));
+                if(found)
+                    return false;
+                String doctorInsertQuery = "INSERT INTO doctors (staff, doctorID, speciality, degrees, experience, cabin_number, available) " +
+                        "values (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement doctorInsertStatement = Main.connection.prepareStatement(doctorInsertQuery);
+                doctorInsertStatement.setInt(1, staffID);
+                doctorInsertStatement.setString(2, doctor.getDoctorID());
+                doctorInsertStatement.setString(3, doctor.getSpeciality());
+                doctorInsertStatement.setString(4, String.join(",", doctor.getDegrees()));
+                doctorInsertStatement.setInt(5, doctor.getExperience());
+                doctorInsertStatement.setInt(6, doctor.getCabinNumber());
+                doctorInsertStatement.setInt(7, doctor.isAvailable()?1:0);
+                doctorInsertStatement.execute();
+
+                
+            }
         } catch (SQLException se){
             se.printStackTrace();
         }
 
 
-        // doctor
-        if(request.getType().equals(StaffType.DOCTOR)){
-            Doctor doctor = (Doctor) staff;
-            found = (DataHandler.findDoctor(doctor.getDoctorID()));
-            if(found)
-                return false;
-
-            Main.doctors.add((Doctor) request.getStaff());
-        }
         return true;
     }
 
