@@ -22,7 +22,7 @@ public class SignupHandler {
     }
 
     public static boolean verifySignup(SignupRequest request){
-        if (DataHandler.findUser(request.getUser())){
+        if (DataHandler.findUser(request.getUser().getUserUID(), request.getUser().getUsername())){
             return false;
         }
         User user = request.getUser();
@@ -49,32 +49,63 @@ public class SignupHandler {
 
 
     public static boolean verifyStaffRegistration(StaffRegisterRequest request){
-        boolean found=false;
+        boolean found;
 
+        // staff
+        Staff staff = request.getStaff();
+        found = (DataHandler.findStaff(request.getStaff().getStaffID()));
+        boolean foundUser = (DataHandler.findUser(request.getStaff().getUserUID(), request.getStaff().getUsername()));
+        if(found)
+            return false;
+        String userInsertQuery = "INSERT INTO users (userid, username, password, firstname, lastname, email, phone, joining_date) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        String getUserIDQuery = "SELECT _id FROM users where userid = ?";
+        String staffInsertQuery = "INSERT INTO staff (user, staffID, title, isAdmin, isDoctor, isReceptionist, qr_code) " +
+                "values (?, ?, ?, ?, ?, ?, ?)";
+        String getStaff = "SELECT _id FROM users where staffID = ?";
+        String insertPaymanagerQuery
 
+        try {
+            PreparedStatement getUserStatement = Main.connection.prepareStatement(getUserIDQuery);
+            if(!foundUser){
+                PreparedStatement userInsertStatement = Main.connection.prepareStatement(userInsertQuery);
+                userInsertStatement.setString(1, staff.getUserUID());
+                userInsertStatement.setString(2, staff.getUsername());
+                userInsertStatement.setString(3, staff.getPassword());
+                userInsertStatement.setString(4, staff.getFirstname());
+                userInsertStatement.setString(5, staff.getLastname());
+                userInsertStatement.setString(6, staff.getEmail());
+                userInsertStatement.setString(7, staff.getPhone());
+                userInsertStatement.setString(8, staff.getDateJoined().format(Main.formatter));
+                userInsertStatement.execute();
+                userInsertStatement.close();
+            }
 
-        if (request.getType().equals(StaffType.STAFF)){
-            found = (Staff.findStaff(Main.staff, request.getStaff().getStaffID())!=null);
-            if(found)
-                return false;
-            Main.staff.add(request.getStaff());
+            getUserStatement.setString(1, staff.getUserUID());
+            ResultSet getUserResult = getUserStatement.executeQuery();
+            int userID = 0;
+            if(getUserResult.next()){
+                userID = getUserResult.getInt("_id");
+            }
+            PreparedStatement staffInsertStatement = Main.connection.prepareStatement(staffInsertQuery);
+            staffInsertStatement.setInt(1, userID);
+            staffInsertStatement.setString(2, staff.getStaffID());
+            staffInsertStatement.setString(3, staff.getTitle());
+            staffInsertStatement.setInt(4, (staff.isAdmin()?1:0));
+            staffInsertStatement.setInt(5, (staff.isDoctor()?1:0));
+            staffInsertStatement.setInt(6, (staff.isReceptionist()?1:0));
+            staffInsertStatement.setString(7, staff.getQRCode());
+            staffInsertStatement.execute();
 
+        } catch (SQLException se){
+            se.printStackTrace();
         }
 
 
-
-        else if (request.getType().equals(StaffType.ADMIN)){
-            found = (Admin.findAdmin(Main.admins, request.getStaff().getStaffID())!=null);
-            if(found)
-                return false;
-            Main.admins.add((Admin) request.getStaff());
-
-        }
-
-
-
-        else if(request.getType().equals(StaffType.DOCTOR)){
-            found = (Staff.findStaff(Main.staff, request.getStaff().getStaffID())!=null);
+        // doctor
+        if(request.getType().equals(StaffType.DOCTOR)){
+            Doctor doctor = (Doctor) staff;
+            found = (DataHandler.findDoctor(doctor.getDoctorID()));
             if(found)
                 return false;
             Main.doctors.add((Doctor) request.getStaff());

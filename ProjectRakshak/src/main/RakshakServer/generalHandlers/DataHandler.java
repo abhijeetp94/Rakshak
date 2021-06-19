@@ -17,12 +17,12 @@ public class DataHandler {
         return Main.doctors;
     }
 
-    public static boolean findUser(User user){
+    public static boolean findUser(String userID, String username){
         String searchQuery = "Select * from users where userid = ? or username = ?";
         try {
             PreparedStatement searchStatement = Main.connection.prepareStatement(searchQuery);
-            searchStatement.setString(1, user.getUserUID());
-            searchStatement.setString(2, user.getUsername());
+            searchStatement.setString(1, userID);
+            searchStatement.setString(2, username);
             ResultSet result = searchStatement.executeQuery();
             if (result.next()){
                 return true;
@@ -42,6 +42,39 @@ public class DataHandler {
             ResultSet result = searchStatement.executeQuery();
             if (result.next()){
                 return true;
+            }
+
+            searchStatement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean findDoctor(String doctorID){
+        String searchQuery = "Select * from doctors where doctorID = ?";
+        try {
+            PreparedStatement searchStatement = Main.connection.prepareStatement(searchQuery);
+            searchStatement.setString(1, doctorID);
+            ResultSet result = searchStatement.executeQuery();
+            if (result.next()){
+                return true;
+            }
+
+            searchStatement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean findAdmin(String staffID){
+        String searchQuery = "Select * from staffs where staffID = ?";
+        try {
+            PreparedStatement searchStatement = Main.connection.prepareStatement(searchQuery);
+            searchStatement.setString(1, staffID);
+            ResultSet result = searchStatement.executeQuery();
+            if (result.next()){
+                if(result.getInt("isAdmin")!=0)
+                    return true;
             }
 
             searchStatement.close();
