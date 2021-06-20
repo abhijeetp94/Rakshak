@@ -1,6 +1,7 @@
 package generalHandlers;
 
 import authenticationHandlers.LoginHandler;
+import constants.BedType;
 import data.*;
 import javafx.util.Pair;
 import mainPack.Main;
@@ -56,6 +57,9 @@ public class DataHandler {
         }
         return false;
     }
+
+
+
     public static boolean findStaff(String staffID){
         String searchQuery = "Select * from staff where staffID = ?";
         try {
@@ -329,12 +333,102 @@ public class DataHandler {
         return null;
     }
 
+    public static Patient retrievePatient(String userID){
+        User user = retrieveUser(userID, userID);
+        if(user == null){
+            return null;
+        }
+        String getUser = "SELECT _id FROM users where userid = ?";
+        String patientQuery = "SELECT * FROM patients where user = ?";
+        try {
+            PreparedStatement getUserStatement = Main.connection.prepareStatement(getUser);
+            getUserStatement.setString(1, userID);
+            ResultSet userResult = getUserStatement.executeQuery();
+            if(!userResult.next()){
+                return null;
+            }
+            int user_id = userResult.getInt("_id");
+            PreparedStatement patientStatement = Main.connection.prepareStatement(patientQuery);
+            patientStatement.setInt(1, user_id);
+            ResultSet patientResult = patientStatement.executeQuery();
+            if(!patientResult.next()){
+                return null;
+            }
+            int doctor_id = patientResult.getInt("doctor");
+            String doctorQuery = "SELECT doctorID from doctors where _id = ?";
+            PreparedStatement doctorStatement = Main.connection.prepareStatement(doctorQuery);
+            doctorStatement.setInt(1, doctor_id);
+            ResultSet rs = doctorStatement.executeQuery();
+            Doctor doctor = null;
+            if(rs.next()){
+                doctor = retrieveDoctor(rs.getString("doctorID"));
+            }
+
+            Patient patient = new Patient(user, patientResult.getString("details"), doctor);
+
+            getUserStatement.close();
+            doctorStatement.close();
+            patientStatement.close();
+
+            return patient;
+        } catch (SQLException se){
+            se.printStackTrace();
+            return null;
+        }
+    }
+
     public static boolean bookBed(BookBedRequest request){
-        return true;
+        String bookBedQuery = "SELECT * from beds where bed_number = ? and cabin_number = ?";
+        try {
+            PreparedStatement statement = Main.connection.prepareStatement(bookBedQuery);
+
+        } catch (SQLException se){
+            se.printStackTrace();
+            return false;
+        }
     }
 
     public static List<Bed> getBeds(){
-        return Main.beds;
+        String bedQuery = "SELECT * FROM beds";
+        List<Bed> beds = new ArrayList<>();
+        try {
+            PreparedStatement bedStatement = Main.connection.prepareStatement(bedQuery);
+            ResultSet result = bedStatement.executeQuery();
+            while (result.next()){
+                int bedNumber = result.getInt("bed_number");
+                int cabinNumber = result.getInt("cabin_number");
+                boolean occupied = result.getInt("bed_number") != 0;
+                int patient_id = result.getInt("patient_id");
+                int doctor_id = result.getInt("doctor_id");
+                String type = result.getString("type");
+                String getUid = "SELECT userid, details from patients INNER JOIN users ON patients.user = users._id where patients._id = " + patient_id;
+                String getDid = "SELECT doctorID from doctors where _id = " + doctor_id;
+                PreparedStatement getUIDStatement = Main.connection.prepareStatement(getUid);
+                PreparedStatement getDIDStatement = Main.connection.prepareStatement(getDid);
+                ResultSet rsUid = getUIDStatement.executeQuery();
+                ResultSet rsDid = getDIDStatement.executeQuery();
+                User user = null;
+                Doctor doctor = null;
+                if(!rsUid.next()){
+                    user = retrieveUser(rsUid.getString("userid"), rsUid.getString("userid"));
+                }
+
+                if(!rsDid.next()){
+                    doctor = retrieveDoctor(rsDid.getString("doctorID"));
+                }
+
+                Bed bed = new Bed(bedNumber,cabinNumber, BedType.valueOf(type),user,doctor,occupied);
+                beds.add(bed);
+
+                getDIDStatement.close();
+                getUIDStatement.close();
+            }
+            bedStatement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
+            return null;
+        }
+        return beds;
     }
 
     public static List<Staff> getStaff(){

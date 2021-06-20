@@ -31,7 +31,7 @@ public class SignupHandler {
         String addQuery = "INSERT INTO users(userid, username, password, firstname, lastname, " +
                 "email, phone, joining_date) values(?,?,?,?,?,?,?,?)";
         String getQuery = "SELECT _id from users where userid = ?";
-        String addPatient = "INSERT INTO patients (user) values (?)";
+        String addPatient = "INSERT INTO patients (user, details, doctor) values (?, '-', 0)";
         try {
             PreparedStatement insertStatement = Main.connection.prepareStatement(addQuery);
             insertStatement.setString(1, user.getUserUID());
