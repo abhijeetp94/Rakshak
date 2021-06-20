@@ -5,6 +5,7 @@ import data.*;
 import javafx.util.Pair;
 import mainPack.Main;
 import request.BookBedRequest;
+import request.LoginRequest;
 import utils.Bonus;
 import utils.PayManager;
 
@@ -106,7 +107,7 @@ public class DataHandler {
     }
 
     public static Doctor getDoctor(String doctorID){
-        String doctorsQuery = "SELECT doctorID from doctors where doctorID = ?";
+        String doctorsQuery = "SELECT * from doctors where doctorID = ?";
         try {
             PreparedStatement doctorsStatement = Main.connection.prepareStatement(doctorsQuery);
             doctorsStatement.setString(1, doctorID);
@@ -123,13 +124,39 @@ public class DataHandler {
     }
 
     public static Staff getStaffMember(String staffID){
-        Staff staff = Staff.findStaff(Main.staff, staffID);
-        return staff;
+        String staffQuery = "SELECT * from staff where staffID = ?";
+        try {
+            PreparedStatement staffStatement = Main.connection.prepareStatement(staffQuery);
+            staffStatement.setString(1, staffID);
+            ResultSet result = staffStatement.executeQuery();
+            if (result.next()){
+                return retrieveStaff(result.getString("doctorID"));
+            }
+
+        } catch (SQLException se){
+            se.printStackTrace();
+            return null;
+        }
+        return null;
     }
 
+
+
     public static User getUser(String userID){
-        User user = User.findUser(Main.users, userID);
-        return user;
+        String userQuery = "SELECT * from users where userid = ?";
+        try {
+            PreparedStatement staffStatement = Main.connection.prepareStatement(userQuery);
+            staffStatement.setString(1, userID);
+            ResultSet result = staffStatement.executeQuery();
+            if (result.next()){
+                return retrieveUser(result.getString("userid"), result.getString("username"));
+            }
+
+        } catch (SQLException se){
+            se.printStackTrace();
+            return null;
+        }
+        return null;
     }
 
     public static boolean updateStaff(Staff staff){
@@ -268,12 +295,37 @@ public class DataHandler {
                         (docResult.getInt("available")!=0)
                 );
             }
-
+            docStatement.close();
+            staffStatement.close();
+            timeTableStatement.close();
 
         } catch (SQLException se){
             se.printStackTrace();
         }
 
+        return null;
+    }
+
+    public static User retrieveUser(String userID, String username){
+
+        String query = "SELECT * FROM users where userid = '" + userID + "' OR users.username = '" + username + "'";
+        try {
+            PreparedStatement statement = Main.connection.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return new User(result.getString("username"),
+                        result.getString("password"),
+                        result.getString("firstname"),
+                        result.getString("lastname"),
+                        result.getString("email"),
+                        result.getString("userid"),
+                        result.getString("phone"),
+                        LocalDate.parse(result.getString("joining_date"), Main.formatter));
+            }
+            statement.close();
+        } catch (SQLException se){
+            se.printStackTrace();
+        }
         return null;
     }
 

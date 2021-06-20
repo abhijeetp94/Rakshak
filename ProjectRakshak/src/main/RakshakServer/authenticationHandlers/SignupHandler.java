@@ -30,18 +30,32 @@ public class SignupHandler {
         User user = request.getUser();
         String addQuery = "INSERT INTO users(userid, username, password, firstname, lastname, " +
                 "email, phone, joining_date) values(?,?,?,?,?,?,?,?)";
+        String getQuery = "SELECT _id from users where userid = ?";
+        String addPatient = "INSERT INTO patients (user) values (?)";
         try {
             PreparedStatement insertStatement = Main.connection.prepareStatement(addQuery);
             insertStatement.setString(1, user.getUserUID());
             insertStatement.setString(2, user.getUsername());
             insertStatement.setString(3, user.getPassword());
             insertStatement.setString(4, user.getFirstname());
+            PreparedStatement getUserStatement = Main.connection.prepareStatement(getQuery);
             insertStatement.setString(5, user.getLastname());
+            getUserStatement.setString(1, user.getUserUID());
             insertStatement.setString(6, user.getEmail());
             insertStatement.setString(7, user.getPhone());
             insertStatement.setString(8, user.getDateJoined().format(Main.formatter));
             insertStatement.execute();
-//            System.out.println(insertStatement.);
+            PreparedStatement patientInsertStatement = Main.connection.prepareStatement(addPatient);
+            ResultSet userResult = getUserStatement.executeQuery();
+            int user_id = 0;
+            if(userResult.next()){
+                user_id = userResult.getInt("_id");
+            }
+            patientInsertStatement.setInt(1, user_id);
+            patientInsertStatement.execute();
+
+            patientInsertStatement.close();
+            getUserStatement.close();
             insertStatement.close();
         } catch (SQLException se){
             se.printStackTrace();

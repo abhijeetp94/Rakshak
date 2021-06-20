@@ -28,6 +28,12 @@ public class Patient extends User implements Serializable {
         this.doctor = doctor;
     }
 
+    public Patient(User user, String details, Doctor doctor) {
+        super(user.getUsername(), user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getUserUID(), user.getPhone(), user.getDateJoined());
+        this.details = details;
+        this.doctor = doctor;
+    }
+
     public String getDetails() {
         return details;
     }
