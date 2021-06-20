@@ -379,9 +379,24 @@ public class DataHandler {
 
     public static boolean bookBed(BookBedRequest request){
         String bookBedQuery = "SELECT * from beds where bed_number = ? and cabin_number = ?";
+        String updateBedQuery = "UPDATE beds" +
+                " SET patient_id = ?, doctor_id = ?, occupied = ? where _id = ?";
         try {
             PreparedStatement statement = Main.connection.prepareStatement(bookBedQuery);
+            statement.setInt(1, request.getBed().getBedNumber());
+            statement.setInt(2, request.getBed().getCabinNumber());
+            ResultSet result = statement.executeQuery();
+            int bed_id = result.getInt("_id");
+            PreparedStatement updateStatement = Main.connection.prepareStatement(updateBedQuery);
+            updateStatement.setString(1, request.getBed().getPatient().getUserUID());
+            updateStatement.setString(2, request.getBed().getPrescribingDoctor().getDoctorID());
+            updateStatement.setInt(3, 1);
+            updateStatement.setInt(4, bed_id);
+            updateStatement.execute();
 
+            statement.close();
+            updateStatement.close();
+            return true;
         } catch (SQLException se){
             se.printStackTrace();
             return false;
