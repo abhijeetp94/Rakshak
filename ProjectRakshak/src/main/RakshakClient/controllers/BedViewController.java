@@ -109,7 +109,7 @@ public class BedViewController {
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                                     alert.setTitle("Bed Booked");
-                                    alert.setHeaderText("The bed has successfully booked for " + bed[0].getPatient());
+                                    alert.setHeaderText("The bed has successfully booked for " + bed[0].getPatient().getFullName());
                                 }
                                 else {
                                     alert.setTitle("Bed Not Booked");
