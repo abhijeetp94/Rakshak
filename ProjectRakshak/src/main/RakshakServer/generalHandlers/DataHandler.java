@@ -418,11 +418,11 @@ public class DataHandler {
                 int bedNumber = result.getInt("bed_number");
                 int cabinNumber = result.getInt("cabin_number");
                 boolean occupied = (result.getInt("occupied") != 0);
-                int patient_id = result.getInt("patient_id");
-                int doctor_id = result.getInt("doctor_id");
+                String patient_id = result.getString("patient_id");
+                String doctor_id = result.getString("doctor_id");
                 String type = result.getString("type");
-                String getUid = "SELECT userid, details from patients INNER JOIN users ON patients.user = users._id where patients._id = " + patient_id;
-                String getDid = "SELECT doctorID from doctors where _id = " + doctor_id;
+                String getUid = "SELECT * from users where userid = " + patient_id;
+                String getDid = "SELECT * from doctors where doctorID = " + doctor_id;
                 PreparedStatement getUIDStatement = Main.connection.prepareStatement(getUid);
                 PreparedStatement getDIDStatement = Main.connection.prepareStatement(getDid);
                 ResultSet rsUid = getUIDStatement.executeQuery();
