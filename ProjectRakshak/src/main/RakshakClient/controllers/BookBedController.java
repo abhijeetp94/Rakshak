@@ -27,8 +27,11 @@ public class BookBedController {
 
     public void setData(Bed bed){
         bedNumberField.setText(String.valueOf(bed.getBedNumber()));
+        bedNumberField.setEditable(false);
         cabinNumberField.setText(String.valueOf(bed.getCabinNumber()));
+        bedNumberField.setEditable(false);
         bedTypeBox.getSelectionModel().select(bed.getType());
+        bedTypeBox.setEditable(false);
     }
 
     public Bed retrieveData(){

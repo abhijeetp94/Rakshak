@@ -3,6 +3,7 @@ package controllers;
 import MainApp.Main;
 import constants.ResponseCode;
 import data.Bed;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,6 +25,8 @@ public class BedViewController {
     private TableView<Bed> bedTableView;
     @FXML
     private TableColumn<Bed, String> bedTypeColumn, patientColumn, availableColumn, cabinNumberColumn, bedNumberColumn;
+    @FXML
+    private Button bookBedButton;
 
     private ObservableList<Bed> beds = FXCollections.observableArrayList();
 
@@ -49,20 +52,21 @@ public class BedViewController {
     }
 
     public void bookBedClicked(){
-        if(bedTableView.getSelectionModel().getSelectedItem().isOccupied() || bedTableView.getSelectionModel().getSelectedItem() == null){
+        if(bedTableView.getSelectionModel().getSelectedItem() == null || bedTableView.getSelectionModel().getSelectedItem().isOccupied()){
+            System.out.println(bedTableView.getSelectionModel().getSelectedItem() == null);
             return;
         }
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Book Bed");
         dialog.initOwner(primaryPane.getScene().getWindow());
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource(""));
+        loader.setLocation(getClass().getResource("/BookBedDialog.fxml"));
         try {
             dialog.getDialogPane().setContent(loader.load());
         } catch (IOException ie){
             ie.printStackTrace();
         }
-        ButtonType bookButton = new ButtonType("Book Bed", ButtonBar.ButtonData.OK_DONE);
+        ButtonType bookButton = new ButtonType("Book Bed");
         dialog.getDialogPane().getButtonTypes().add(bookButton);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
         BookBedController controller = loader.getController();
@@ -78,16 +82,21 @@ public class BedViewController {
                     try {
                         Main.oosTracker.writeObject(request);
                         Response response = (Response) Main.oisTracker.readObject();
-                        if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Bed Booked");
-                            alert.setHeaderText("The bed has successfully booked for " + bed.getPatient());
-                        }
-                        else {
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.setTitle("Bed Not Booked");
-                            alert.setHeaderText("The bed has not booked please try again.");
-                        }
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                                if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                                    alert.setTitle("Bed Booked");
+                                    alert.setHeaderText("The bed has successfully booked for " + bed.getPatient());
+                                }
+                                else {
+                                    alert.setTitle("Bed Not Booked");
+                                    alert.setHeaderText("The bed has not booked please try again.");
+                                }
+                                alert.showAndWait();
+                            }
+                        });
 
                     } catch (IOException | ClassNotFoundException ie){
                         ie.printStackTrace();
