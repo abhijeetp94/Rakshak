@@ -80,7 +80,7 @@ public class ReceptionDashboardController {
             ie.printStackTrace();
         }
         ApproveAppointmentController controller = loader.getController();
-        controller.setData(schedules);
+        controller.setData((ArrayList<Schedule>) schedules);
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && (result.get().getText().equals("Approve") || result.get().getText().equals("ApproveAll"))){
             List<Schedule> toApprove;

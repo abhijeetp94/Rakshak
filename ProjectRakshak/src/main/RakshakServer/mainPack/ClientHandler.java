@@ -192,6 +192,7 @@ public class ClientHandler implements Runnable {
                         Response response = new Response("SINGLE_DOCTOR_RESPONSE", ResponseCode.SUCCESS, doc);
                         try {
                             oosTracker.writeObject(response);
+                            System.out.println("Doctors response sent");
                         } catch (IOException ie){
                             ie.printStackTrace();
                         }
@@ -247,9 +248,25 @@ public class ClientHandler implements Runnable {
                         ie.printStackTrace();
                     }
                 } else if(request.getRequestCode().equals(RequestCode.GET_USER_REQUEST)){
-                    GetUserRequest doctorsRequest = (GetUserRequest) request;
-                    User user = DataHandler.getUser(doctorsRequest.getUserID());
+                    GetUserRequest userRequest = (GetUserRequest) request;
+                    User user = DataHandler.getUser(userRequest.getUserID());
                     Response response = new Response("SINGLE_USER_RESPONSE", ResponseCode.SUCCESS, user);
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
+                }else if(request.getRequestCode().equals(RequestCode.GET_STAFF_REQUEST)){
+                    GetStaffRequest staffRequest = (GetStaffRequest) request;
+                    Response response;
+                    if (staffRequest.getStaffID().equalsIgnoreCase("ALL")){
+                        List<Staff> staff = DataHandler.getStaff();
+                        response = new Response("SINGLE_USER_RESPONSE", ResponseCode.SUCCESS, staff);
+                    }
+                    else{
+                        Staff staff = DataHandler.getStaff(staffRequest.getStaffID());
+                        response = new Response("SINGLE_USER_RESPONSE", ResponseCode.SUCCESS, staff);
+                    }
                     try {
                         oosTracker.writeObject(response);
                     } catch (IOException ie){

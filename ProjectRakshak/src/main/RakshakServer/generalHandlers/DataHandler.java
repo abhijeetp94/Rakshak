@@ -127,6 +127,7 @@ public class DataHandler {
         return null;
     }
 
+
     public static Staff getStaffMember(String staffID){
         String staffQuery = "SELECT * from staff where staffID = ?";
         try {
@@ -412,7 +413,7 @@ public class DataHandler {
             while (result.next()){
                 int bedNumber = result.getInt("bed_number");
                 int cabinNumber = result.getInt("cabin_number");
-                boolean occupied = result.getInt("bed_number") != 0;
+                boolean occupied = (result.getInt("occupied") != 0);
                 int patient_id = result.getInt("patient_id");
                 int doctor_id = result.getInt("doctor_id");
                 String type = result.getString("type");
@@ -424,15 +425,16 @@ public class DataHandler {
                 ResultSet rsDid = getDIDStatement.executeQuery();
                 User user = null;
                 Doctor doctor = null;
-                if(!rsUid.next()){
+                if(rsUid.next()){
                     user = retrieveUser(rsUid.getString("userid"), rsUid.getString("userid"));
                 }
 
-                if(!rsDid.next()){
+                if(rsDid.next()){
                     doctor = retrieveDoctor(rsDid.getString("doctorID"));
                 }
 
                 Bed bed = new Bed(bedNumber,cabinNumber, BedType.valueOf(type),user,doctor,occupied);
+                System.out.println(bed.getType());
                 beds.add(bed);
 
                 getDIDStatement.close();
@@ -447,8 +449,37 @@ public class DataHandler {
     }
 
     public static List<Staff> getStaff(){
-        return Main.staff;
+        String staffQuery = "SELECT * from staff";
+        List<Staff> staff = new ArrayList<>();
+        try {
+            PreparedStatement staffStatement = Main.connection.prepareStatement(staffQuery);
+            ResultSet result = staffStatement.executeQuery();
+            while (result.next()){
+                staff.add(retrieveStaff(result.getString("staffID")));
+            }
+
+        } catch (SQLException se){
+            se.printStackTrace();
+            return null;
+        }
+        return staff;
     }
 
+    public static Staff getStaff(String staffID){
+        String staffQuery = "SELECT * from staff where staffID = ?";
+        try {
+            PreparedStatement staffStatement = Main.connection.prepareStatement(staffQuery);
+            staffStatement.setString(1, staffID);
+            ResultSet result = staffStatement.executeQuery();
+            if (result.next()){
+                return retrieveStaff(result.getString("staffID"));
+            }
+
+        } catch (SQLException se){
+            se.printStackTrace();
+            return null;
+        }
+        return null;
+    }
 
 }
