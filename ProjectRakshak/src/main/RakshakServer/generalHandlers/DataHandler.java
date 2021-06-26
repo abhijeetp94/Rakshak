@@ -154,6 +154,7 @@ public class DataHandler {
             staffStatement.setString(1, userID);
             ResultSet result = staffStatement.executeQuery();
             if (result.next()){
+                System.out.println("In Data Handler" + result.getString("userid"));
                 return retrieveUser(result.getString("userid"), result.getString("username"));
             }
 
@@ -390,7 +391,10 @@ public class DataHandler {
             int bed_id = result.getInt("_id");
             PreparedStatement updateStatement = Main.connection.prepareStatement(updateBedQuery);
             updateStatement.setString(1, request.getBed().getPatient().getUserUID());
-            updateStatement.setString(2, request.getBed().getPrescribingDoctor().getDoctorID());
+            if(request.getBed().getPrescribingDoctor() != null)
+                updateStatement.setString(2, request.getBed().getPrescribingDoctor().getDoctorID());
+            else
+                updateStatement.setString(2, "null");
             updateStatement.setInt(3, 1);
             updateStatement.setInt(4, bed_id);
             updateStatement.execute();
@@ -434,7 +438,7 @@ public class DataHandler {
                 }
 
                 Bed bed = new Bed(bedNumber,cabinNumber, BedType.valueOf(type),user,doctor,occupied);
-                System.out.println(bed.getType());
+//                System.out.println(bed.getType());
                 beds.add(bed);
 
                 getDIDStatement.close();

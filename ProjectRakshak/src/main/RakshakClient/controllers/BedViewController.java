@@ -74,12 +74,33 @@ public class BedViewController {
         controller.setData(selectedBed);
         Optional<ButtonType> result = dialog.showAndWait();
         if(result.isPresent() && result.get().equals(bookButton)){
-            Bed bed = controller.retrieveData();
-            BookBedRequest request = new BookBedRequest(bed);
+//            try {
+////                Thread.sleep(2000);
+//                Thread.currentThread().join();
+//            } catch (InterruptedException ie){
+//                ie.printStackTrace();
+//            }
+//            Thread.currentThread().notify();
+            final Bed[] bed = new Bed[1];
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    bed[0] = controller.retrieveData();
+                }
+            });
+            t.start();
+            try {
+                t.join();
+            } catch (InterruptedException ie){
+                ie.printStackTrace();
+            }
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
+
+                        System.out.println("In BedView " + (bed[0] == null));
+                        BookBedRequest request = new BookBedRequest(bed[0]);
                         Main.oosTracker.writeObject(request);
                         Response response = (Response) Main.oisTracker.readObject();
                         Platform.runLater(new Runnable() {
@@ -88,7 +109,7 @@ public class BedViewController {
                                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                                 if(response.getResponseCode().equals(ResponseCode.SUCCESS)){
                                     alert.setTitle("Bed Booked");
-                                    alert.setHeaderText("The bed has successfully booked for " + bed.getPatient());
+                                    alert.setHeaderText("The bed has successfully booked for " + bed[0].getPatient());
                                 }
                                 else {
                                     alert.setTitle("Bed Not Booked");

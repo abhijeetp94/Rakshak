@@ -250,6 +250,7 @@ public class ClientHandler implements Runnable {
                 } else if(request.getRequestCode().equals(RequestCode.GET_USER_REQUEST)){
                     GetUserRequest userRequest = (GetUserRequest) request;
                     User user = DataHandler.getUser(userRequest.getUserID());
+                    System.out.println("In Client handler" + (user == null));
                     Response response = new Response("SINGLE_USER_RESPONSE", ResponseCode.SUCCESS, user);
                     try {
                         oosTracker.writeObject(response);

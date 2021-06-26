@@ -5,6 +5,7 @@ import constants.BedType;
 import data.Bed;
 import data.Doctor;
 import data.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -20,18 +21,20 @@ public class BookBedController {
     private TextField bedNumberField, cabinNumberField, patientIDField, doctorIDField;
     @FXML
     private ComboBox<BedType> bedTypeBox;
+    @FXML
+    private Bed bed;
 
     public void initialize(){
         bedTypeBox.getItems().setAll(BedType.COVID, BedType.GENERAL, BedType.ICU, BedType.VENTILATOR);
+        bedNumberField.setEditable(false);
+        cabinNumberField.setEditable(false);
+        bedTypeBox.setEditable(false);
     }
 
     public void setData(Bed bed){
         bedNumberField.setText(String.valueOf(bed.getBedNumber()));
-        bedNumberField.setEditable(false);
         cabinNumberField.setText(String.valueOf(bed.getCabinNumber()));
-        bedNumberField.setEditable(false);
         bedTypeBox.getSelectionModel().select(bed.getType());
-        bedTypeBox.setEditable(false);
     }
 
     public Bed retrieveData(){
@@ -40,11 +43,9 @@ public class BookBedController {
         Integer bedNumber = Integer.parseInt(bedNumberField.getText().trim());
         Integer cabinNumber = Integer.parseInt(cabinNumberField.getText().trim());
         BedType type = bedTypeBox.getSelectionModel().getSelectedItem();
-        final User[] user = new User[1];
-        final Doctor[] doctor = {null};
         GetUserRequest userRequest = new GetUserRequest(patientID);
         GetDoctorsRequest doctorsRequest = new GetDoctorsRequest(doctorID);
-        new Thread(new Runnable() {
+        Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -53,15 +54,22 @@ public class BookBedController {
                     Main.oosTracker.writeObject(doctorsRequest);
                     Response response2 = (Response) Main.oisTracker.readObject();
                     User user1 = (User) response1.getResponseObject();
-                    user[0] = user1;
-                    doctor[0] = (Doctor) response2.getResponseObject();
+                    Doctor doctor = (Doctor) response2.getResponseObject();
+                    bed = new Bed(bedNumber, cabinNumber, type, user1, doctor, true);
 
                 } catch (IOException | ClassNotFoundException ie){
                     ie.printStackTrace();
+
                 }
             }
-        }).start();
-
-        return new Bed(bedNumber, cabinNumber, type, user[0], doctor[0], true);
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException ie){
+            ie.printStackTrace();
+        }
+        System.out.println("In Book Bed " + (bed == null));
+        return bed;
     }
 }
