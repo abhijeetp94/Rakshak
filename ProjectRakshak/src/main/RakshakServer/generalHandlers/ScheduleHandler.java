@@ -32,9 +32,10 @@ public class ScheduleHandler {
                 boolean approved = (result.getInt("approved") != 0);
                 int shift = result.getInt("shift");
                 int doctor_id = result.getInt("doctor");
-                String userID = result.getString("user_id");
                 String doctorQuery = "SELECT * FROM doctors WHERE _id = ?";
                 PreparedStatement doctorStatement = Main.connection.prepareStatement(doctorQuery);
+                doctorStatement.setInt(1, doctor_id);
+                String userID = result.getString("user_id");
                 User user = DataHandler.retrieveUser(userID, userID);
                 ResultSet doctorResult = doctorStatement.executeQuery();
                 Doctor doctor = null;
@@ -50,15 +51,34 @@ public class ScheduleHandler {
     }
 
     public static List<Schedule> getSchedule(String doctorID) {
-        List<Schedule> result = new ArrayList<>();
-        for(Schedule schedule: Main.schedules){
-            if(schedule!=null && schedule.getDoctor().getDoctorID().equals(doctorID) && schedule.getApproved()){
-                if(schedule.getTheDate().equals(LocalDate.now())){
-                    result.add(schedule);
+        String getScheduleQuery = "SELECT * FROM schedules WHERE schedules.date = ? AND doctorID = ?";
+        List<Schedule> schedules = new ArrayList<>();
+        try {
+            PreparedStatement getStatement = Main.connection.prepareStatement(getScheduleQuery);
+            getStatement.setString(1, LocalDate.now().format(Main.formatter));
+            getStatement.setString(2, doctorID);
+            ResultSet result = getStatement.executeQuery();
+            while(result.next()){
+                boolean approved = (result.getInt("approved") != 0);
+                LocalDate date = LocalDate.parse(result.getString("date"), Main.formatter);
+                int shift = result.getInt("shift");
+                int doctor_id = result.getInt("doctor");
+                String userID = result.getString("user_id");
+                String doctorQuery = "SELECT * FROM doctors WHERE _id = ?";
+                PreparedStatement doctorStatement = Main.connection.prepareStatement(doctorQuery);
+                doctorStatement.setInt(1, doctor_id);
+                ResultSet doctorResult = doctorStatement.executeQuery();
+                User user = DataHandler.retrieveUser(userID, userID);
+                Doctor doctor = null;
+                if(doctorResult.next()){
+                    doctor = DataHandler.retrieveDoctor(doctorResult.getString("doctorID"));
                 }
+                schedules.add(new Schedule(date, shift, doctor, user, approved));
             }
+        } catch (SQLException se){
+            se.printStackTrace();
         }
-        return result;
+        return schedules;
     }
 
     public static boolean addSchedule(Schedule schedule){
