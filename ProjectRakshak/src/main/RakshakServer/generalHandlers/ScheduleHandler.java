@@ -137,8 +137,26 @@ public class ScheduleHandler {
         return true;
     }
     public static boolean approveSchedule(List<Schedule> schedules){
-        String getQuery = "";
+        String getQuery = "SELECT * FROM schedules WHERE date = ? AND user_id = ?";
+        String updateQuery = "UPDATE schedules SET approved = ? WHERE _id = ?";
+        try {
+            PreparedStatement getStatement = Main.connection.prepareStatement(getQuery);
+            PreparedStatement updateStatement = Main.connection.prepareStatement(updateQuery);
+            for(Schedule schedule : schedules){
+                getStatement.setString(1, schedule.getTheDate().format(Main.formatter));
+                getStatement.setString(2, schedule.getUser().getUserUID());
+                ResultSet scheduleResult = getStatement.executeQuery();
+                if(scheduleResult.next()){
+                    updateStatement.setInt(1, (schedule.getApproved()?1:0));
+                    updateStatement.setInt(2, scheduleResult.getInt("_id"));
+                    updateStatement.execute();
+                }
+            }
+
+        } catch (SQLException se){
+            se.printStackTrace();
+            return false;
+        }
+        return true;
     }
-
-
 }

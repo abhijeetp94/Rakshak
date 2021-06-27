@@ -183,6 +183,7 @@ public class DataHandler {
                     updateStatement.setString(2, staff.getLastname());
                     updateStatement.setString(3, staff.getEmail());
                     updateStatement.setString(4, staff.getPhone());
+                    updateStatement.setInt(5, userResult.getInt("_id"));
                     updateStatement.execute();
                     return true;
                 }else {
