@@ -166,18 +166,37 @@ public class DataHandler {
     }
 
     public static boolean updateStaff(Staff staff){
-        int id = -1;
-        for (Staff s:
-              Main.staff) {
-            if(s.getStaffID().equals(staff.getStaffID())){
-                id = Main.staff.indexOf(s);
+        String getStaffQuery = "SELECT * FROM staff where staffID = ?";
+        String getUserQuery = "SELECT * FROM users where _id = ?";
+        String updateQuery = "UPDATE users SET firstname = ?, lastname = ?, email = ?, phone = ? WHERE _id = ?";
+        try {
+            PreparedStatement getStatement = Main.connection.prepareStatement(getStaffQuery);
+            getStatement.setString(1, staff.getStaffID());
+            ResultSet staffResult = getStatement.executeQuery();
+            if(staffResult.next()){
+                PreparedStatement getUserStatement = Main.connection.prepareStatement(getUserQuery);
+                getUserStatement.setInt(1, staffResult.getInt("user"));
+                ResultSet userResult = getUserStatement.executeQuery();
+                if(userResult.next()){
+                    PreparedStatement updateStatement = Main.connection.prepareStatement(updateQuery);
+                    updateStatement.setString(1, staff.getFirstname());
+                    updateStatement.setString(2, staff.getLastname());
+                    updateStatement.setString(3, staff.getEmail());
+                    updateStatement.setString(4, staff.getPhone());
+                    updateStatement.execute();
+                    return true;
+                }else {
+                    return false;
+                }
+
+            } else{
+                return false;
             }
-        }
-        if(id == -1){
+
+        } catch (SQLException se){
+            se.printStackTrace();
             return false;
         }
-        Main.staff.set(id, staff);
-        return true;
     }
 
     // get staff from database
