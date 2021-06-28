@@ -50,6 +50,10 @@ public class StaffDashboardController {
         }
     }
 
+    public void onPayManagerClicked(){
+
+    }
+
     public void markAttendanceClicked(){
         Attendance attendance = new Attendance(LocalDate.now(), (Staff) Main.user, true);
         MarkAttendanceRequest request = new MarkAttendanceRequest(attendance);

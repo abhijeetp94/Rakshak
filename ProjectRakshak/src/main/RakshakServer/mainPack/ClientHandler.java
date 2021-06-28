@@ -288,6 +288,21 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if(request.getRequestCode().equals(RequestCode.MARK_ATTENDANCE_REQUEST)){
+                    MarkAttendanceRequest attendanceRequest = (MarkAttendanceRequest) request;
+                    boolean res = ScheduleHandler.markAttendance(attendanceRequest.getAttendance());
+                    Response response;
+                    if(res){
+                        response = new Response("MARK_ATTENDANCE_RESPONSE", ResponseCode.SUCCESS, null);
+                    }
+                    else {
+                        response = new Response("MARK_ATTENDANCE_RESPONSE", ResponseCode.FAILURE, null);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 
