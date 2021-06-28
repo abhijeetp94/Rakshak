@@ -8,12 +8,21 @@ public class PayManager implements Serializable {
     Double gradePay;
     Double baseSalary;
     Integer paidLeave;
+    Integer month;
     List<Bonus> bonus;
 
     public PayManager(Double gradePay, Double baseSalary, Integer paidLeave, List<Bonus> bonus) {
         this.gradePay = gradePay;
         this.baseSalary = baseSalary;
         this.paidLeave = paidLeave;
+        this.bonus = bonus;
+    }
+
+    public PayManager(Double gradePay, Double baseSalary, Integer paidLeave, Integer month, List<Bonus> bonus) {
+        this.gradePay = gradePay;
+        this.baseSalary = baseSalary;
+        this.paidLeave = paidLeave;
+        this.month = month;
         this.bonus = bonus;
     }
 
@@ -56,5 +65,17 @@ public class PayManager implements Serializable {
         this.bonus = bonus;
     }
 
+    public Integer getMonth() {
+        return month;
+    }
+
+    public void setMonth(Integer month) {
+        this.month = month;
+    }
+
+    public static Double calculateSalary(PayManager payManager){
+
+        return 0.0;
+    }
     
 }
