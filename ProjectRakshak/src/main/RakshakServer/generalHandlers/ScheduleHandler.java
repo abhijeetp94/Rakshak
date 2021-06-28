@@ -1,9 +1,6 @@
 package generalHandlers;
 
-import data.Doctor;
-import data.Schedule;
-import data.TimeTable;
-import data.User;
+import data.*;
 import mainPack.Main;
 
 import java.sql.PreparedStatement;
@@ -158,5 +155,38 @@ public class ScheduleHandler {
             return false;
         }
         return true;
+    }
+
+    public static boolean markAttendance(Attendance attendance){
+        String getQuery = "SELECT * FROM staff WHERE staffID = ?";
+        String addQuery = "INSERT INTO attendance (staff, date, is_present) VALUES (?,?,?)";
+        String attendQuery = "SELECT * FROM attendance WHERE staff = ? AND date = ?";
+
+        try {
+            PreparedStatement getStatement = Main.connection.prepareStatement(getQuery);
+            PreparedStatement addStatement = Main.connection.prepareStatement(addQuery);
+            PreparedStatement attendStatement = Main.connection.prepareStatement(attendQuery);
+            getStatement.setString(1, attendance.getStaff().getStaffID());
+            ResultSet getResult = getStatement.executeQuery();
+            if(getResult.next()){
+                attendStatement.setInt(1, getResult.getInt("_id"));
+                attendStatement.setString(2, attendance.getDate().format(Main.formatter));
+                ResultSet attendResult = attendStatement.executeQuery();
+                if(attendResult.next()){
+                    return false;
+                }
+                addStatement.setInt(1, getResult.getInt("_id"));
+                addStatement.setString(2, attendance.getDate().format(Main.formatter));
+                addStatement.setInt(3, attendance.isPresent()?1:0);
+                addStatement.execute();
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException se){
+            se.printStackTrace();
+            return false;
+        }
     }
 }

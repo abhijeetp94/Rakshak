@@ -2,6 +2,7 @@ package controllers;
 
 import MainApp.Main;
 import constants.ResponseCode;
+import data.Attendance;
 import data.Staff;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -9,10 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import request.EditStaffDetailsRequest;
+import request.MarkAttendanceRequest;
 import request.Request;
 import request.Response;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class StaffDashboardController {
     @FXML
@@ -45,6 +48,45 @@ public class StaffDashboardController {
             qrCodeField.setEditable(false);
             doneButton.setVisible(false);
         }
+    }
+
+    public void markAttendanceClicked(){
+        Attendance attendance = new Attendance(LocalDate.now(), (Staff) Main.user, true);
+        MarkAttendanceRequest request = new MarkAttendanceRequest(attendance);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Main.oosTracker.writeObject(request);
+                    Response response = (Response) Main.oisTracker.readObject();
+                    if (response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Attendance");
+                                alert.setHeaderText("Your attendance for today has been marked");
+                                alert.showAndWait();
+                            }
+                        });
+                    } else {
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Attendance");
+                                alert.setHeaderText("Your attendance for today has already been marked");
+                                alert.showAndWait();
+                            }
+                        });
+                    }
+
+                } catch (IOException | ClassNotFoundException ie){
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 
     public void onDoneClicked(){
