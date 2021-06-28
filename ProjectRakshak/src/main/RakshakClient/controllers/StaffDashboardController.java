@@ -6,8 +6,11 @@ import data.Attendance;
 import data.Staff;
 import data.User;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import request.*;
@@ -74,7 +77,19 @@ public class StaffDashboardController {
                                 Dialog<ButtonType> dialog = new Dialog<>();
                                 dialog.initOwner(primaryPane.getScene().getWindow());
                                 dialog.setTitle("PayManager");
-
+                                ObservableList<PayManager> payList = FXCollections.observableArrayList();
+                                payList.setAll(payManagerList);
+                                FXMLLoader loader = new FXMLLoader();
+                                loader.setLocation(getClass().getResource("/PayViewDialog.fxml"));
+                                try {
+                                    dialog.getDialogPane().setContent(loader.load());
+                                } catch (IOException ie){
+                                    ie.printStackTrace();
+                                }
+                                dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                                PayViewController controller = loader.getController();
+                                controller.setData(payList);
+                                dialog.showAndWait();
                             }
                         });
                     }

@@ -1,6 +1,7 @@
 package controllers;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,8 +41,8 @@ public class PayViewController {
 
     }
 
-    public void setData(){
-
+    public void setData(ObservableList<PayManager> list){
+        payTable.setItems(list);
     }
 
 }
