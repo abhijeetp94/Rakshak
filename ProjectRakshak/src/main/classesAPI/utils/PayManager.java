@@ -74,8 +74,16 @@ public class PayManager implements Serializable {
     }
 
     public static Double calculateSalary(PayManager payManager){
-
-        return 0.0;
+        double salary = 0;
+        salary += 1.17 * payManager.getBaseSalary(); // 17% Dearness Allowance
+        double totalBonus = 0;
+        for (var a: payManager.getBonus()){
+            totalBonus += a.getAmount();
+        }
+        salary += totalBonus;
+        salary -= payManager.getPaidLeave()*(payManager.getBaseSalary()/30);
+        salary -= 0.18*salary; // 18% GST
+        return salary;
     }
     
 }
