@@ -4,18 +4,19 @@ import MainApp.Main;
 import constants.ResponseCode;
 import data.Attendance;
 import data.Staff;
+import data.User;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import request.EditStaffDetailsRequest;
-import request.MarkAttendanceRequest;
-import request.Request;
-import request.Response;
+import request.*;
+import utils.PayManager;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StaffDashboardController {
     @FXML
@@ -51,6 +52,39 @@ public class StaffDashboardController {
     }
 
     public void onPayManagerClicked(){
+        GetStaffRequest staffRequest = new GetStaffRequest(((Staff) Main.user).getStaffID());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Main.oosTracker.writeObject(staffRequest);
+                    Response response = (Response) Main.oisTracker.readObject();
+                    Staff staff;
+                    if (response.getResponseCode().equals(ResponseCode.SUCCESS)){
+                        Main.user = (User) response.getResponseObject();
+                        staff = (Staff) response.getResponseObject();
+                        List<PayManager> payManagerList = new ArrayList<>();
+                        for(var a:staff.getPayManager().entrySet()){
+                            a.getValue().setMonth(a.getKey());
+                            payManagerList.add(a.getValue());
+                        }
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Dialog<ButtonType> dialog = new Dialog<>();
+                                dialog.initOwner(primaryPane.getScene().getWindow());
+                                dialog.setTitle("PayManager");
+
+                            }
+                        });
+                    }
+
+                } catch (IOException | ClassNotFoundException ie){
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
+
 
     }
 

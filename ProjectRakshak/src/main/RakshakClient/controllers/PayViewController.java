@@ -38,8 +38,10 @@ public class PayViewController {
 
         finalSalaryColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(PayManager.calculateSalary(cellData.getValue()))));
 
-        
     }
 
+    public void setData(){
+
+    }
 
 }
