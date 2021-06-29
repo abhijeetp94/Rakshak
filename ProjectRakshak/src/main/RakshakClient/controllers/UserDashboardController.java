@@ -5,6 +5,7 @@ import constants.ResponseCode;
 import data.Doctor;
 import data.Schedule;
 import data.TimeTable;
+import data.Vaccine;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -118,7 +119,43 @@ public class UserDashboardController {
     }
 
     public void onVaccineClicked(){
+        GetVaccineRequest getVaccineRequest = new GetVaccineRequest();
+        VaccineAvailabilityRequest vaccineAvailabilityRequest = new VaccineAvailabilityRequest();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Main.oosTracker.writeObject(vaccineAvailabilityRequest);
+                    Response response = (Response) Main.oisTracker.readObject();
+                    if (response.getResponseCode().equals(ResponseCode.UNAVAILABLE)){
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setTitle("Vaccination");
+                                alert.setHeaderText("Vaccine not available for today");
+                                alert.showAndWait();
+                            }
+                        });
+                        return;
+                    }
+                    Main.oosTracker.writeObject(getVaccineRequest);
+                    response = (Response) Main.oisTracker.readObject();
+                    ArrayList<Vaccine> vaccines = (ArrayList<Vaccine>) response.getResponseObject();
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            
+                        }
+                    });
+
+
+                } catch (IOException | ClassNotFoundException ie){
+                    ie.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     // when toolbar buttons are pressed
