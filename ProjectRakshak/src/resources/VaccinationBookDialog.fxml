@@ -7,11 +7,11 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VaccinationBookController">
+<AnchorPane fx:id="primaryPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VaccinationBookController">
    <children>
-      <TextField layoutX="400.0" layoutY="192.0" prefHeight="26.0" prefWidth="236.0" promptText="Aadhaar Number" />
-      <ComboBox layoutX="400.0" layoutY="261.0" prefWidth="150.0" promptText="Vaccine" />
-      <ComboBox layoutX="400.0" layoutY="342.0" prefWidth="150.0" promptText="Dose Number" />
+      <TextField fx:id="userUIDField" layoutX="400.0" layoutY="192.0" prefHeight="26.0" prefWidth="236.0" promptText="Aadhaar Number" />
+      <ComboBox fx:id="vaccineBox" layoutX="400.0" layoutY="261.0" prefWidth="150.0" promptText="Vaccine" />
+      <ComboBox fx:id="doseBox" layoutX="400.0" layoutY="342.0" prefWidth="150.0" promptText="Dose Number" />
       <Label layoutX="242.0" layoutY="197.0" text="Aadhaar Number" />
       <Label layoutX="242.0" layoutY="265.0" text="Vaccine" />
       <Label layoutX="242.0" layoutY="346.0" text="Dose" />
@@ -20,7 +20,7 @@
             <Font name="Times New Roman" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="400.0" layoutY="83.0" text="Date">
+      <Label fx:id="dateLabel" layoutX="400.0" layoutY="83.0" text="Date">
          <font>
             <Font name="Times New Roman Bold Italic" size="19.0" />
          </font>

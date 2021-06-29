@@ -2,10 +2,7 @@ package controllers;
 
 import MainApp.Main;
 import constants.ResponseCode;
-import data.Doctor;
-import data.Schedule;
-import data.TimeTable;
-import data.Vaccine;
+import data.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -150,6 +147,22 @@ public class UserDashboardController {
                             dialog.initOwner(primaryPane.getScene().getWindow());
                             dialog.setTitle("Vaccination");
                             FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(getClass().getResource("/VaccinationBookDialog.fxml"));
+                            try {
+                                dialog.getDialogPane().setContent(loader.load());
+                            } catch (IOException ie){
+                                ie.printStackTrace();
+                            }
+                            dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                            dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
+                            VaccinationBookController controller = loader.getController();
+                            ObservableList<Vaccine> vaccines1 = FXCollections.observableArrayList(vaccines);
+                            controller.setData(vaccines1);
+                            Optional<ButtonType> result = dialog.showAndWait();
+                            if(result.isPresent() && result.get().equals(ButtonType.OK)){
+                                Vaccination vaccination = controller.retrieveData();
+
+                            }
                         }
                     });
 
