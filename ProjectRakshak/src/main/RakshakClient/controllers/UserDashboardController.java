@@ -161,7 +161,40 @@ public class UserDashboardController {
                             Optional<ButtonType> result = dialog.showAndWait();
                             if(result.isPresent() && result.get().equals(ButtonType.OK)){
                                 Vaccination vaccination = controller.retrieveData();
+                                BookVaccinationRequest vaccinationRequest = new BookVaccinationRequest(vaccination);
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Main.oosTracker.writeObject(vaccinationRequest);
+                                            Response response1 = (Response) Main.oisTracker.readObject();
+                                            if(response1.getResponseCode().equals(ResponseCode.SUCCESS)){
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                                        alert.setTitle("Success");
+                                                        alert.setHeaderText("You have successfully registered for vaccination today, you may wait in the vaccination ward for your turn.");
+                                                        alert.showAndWait();
+                                                    }
+                                                });
+                                            } else {
+                                                Platform.runLater(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                                        alert.setTitle("Error");
+                                                        alert.setHeaderText("You might have already taken the dose you have registered for OR the buffer time before second dose is not yet over.");
+                                                        alert.showAndWait();
+                                                    }
+                                                });
+                                            }
 
+                                        } catch (IOException | ClassNotFoundException ie){
+                                            ie.printStackTrace();
+                                        }
+                                    }
+                                }).start();
                             }
                         }
                     });
