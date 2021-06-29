@@ -303,6 +303,14 @@ public class ClientHandler implements Runnable {
                     } catch (IOException ie){
                         ie.printStackTrace();
                     }
+                } else if(request.getRequestCode().equals(RequestCode.VACCINE_AVAILABILITY_REQUEST)){
+                    VaccineAvailabilityRequest availabilityRequest = (VaccineAvailabilityRequest) request;
+
+
+                } else if(request.getRequestCode().equals(RequestCode.GET_VACCINE_REQUEST)){
+
+                } else if(request.getRequestCode().equals(RequestCode.VACCINATION_REQUEST)){
+                    
                 }
 
 
