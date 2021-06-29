@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.VaccinationBookController">
+   <children>
+      <TextField layoutX="400.0" layoutY="192.0" prefHeight="26.0" prefWidth="236.0" promptText="Aadhaar Number" />
+      <ComboBox layoutX="400.0" layoutY="261.0" prefWidth="150.0" promptText="Vaccine" />
+      <ComboBox layoutX="400.0" layoutY="342.0" prefWidth="150.0" promptText="Dose Number" />
+      <Label layoutX="242.0" layoutY="197.0" text="Aadhaar Number" />
+      <Label layoutX="242.0" layoutY="265.0" text="Vaccine" />
+      <Label layoutX="242.0" layoutY="346.0" text="Dose" />
+      <Label layoutX="186.0" layoutY="74.0" prefHeight="40.0" prefWidth="221.0" text="Register For Vaccination. Date: ">
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="400.0" layoutY="83.0" text="Date">
+         <font>
+            <Font name="Times New Roman Bold Italic" size="19.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

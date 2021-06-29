@@ -36,7 +36,7 @@
       <Button fx:id="appointmentButton" onAction="#onAppointmentButtonClicked" layoutX="176.0" layoutY="172.0" mnemonicParsing="false" text="Book An Appointment" />
       <Button fx:id="bedButton" layoutX="471.0" layoutY="172.0" mnemonicParsing="false" text="Check Bed Availability" />
       <Button fx:id="bloodBankButton" layoutX="185.0" layoutY="287.0" mnemonicParsing="false" text="Access Blood Bank" />
-      <Button fx:id="vaccineButton" layoutX="475.0" layoutY="287.0" mnemonicParsing="false" text="Register Vaccination" />
+      <Button fx:id="vaccineButton" onAction="#onVaccineClicked" layoutX="475.0" layoutY="287.0" mnemonicParsing="false" text="Register Vaccination" />
       <Button fx:id="medicalStoreButton" layoutX="492.0" layoutY="397.0" mnemonicParsing="false" text="Medical Store" />
       <Button fx:id="plasmaBankButton" layoutX="182.0" layoutY="397.0" mnemonicParsing="false" text="Access Plasma Bank" />
    </children>

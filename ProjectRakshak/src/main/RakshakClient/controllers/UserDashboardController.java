@@ -146,7 +146,10 @@ public class UserDashboardController {
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                            
+                            Dialog<ButtonType> dialog = new Dialog<>();
+                            dialog.initOwner(primaryPane.getScene().getWindow());
+                            dialog.setTitle("Vaccination");
+                            FXMLLoader loader = new FXMLLoader();
                         }
                     });
 
