@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="primaryPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.PayViewController">
+   <children>
+      <TableView fx:id="payTable" layoutX="17.0" layoutY="34.0" prefHeight="531.0" prefWidth="765.0">
+        <columns>
+          <TableColumn fx:id="monthColumn" prefWidth="75.0" text="Month" />
+          <TableColumn fx:id="baseColumn" prefWidth="118.39996337890625" text="Base" />
+            <TableColumn fx:id="gradePayColumn" prefWidth="102.4000244140625" text="Grade Pay" />
+            <TableColumn fx:id="paidLeaveColumn" prefWidth="91.20001220703125" text="Paid Leaves" />
+            <TableColumn fx:id="totalBonusColumn" prefWidth="100.79998779296875" text="Total Bonus" />
+            <TableColumn fx:id="taxColumn" prefWidth="106.39996337890625" text="Tax Deduction" />
+            <TableColumn fx:id="finalSalaryColumn" prefWidth="167.99993896484375" text="Effective Salary" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

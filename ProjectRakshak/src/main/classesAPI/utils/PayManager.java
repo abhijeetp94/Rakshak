@@ -73,6 +73,7 @@ public class PayManager implements Serializable {
         this.month = month;
     }
 
+    // According to 7th pay commission
     public static Double calculateSalary(PayManager payManager){
         double salary = 0;
         salary += 1.17 * payManager.getBaseSalary(); // 17% Dearness Allowance

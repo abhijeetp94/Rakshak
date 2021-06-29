@@ -117,6 +117,10 @@ public class UserDashboardController {
         }).start();
     }
 
+    public void onVaccineClicked(){
+
+    }
+
     // when toolbar buttons are pressed
     public void onToolBarButtonClicked(ActionEvent ae){
         if(ae.getSource().equals(logoutButton)){
