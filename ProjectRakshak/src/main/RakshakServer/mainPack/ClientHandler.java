@@ -306,16 +306,39 @@ public class ClientHandler implements Runnable {
                         ie.printStackTrace();
                     }
                 } else if(request.getRequestCode().equals(RequestCode.VACCINE_AVAILABILITY_REQUEST)){
-                    VaccineAvailabilityRequest availabilityRequest = (VaccineAvailabilityRequest) request;
+//                    VaccineAvailabilityRequest availabilityRequest = (VaccineAvailabilityRequest) request;
                     List<Vaccine> vaccines = (VaccineHandler.getVaccines());
                     Response response = new Response("VaccineAvailability", ResponseCode.AVAILABLE, vaccines);
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
 
                 } else if(request.getRequestCode().equals(RequestCode.GET_VACCINE_REQUEST)){
-                    GetVaccineRequest vaccineRequest = (GetVaccineRequest) request;
+//                    GetVaccineRequest vaccineRequest = (GetVaccineRequest) request;
                     List<Vaccine> vaccines = VaccineHandler.getVaccines();
+                    Response response = new Response("GET_VACCINE_RESPONSE", ResponseCode.SUCCESS, vaccines);
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
 
                 } else if(request.getRequestCode().equals(RequestCode.VACCINATION_REQUEST)){
-                    
+                    BookVaccinationRequest vaccinationRequest = (BookVaccinationRequest) request;
+                    boolean res = VaccineHandler.bookVaccination(vaccinationRequest.getVaccination());
+                    Response response;
+                    if(res){
+                        response = new Response("VACCINATION_RESPONSE", ResponseCode.SUCCESS, null);
+                    } else {
+                        response = new Response("VACCINATION_RESPONSE", ResponseCode.FAILURE, null);
+                    }
+                    try {
+                        oosTracker.writeObject(response);
+                    } catch (IOException ie){
+                        ie.printStackTrace();
+                    }
                 }
 
 
