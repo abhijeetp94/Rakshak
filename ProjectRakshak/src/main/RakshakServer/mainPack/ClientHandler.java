@@ -7,6 +7,7 @@ import constants.ResponseCode;
 import data.*;
 import generalHandlers.DataHandler;
 import generalHandlers.ScheduleHandler;
+import generalHandlers.VaccineHandler;
 import request.*;
 
 import java.io.EOFException;
@@ -15,6 +16,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
+import java.util.Map;
 
 public class ClientHandler implements Runnable {
     private Socket socket;
@@ -305,9 +307,12 @@ public class ClientHandler implements Runnable {
                     }
                 } else if(request.getRequestCode().equals(RequestCode.VACCINE_AVAILABILITY_REQUEST)){
                     VaccineAvailabilityRequest availabilityRequest = (VaccineAvailabilityRequest) request;
-
+                    List<Vaccine> vaccines = (VaccineHandler.getVaccines());
+                    Response response = new Response("VaccineAvailability", ResponseCode.AVAILABLE, vaccines);
 
                 } else if(request.getRequestCode().equals(RequestCode.GET_VACCINE_REQUEST)){
+                    GetVaccineRequest vaccineRequest = (GetVaccineRequest) request;
+                    List<Vaccine> vaccines = VaccineHandler.getVaccines();
 
                 } else if(request.getRequestCode().equals(RequestCode.VACCINATION_REQUEST)){
                     

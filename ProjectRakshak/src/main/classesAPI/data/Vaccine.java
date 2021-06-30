@@ -3,15 +3,18 @@ package data;
 import java.io.Serializable;
 
 public class Vaccine implements Serializable {
-    String name;
-    String type;
-    String available;
-    String vaccineID;
-    String dose;
+    private String name;
+    private String type;
+    private boolean available;
+    private String vaccineID;
+    private int dose;
+    private int quantity;
 
-    public Vaccine(String name, String type, String available, String vaccineID, String dose) {
+
+    public Vaccine(String name, String type, int quantity, boolean available, String vaccineID, int dose) {
         this.name = name;
         this.type = type;
+        this.quantity = quantity;
         this.available = available;
         this.vaccineID = vaccineID;
         this.dose = dose;
@@ -25,20 +28,32 @@ public class Vaccine implements Serializable {
         this.name = name;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public void setDose(int dose) {
+        this.dose = dose;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public String getType() {
         return type;
     }
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(String available) {
-        this.available = available;
     }
 
     public String getVaccineID() {
@@ -49,11 +64,4 @@ public class Vaccine implements Serializable {
         this.vaccineID = vaccineID;
     }
 
-    public String getDose() {
-        return dose;
-    }
-
-    public void setDose(String dose) {
-        this.dose = dose;
-    }
 }

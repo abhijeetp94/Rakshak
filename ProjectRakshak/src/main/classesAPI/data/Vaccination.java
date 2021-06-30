@@ -7,6 +7,7 @@ public class Vaccination implements Serializable {
     String userID;
     Vaccine vaccine;
     int dose;
+    boolean vaccinated;
     LocalDate date;
 
     public Vaccination(String userID, Vaccine vaccine, int dose, LocalDate date) {
@@ -14,6 +15,7 @@ public class Vaccination implements Serializable {
         this.vaccine = vaccine;
         this.dose = dose;
         this.date = date;
+        vaccinated = false;
     }
 
     public String getUserID() {
@@ -46,5 +48,13 @@ public class Vaccination implements Serializable {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public boolean isVaccinated() {
+        return vaccinated;
+    }
+
+    public void setVaccinated(boolean vaccinated) {
+        this.vaccinated = vaccinated;
     }
 }
