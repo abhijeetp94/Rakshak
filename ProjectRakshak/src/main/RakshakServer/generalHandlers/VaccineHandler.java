@@ -39,13 +39,28 @@ public class VaccineHandler {
         String vaccineQuery = "SELECT * FROM vaccines WHERE vaccine_id = ?";
         String vaccinationQuery = "INSERT INTO vaccination (user_id, vaccine, dose, date, vaccinated) " +
                 "VALUES (?,?,?,?,?)";
+        String alreadyBookedQuery = "SELECT * FROM vaccination WHERE user_id = ? AND vaccine = ?";
         try {
             PreparedStatement vaccineStatement = Main.connection.prepareStatement(vaccineQuery);
             PreparedStatement vaccinationStatement = Main.connection.prepareStatement(vaccinationQuery);
+            PreparedStatement alreadyBookedStatement = Main.connection.prepareStatement(alreadyBookedQuery);
             vaccineStatement.setString(1, vaccination.getVaccine().getVaccineID());
             ResultSet vaccineResult = vaccineStatement.executeQuery();
             if(vaccineResult.next()){
-                if(vaccineResult.getInt("available")==0){
+                String countQuery = "SELECT count(*) from vaccination WHERE date = ?";
+                PreparedStatement countStatement = Main.connection.prepareStatement(countQuery);
+                ResultSet countResult = countStatement.executeQuery();
+                int count=0;
+                if(countResult.next()){
+                    count = countResult.getInt(1);
+                }
+                if(vaccineResult.getInt("available")==0 || vaccineResult.getInt("quantity") - count <=0){
+                    return false;
+                }
+                alreadyBookedStatement.setString(1, vaccination.getUserID());
+                alreadyBookedStatement.setInt(2, vaccineResult.getInt("_id"));
+                ResultSet alreadyBookedResult = alreadyBookedStatement.executeQuery();
+                if(alreadyBookedResult.next()){
                     return false;
                 }
                 vaccinationStatement.setString(1, vaccination.getUserID());

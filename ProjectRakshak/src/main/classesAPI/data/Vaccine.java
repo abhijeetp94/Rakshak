@@ -36,6 +36,10 @@ public class Vaccine implements Serializable {
         this.available = available;
     }
 
+    public int getDose() {
+        return dose;
+    }
+
     public void setDose(int dose) {
         this.dose = dose;
     }
@@ -64,4 +68,8 @@ public class Vaccine implements Serializable {
         this.vaccineID = vaccineID;
     }
 
+    @Override
+    public String toString() {
+        return name + "( Dose " + dose +")";
+    }
 }

@@ -19,16 +19,16 @@ public class VaccinationBookController {
     private Label dateLabel;
     @FXML
     private ComboBox<Vaccine> vaccineBox;
-    @FXML
-    private ComboBox<Integer> doseBox;
+//    @FXML
+//    private ComboBox<Integer> doseBox;
     @FXML
     private TextField userUIDField;
 
     public void initialize(){
-        doseBox.getItems().add(0);
-        doseBox.getItems().add(1);
+//        doseBox.getItems().add(1);
+//        doseBox.getItems().add(2);
         dateLabel.setText(LocalDate.now().toString());
-        doseBox.setEditable(false);
+//        doseBox.setEditable(false);
         vaccineBox.setEditable(false);
     }
 
@@ -37,12 +37,12 @@ public class VaccinationBookController {
     }
 
     public Vaccination retrieveData(){
-        Integer dose = doseBox.getSelectionModel().getSelectedItem();
+//        Integer dose = doseBox.getSelectionModel().getSelectedItem();
         Vaccine vaccine = vaccineBox.getSelectionModel().getSelectedItem();
         LocalDate date = LocalDate.now();
         String userID = userUIDField.getText();
 
-        return new Vaccination(userID, vaccine, dose, date);
+        return new Vaccination(userID, vaccine, vaccine.getDose(), date);
     }
 
 }
