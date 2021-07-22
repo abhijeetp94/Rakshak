@@ -2,11 +2,23 @@
 
 > For all time, Always.
 
+## `Section Links`
+
+> [Introduction](#introduction)
+> [Problem Statement](#problem-statement)
+> [Features](#features)
+> [Future Scope](#future-scope)
+> [Tech Stack](#tech-stack)
+> [Database Structure](#database-structure)
+> [Contributors](#contributors)
+> [Suggest](#suggestions)
+
+
 ## `Introduction`
 
 Rakshak is a java based Integrated Hospital Management which contains both InPatient and OutPatient Department Functionalities (IPD & OPD) along with medical store and blood bank for the patients. It also contains employee management system for the staff to handle their employement life. It is completely built using java and its associated libraries.  
 
-## `Problem Statement`
+## `Problem-Statement`
 
 In this time of pandemic the we all tried to move towards social distancing and make everything contactless. Due to which use of digital technologies increased drastically. Especially in the hospitals, which felt like the place of god in this pandemic. But the truth is not everyone is techy and immediately learns how to use a specific technology. So if we make the entire process digital it would be hard for some people to use that. So the problem was to make dynamic, easy to use, up to date, and All in one Hospital Management System. Following is my solution to this.  
 
@@ -90,3 +102,19 @@ In this time of pandemic the we all tried to move towards social distancing and 
   5. Register Staff, Receptionist, Doctor, Admin.
   6. Change paymanager of staff members.
   7. Edit timetable of doctors.
+
+## `Future-Scope`
+
+- Publish the application on multiple platforms.
+- Create a web app connected to the same server to provide flexibility.
+- Implement Payment inside the application for medicine, appointment, etc.
+- Add separate Blood bank and plasma bank portals.
+- Add more IPD features.
+
+## `Tech-Stack`
+
+## `Database-Structure`
+
+## `Contributors`
+
+## `Suggestions`
