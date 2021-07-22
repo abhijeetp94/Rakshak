@@ -4,14 +4,14 @@
 
 ## `Section Links`
 
-> [Introduction](#introduction)
-> [Problem Statement](#problem-statement)
-> [Features](#features)
-> [Future Scope](#future-scope)
-> [Tech Stack](#tech-stack)
-> [Database Structure](#database-structure)
-> [Contributors](#contributors)
-> [Suggest](#suggestions)
+> [Introduction](#introduction)  
+> [Problem Statement](#problem-statement)  
+> [Features](#features)  
+> [Future Scope](#future-scope)  
+> [Tech Stack](#tech-stack)  
+> [Database Structure](#database-structure)  
+> [Contributors](#contributors)  
+> [Suggest](#suggestions)  
 
 
 ## `Introduction`
