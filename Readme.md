@@ -9,10 +9,9 @@
 > [Features](#features)  
 > [Future Scope](#future-scope)  
 > [Tech Stack](#tech-stack)  
-> [Database Structure](#database-structure)  
+<!-- > [Database Structure](#database-structure)   -->
 > [Contributors](#contributors)  
 > [Suggest](#suggestions)  
-
 
 ## `Introduction`
 
@@ -113,8 +112,34 @@ In this time of pandemic the we all tried to move towards social distancing and 
 
 ## `Tech-Stack`
 
-## `Database-Structure`
+### `Client Side`
+
+- Programming Language: **`Java`**
+- User Interface: **`JavaFX`** **`CSS`** **`XML`**
+
+### `Server Side`
+
+- Programming Language: **`Java`**
+- Database: **`SQLite`** **`JDBC`**
+
+### `Networking`
+
+- **`Java Socket Programming`**
+
+### `Other Tools`
+
+- IDE: **`IntelliJ Idea`**
+- VCS: **`Git`**
+
+<!-- ## `Database-Structure`
+ -->
 
 ## `Contributors`
 
+> - [Abhijeet Pandey](https://github.com/abhijeetp94)
+
 ## `Suggestions`
+
+> If you want to help me and have some features in your mind, feel free to update this section of readme and describe about your feature. Thank you.
+
+- ...
