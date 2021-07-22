@@ -57,3 +57,36 @@ In this time of pandemic the we all tried to move towards social distancing and 
 - Doctor Specific Features like:
   1. Dashboard has a list of scheduled appointments in the current shift of doctors (Time Table of doctors is divided into shifts).
   2. Remove appointment after checking the patient.
+  3. Access Medical Store info.
+  4. See their shifts and time table.
+  5. Button to access their `Staff Dashboard`.
+
+### `Receptionist Dashboard`
+
+- Main Hospital Functionalities like:
+  - OPD:
+    1. Approve Appointments according to the availability.
+    2. Check Doctor Availability and timetable.
+    3. Approve blood and plasma requests according to the availability.
+    4. Schedule an appointment for a patient.
+  - IPD:
+    1. Check bed availability.
+    2. Book bed for the patient as prescribed by the doctor in the specific ward.
+    3. Clear bed when the patient checks out.
+    4. Access medical store.
+  - Others:
+    1. Access their staff dashboards.
+    2. Register a patient.
+    3. Check the timetable of the hospital.
+
+### `Admin Dashboard`
+
+- The admin manages the whole application and its data.
+- Admin Dashboard consists of:
+  1. Add, remove, edit staff details.
+  2. Add, remove, edit bed details.
+  3. Add, remove, edit vaccines available.
+  4. Add, remove, edit medicines.
+  5. Register Staff, Receptionist, Doctor, Admin.
+  6. Change paymanager of staff members.
+  7. Edit timetable of doctors.
